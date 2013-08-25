@@ -1,0 +1,12 @@
+{
+    "id": 2,
+    "name": "John Lennon",
+    "songs": [
+	{
+	  "id": 4,
+	  "name": "Imagine",
+	  "path": "data/songs/John Lennon - Imagine.mp3"
+	}
+    ]
+}
+
