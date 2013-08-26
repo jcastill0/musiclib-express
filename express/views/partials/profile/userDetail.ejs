@@ -1,0 +1,39 @@
+  <div class="container">
+    <form class="form-horizontal" ng-controller="UserDetailCtrl" ng-submit="save()">
+      <fieldset>
+	<legend>My Profile</legend>
+	<div class="control-group">
+	  <label class="control-label" for="inputLogin">Login name</label>
+	  <div class="controls">
+	    <input type="text" id="inputLogin" name="loginName" value="{{user.loginName}}" readonly/>
+	  </div>
+	</div>
+	<div class="control-group">
+	  <label class="control-label" for="inputEmail">Email</label>
+	  <div class="controls">
+	    <input type="email" id="inputEmail" name="email" ng-model="user.email"/>
+	  </div>
+	</div>
+	<hr/>
+	<div class="control-group">
+	  <label class="control-label" for="inputFirst">First Name</label>
+	  <div class="controls">
+	    <input type="text" id="inputFirst" name="firstName" ng-model="user.firstName"/>
+	  </div>
+	</div>
+	<div class="control-group">
+	  <label class="control-label" for="inputLast">Last Name</label>
+	  <div class="controls">
+	    <input type="text" id="inputLast" name="lastName" ng-model="user.lastName"/>
+	  </div>
+	</div>
+	<hr/>
+	<div class="control-group">
+	  <div class="controls">
+	    <input type="submit" id="updateUser" value="Save" class="btn btn-primary"/>
+	    <a ng-href="#/playlists">Cancel</a>
+	  </div>
+	</div>
+      </fieldset>
+    </form>
+  </div>
