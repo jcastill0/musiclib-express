@@ -20,5 +20,9 @@ exports.profile = function (req, res) {
   res.render('partials/profile/userDetail');
 };
 
-
+exports.playlist = function (req, res) {
+  console.log("index.playlist:" + req.params.name);
+  var name = req.params.name;
+  res.render('partials/playlist/' + name);
+};
 

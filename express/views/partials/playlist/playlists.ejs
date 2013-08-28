@@ -1,0 +1,49 @@
+  <div class="container" ng-controller="PlaylistCtrl">
+    <div class="row">
+      <div class="span1">
+      </div>
+      <div class="span5">
+	<h2>Playlists
+	  <a class="btn btn-small btn-info" ng-href="#/playlists/add"><i class="icon-plus-sign"></i></a>
+	</h2>
+      </div>
+      <div class="span6">
+      </div>
+    </div>
+    <div class="row" ng-repeat="playlist in playlists">
+      <div class="span1">
+      </div>
+      <div class="span4">
+	{{playlist.name}}
+      </div>
+      <div class="span1">
+	<a class="btn btn-small btn-default" ng-href="#/playlists/play/{{playlist.id}}" data-toggle="tooltip" title="Play"><i class="icon-play"></i></a>
+      </div>
+      <div class="span1">
+	<a class="btn btn-small btn-danger" ng-href="#/playlists/delete/{{playlist.id}}" data-toggle="tooltip" title="Delete" id="DeleteActionID" onClick="return confirm('Are you sure you want to delete this playlist?');"><i class="icon-remove icon-red"></i></a>
+      </div>
+      <div class="span1">
+	<a class="btn btn-small btn-warning" ng-href="#/playlists/edit/{{playlist.id}}" data-toggle="tooltip" title="Edit"><i class="icon-edit"></i></a>
+</div>
+      <div class="span4">
+      </div>
+      <hr/>
+    </div>
+    <div class="row">
+      <div class="span1">
+      </div>
+      <div class="span8">
+	<hr/>
+      </div>
+      <div class="span3">
+      </div>
+    </div>
+    <div class="row">
+      <div class="span1">
+      </div>
+      <div class="span11">
+	<h3><a ng-href="#/artists">Artists</a><h3>
+      </div>
+    </div>
+  </div>
+

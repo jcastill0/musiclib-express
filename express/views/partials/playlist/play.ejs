@@ -1,0 +1,29 @@
+  <div class="container" ng-controller="PlayCtrl">
+    <div class="row">
+      <div class="span6">
+	<h1>{{playlist.name}}</h1>
+      </div>
+      <div class="span4">
+	<button class="btn btn-large btn-primary" type="button" ng-click="startPlaying();">Start Playing</button>
+      </div>
+      <div class="span2">
+	<a ng-href="#/playlists">[Back to Playlists]</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span6">
+	<ul class="nav nav-list" id="SongListID">
+	  <li class="nav-header">[{{playlist.songs.length}}] Songs</li>
+	  <li ng-repeat="song in playlist.songs">
+	      <i class="icon-music"></i>{{song.artist}} - {{song.name}}
+	  </li>
+	</ul>
+      </div>
+      <div class="span6">
+	<h4 id="NowPlayingID">Now Playing: {{currentlyPlaying}}</h4>
+	<audio id="AudioPlayerID" name="AudioControl" controls="controls">
+	</audio>
+      </div>
+    </div>
+  </div>
+

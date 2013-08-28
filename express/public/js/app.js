@@ -14,6 +14,26 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/welcome',
 	controller: 'WelcomeCtrl'
     })
+    .when('/playlists', {
+	templateUrl: 'partials/playlist/playlists',
+	controller: 'PlaylistCtrl'
+    })
+    .when('/playlists/add', {
+	templateUrl: 'partials/playlist/playlistDetail',
+	controller: 'PlaylistDetailCtrl'
+    })
+    .when('/playlists/play/:playlistID', {
+	templateUrl: 'partials/playlist/play',
+	controller: 'PlayCtrl'
+    })
+    .when('/playlists/edit/:playlistID', {
+	templateUrl: 'partials/playlist/playlistDetail',
+	controller: 'PlaylistDetailCtrl'
+    })
+    .when('/playlists/delete/:playlistID', {
+	templateUrl: 'partials/playlist/playlists',
+	controller: 'PlaylistDCtrl'
+    })
     .when('/view1', {
 	templateUrl: 'partials/partial1',
 	controller: 'MyCtrl1'
