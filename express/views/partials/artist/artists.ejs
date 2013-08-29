@@ -1,0 +1,27 @@
+    <div class="container" ng-controller="ArtistCtrl">
+      <div class="row">
+	<div class="span1">
+	</div>
+	<div class="span9">
+	  <h2>Artists</h2>
+	</div>
+	<div class="span2">
+	  <a ng-href="#/playlists">[Back to Playlists]</a>
+	</div>
+      </div>
+      <div class="row">
+	<div class="span1">
+	</div>
+	<div class="span11">
+	  <input type="text" ng-model="searchArtist" class="search-query" placeholder="Search"/>
+	</div>
+      </div>
+      <div class="row" ng-repeat="artist in artists | filter:searchArtist | orderBy:'name'">
+	<div class="span1">
+	</div>
+	<div class="span11">
+	  <a ng-href="#/artists/{{artist.id}}">{{artist.name}}</a>
+	</div>
+      </div>
+    </div>
+

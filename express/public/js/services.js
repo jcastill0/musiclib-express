@@ -21,7 +21,8 @@ app.factory('User', function ($resource, $log) {
   return (userRsrc);
 });
 
-app.factory('Artist', function ($resource) {
+app.factory('Artist', function ($resource, $log) {
+  $log.log("Artist Factory");
   var artistRsrc = $resource('data/artists/:artistID.json',
 	  {artistID:'@artistID'},
 	  {query: {
@@ -31,7 +32,8 @@ app.factory('Artist', function ($resource) {
   return (artistRsrc);
 });
 
-app.factory('Playlist', function ($resource) {
+app.factory('Playlist', function ($resource, $log) {
+  $log.log("Playlist Factory");
   var playlistRsrc = $resource('data/playlists/:playlistID.json',
 	  {playlistID:'@playlistID'},
 	  {query: {
@@ -44,7 +46,8 @@ app.factory('Playlist', function ($resource) {
   return (playlistRsrc);
 });
 
-app.factory('Song', function ($resource) {
+app.factory('Song', function ($resource, $log) {
+  $log.log("Song Factory");
   var songRsrc = $resource('data/songs/:songID.json',
 	  {songID:'@songID'},
 	  {query: {
@@ -55,7 +58,8 @@ app.factory('Song', function ($resource) {
 });
 
 
-app.factory('audioControl', function ($document) {
+app.factory('audioControl', function ($document, $log) {
+  $log.log("AudioControl");
   var player = $document[0].getElementById('AudioPlayerID');
   return (player);
 });

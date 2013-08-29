@@ -34,6 +34,14 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/playlist/playlists',
 	controller: 'PlaylistDCtrl'
     })
+    .when('/artists', {
+	templateUrl: 'partials/artist/artists',
+	controller: 'ArtistCtrl'
+    })
+    .when('/artists/:artistID', {
+	templateUrl: 'partials/artist/artistDetail',
+	controller: 'ArtistDetailCtrl'
+    })
     .when('/view1', {
 	templateUrl: 'partials/partial1',
 	controller: 'MyCtrl1'

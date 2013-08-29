@@ -26,3 +26,10 @@ exports.playlist = function (req, res) {
   res.render('partials/playlist/' + name);
 };
 
+exports.artist = function (req, res) {
+  console.log("index.artist:" + req.params.name);
+  var name = req.params.name;
+  res.render('partials/artist/' + name);
+};
+
+

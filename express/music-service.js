@@ -47,6 +47,7 @@ app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 app.get('/partials/profile/userDetail', routes.profile);
 app.get('/partials/playlist/:name', routes.playlist);
+app.get('/partials/artist/:name', routes.artist);
 // JSON API
 app.get('/api/name', api.name);
 

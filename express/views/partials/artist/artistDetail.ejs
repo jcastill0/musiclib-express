@@ -1,0 +1,35 @@
+  <div class="container" ng-controller="ArtistDetailCtrl">
+    <div class="row">
+      <div class="span10">
+	<h1>{{artist.name}}</h1>
+      </div>
+    <div class="span2">
+      <a ng-href="#/artists">[Back to Artists]</a>
+    </div>
+  </div>
+  <form class="form-horizontal" ng-submit="save()">
+    <div class="row">
+      <div class="span8">
+	<input type="text" ng-model="searchSong" class="search-query" placeHolder="Search"/>
+	<ul class="unstyled">
+	  <li ng-repeat="song in artist.songs | filter:searchSong | orderBy:'name'">
+	    <input type="checkbox" ng-model="checkedValue" ng-click="songChecked(song, checkedValue)"/>
+	    <a ng-href="{{song.path}}">{{song.name}}</a>
+          </li>
+	</ul>
+      </div>
+      <div class="span4">
+	<legend>Playlists</legend>
+	<fieldset>
+	  <ul class="unstyled">
+	    <li ng-repeat="playlist in playlists | orderBy:'name'">
+	      <input type="radio" ng-model="selectedValue" value="playlist.name" ng-click="playlistSelected(playlist)"/>
+	      <span>{{playlist.name}}</span>
+	    </li>
+	  </ul>
+	  <hr/>
+	  <input type="submit" class="btn btn-primary" id="addSongsToPlaylist" value="Add Songs"/>
+	</fieldset>
+      </div>
+    </div>
+  </form>
