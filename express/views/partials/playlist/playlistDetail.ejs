@@ -1,5 +1,5 @@
-  <div class="container">
-    <form class="form-horizontal" ng-controller="PlaylistDetailCtrl" ng-submit="save()">
+  <div class="container" ng-controller="PlaylistDetailCtrl">
+    <form class="form-horizontal" ng-submit="save()">
       <div class="row">
 	<div class="span6">
 	  <div class="control-group">
@@ -22,41 +22,39 @@
 	<div class="span4">
 	</div>
       </div>
-      <div class="row">
-	<div class="span6">
-	  <input type="text" ng-model="searchSong" class="search-query" placeHolder="Search"/>
-	  <table class="table table-striped table-condensed">
-	    <tbody>
-	      <tr ng-repeat="song in songs | filter:searchSong | orderBy:'artist'">
-		<td><button class="btn" ng-click="addSong(song)"><i class="icon-chevron-right"></i></button></td>
-		<td>{{song.artist}}</td>
-		<td>{{song.name}}</td>
-	      </tr>
-	    </tbody>
-	  </table>
-	</div>
-	<div class="span6">
-	  <fieldset>
-	    <div class="control-group">
-	      <div class="controls">
-		<input type="hidden" id="id_playlistID" name="playlistID" value="{{playlist.id}}">
-	      </div>
-	      <div class="controls">
-		<input type="text" ng-model="searchSongInPL" class="search-query" placeHolder="Search"/>
-		<table class="table table-striped table-condensed">
-		  <tbody>
-		    <tr ng-repeat="song in playlist.songs | filter:searchSongInPL | orderBy:'artist'">
-		      <td><button class="btn" ng-click="removeSong(song)"><i class="icon-chevron-left"></i></button></td>
-		      <td>{{song.artist}}</td>
-		      <td>{{song.name}}</td>
-		    </tr>
-		  </tbody>
-		</table>
-	      </div>
-	    </div>
-	  </fieldset>
-        </div>
-      </div>
     </form>
+    <div class="row">
+      <div class="span6">
+	<input type="text" ng-model="searchSong" class="search-query" placeHolder="Search"/>
+	<table class="table table-striped table-condensed">
+	  <tbody>
+	    <tr ng-repeat="song in songs | filter:searchSong | orderBy:'artist'">
+	      <td><button class="btn" ng-click="addSong(song)"><i class="icon-chevron-right"></i></button></td>
+	      <td>{{song.artist}}</td>
+	      <td>{{song.name}}</td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+      <div class="span6">
+	<div class="control-group">
+	  <div class="controls">
+	    <input type="hidden" id="id_playlistID" name="playlistID" value="{{playlist.id}}">
+	  </div>
+	  <div class="controls">
+	    <input type="text" ng-model="searchSongInPL" class="search-query" placeHolder="Search"/>
+	    <table class="table table-striped table-condensed">
+	      <tbody>
+		<tr ng-repeat="song in playlist.songs | filter:searchSongInPL | orderBy:'artist'">
+		  <td><button class="btn" ng-click="removeSong(song)"><i class="icon-chevron-left"></i></button></td>
+		  <td>{{song.artist}}</td>
+		  <td>{{song.name}}</td>
+		</tr>
+	      </tbody>
+	    </table>
+	  </div>
+	</div>
+      </div>
+    </div>
   </div>
 
