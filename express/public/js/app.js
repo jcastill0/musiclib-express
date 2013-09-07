@@ -50,6 +50,10 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/partial2',
 	controller: 'MyCtrl2'
     })
+    .when('/auth/google', {
+	templateUrl: 'auth/google',
+	controller: 'OAuthCtrl'
+    })
     .when('/auth/login', {
 	templateUrl: 'partials/welcome',
 	controller: 'AuthCtrl'

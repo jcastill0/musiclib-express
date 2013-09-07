@@ -23,11 +23,35 @@ angular.module('myMusicLib.controllers', []).
 app.controller('WelcomeCtrl', function($scope, $http, $log) {
   $log.log("WelcomeCtrl");
   $http({method: 'GET', url: '/api/name'}).
-  success(function(data, status, headers, config) {$scope.name = data.name;}).
-  error(function (data, status, headers, config) {$scope.name = 'Error!'});
+    success(function(data, status, headers, config) {$scope.name = data.name;}).
+    error(function (data, status, headers, config) {$scope.name = 'Error!'});
 });
 
-app.controller('AuthCtrl', function($log) {$log.log("AuthCtrl");});
+app.controller('OAuthCtrl', function($scope, $http, $log) {
+  $log.log("OAuthCtrl");
+});
+
+app.controller('AuthCtrl', function($scope, authService, $log, $location) {
+  $log.log("AuthCtrl");
+  $scope.loggedIn = null;
+  $scope.loginName = null;
+  $scope.password = null;
+  $scope.login = function () {
+    var formData = {
+	'loginName' : $scope.loginName,
+	'password'  : $scope.password
+    };
+    formData = JSON.stringify(formData);
+    authService.login($scope, formData);
+    $scope.password = null;
+  };
+  $scope.logout = function() {
+    authService.logout();
+    $scope.loggedIn = "false";
+    $scope.password = null;
+    $location.path('/');
+  };
+});
 
 //////////////////////////////////
 
@@ -55,8 +79,8 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, $log, audioC
       var song = $scope.playlist.songs[ix];
       $log.log("PlayCtrl.addEventListener.cb Play["+ix+"]: " + song.name);
       audioControl.src = song.path;
-      audioControl.play();
       $scope.currentlyPlaying = song.name;
+      audioControl.play();
   });
 
   $scope.startPlaying = function () {
@@ -66,10 +90,10 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, $log, audioC
 	  return;
       }
       var song = $scope.playlist.songs[ix];
-      $log.log("PlayCtrl.startPlaying.cb Play["+ix+"]: " + song.name);
+      $log.log("PlayCtrl.startPlaying Play["+ix+"]: " + song.name);
       audioControl.src = song.path;
-      audioControl.play();
       $scope.currentlyPlaying = song.name;
+      audioControl.play();
   };
 });
 

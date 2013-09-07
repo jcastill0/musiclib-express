@@ -14,6 +14,7 @@ INSTALLATION
 %sudo npm install passport
 %sudo npm install passport-google
 %sudo npm install passport-oauth
+%sudo npm install passport-google-oauth
 
 TO RUN
 ======

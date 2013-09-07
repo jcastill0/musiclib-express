@@ -32,4 +32,7 @@ exports.artist = function (req, res) {
   res.render('partials/artist/' + name);
 };
 
-
+exports.auth = function (req, res, done) {
+  console.log("index.auth:" + req.params);
+  res.redirect('partials/welcome');
+};
