@@ -1,26 +1,23 @@
-
-/**
- * Module dependencies
- */
-
 var express = require('express'),
-    routes = require('./routes'),
-    api = require('./routes/api'),
     http = require('http'),
     passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+    mysql = require('mysql'),
+    routes = require('./routes'),
+    api = require('./routes/api'),
+    config = require('./modules/config'),
+    auth = require('./modules/auth'),
     path = require('path');
 
 var app = module.exports = express();
-
+var google_callback = null;
 
 /**
  * Configuration
  */
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || config.serverPort);
 app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
 app.set("view engine", "ejs");
@@ -28,9 +25,18 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.cookieParser());
+app.use(express.session({secret:'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
+
+var connPool = mysql.createPool({
+  host     : config.dBhost,
+  user     : config.dBuser,
+  password : config.dBpassword,
+  database : config.dB
+});
 
 passport.serializeUser(function(user, done) {
   console.log("Serializing:", user.id);
@@ -38,51 +44,43 @@ passport.serializeUser(function(user, done) {
 });
 passport.deserializeUser(function(id, done) {
   console.log("Deserializing:" + id);
-  done(null, obj);
+  done(null, id);
 });
-/*
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log("Authenticating.....:" + username);
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
-    });
-  }
-));
-*/
-
-passport.use(new GoogleStrategy({
-    clientID: '680561429810.apps.googleusercontent.com',
-    clientSecret: 'gRR2ir5camkaMzqukmFmw7fS',
-    //callbackURL: 'http://www.guantanamera.us/oauth2callback',
-    callbackURL: 'http://localhost:3000/oauth2callback',
-    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
-  },
-  function(accessToken, refreshToken, profile, done) {
-    console.log("Strat: " + profile.id);
-    console.log("Strat: " + profile.displayName);
-    console.log("Strat: " + profile.emails[0].value);
-    done(null, profile);
-  }
-));
 
 
 // development only
 if (app.get('env') === 'development') {
+  google_callback = config.google_callback_dev;
   app.use(express.errorHandler());
 }
 
 // production only
 if (app.get('env') === 'production') {
-  // TODO
+  google_callback = config.google_callback_prod;
 };
+
+passport.use(new GoogleStrategy({
+    clientID: '680561429810.apps.googleusercontent.com',
+    clientSecret: 'gRR2ir5camkaMzqukmFmw7fS',
+    callbackURL: google_callback,
+    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    auth(connPool, profile, function (error, foundIt) {
+	if (error) {
+	    return(done(error));
+	}
+	if (foundIt) {
+	    console.log("Auth-OK:" + profile.displayName);
+	    done(null, profile);
+	} else {
+	    console.log("Auth-BAD:" + profile.emails[0].value);
+	    done(null, false, {message: 'Credentials not found'});
+	}
+    });
+  }
+));
+
 
 
 /**
@@ -103,13 +101,6 @@ app.get('/oauth2callback',
 	passport.authenticate('google', {
 		successRedirect: '/index',
 		failureRedirect: '/partials/welcome'})
-);
-app.post('/auth/login',
-	passport.authenticate('local', {
-		successRedirect:'/partials/playlist/playlists',
-		failureRedirect:'/partials/welcome'
-		}),
-	function (req, res) {console.log("Made it here");}
 );
 
 // redirect all others to the index (HTML5 history)

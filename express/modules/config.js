@@ -1,14 +1,9 @@
 
 exports.serverPort = "3000";
-exports.webRoot = "http://localhost:8008/data";
-exports.rootDir = "public/data";
-exports.stage_dBhost = "staging.showevidence.net";
-exports.stage_dBuser = "root";
-exports.stage_dBpassword = "C0deminders";
-exports.stage_dB = "showevidence_db";
-exports.etl_dBhost = "staging.showevidence.net";
-exports.etl_dBuser = "etl_user";
-exports.etl_dBpassword = "etl_user";
-exports.etl_dB = "etl_delta_db";
+exports.dBhost = "127.0.0.1";
+exports.dB = "musicdb";
+exports.dBuser = "musicuser";
+exports.dBpassword = "musicuser";
 exports.debug = false;
-
+exports.google_callback_dev = "http://localhost:3000/oauth2callback";
+exports.google_callback_prod= "http://www.guantanamera.us/oauth2callback";
