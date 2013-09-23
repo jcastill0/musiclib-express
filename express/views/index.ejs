@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="myMusicLib">
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -19,56 +19,16 @@
       }
   </style>
 </head>
-<body ng-controller="AuthCtrl">
+<body>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-	<a class="brand" ng-href="#">My Music Library</a>
-	<div class="nav-collapse collapse">
-	  <ul class="nav">
-	    <li class="active"><a ng-href="#">Home</a></li>
-	    <li><a ng-href="#about">About</a></li>
-	    <li><a ng-href="#contact">Contact</a></li>
-	  </ul>
-	  <form class="navbar-form pull-right" ng-submit="login()" ng-hide="loggedIn">
-	    <input class="span2" type="text" placeholder="Login name" name="username" ng-model="loginName"/>
-	    <input class="span2" type="password" placeholder="Password" name="password" ng-model="password"/>
-	    <button type="submit" class="btn">Sign in</button>
-	  </form>
-	  <form class="navbar-form pull-right" ng-submit="logout()" ng-show="loggedIn">
-	    <button type="submit" class="btn">Logout</button>
-	  </form>
-	</div> 
+	 <a href="/auth/google">
+		 <img src="img/sign-in-with-google.png"/>
+	 </a>
       </div> 
     </div>
   </div>
 
-  <div>
-    <ul class="menu">
-      <li><a ng-href="/auth/google">Google</a></li>
-      <li><a ng-href="#/welcome">Welcome</a></li>
-      <li><a ng-href="#/playlists">Playlists</a></li>
-      <li><a ng-href="#/playlists/play/1">Play ID=1</a></li>
-      <li><a ng-href="#/playlists/edit/1">Playlist ID=1</a></li>
-      <li><a ng-href="#/artists">Artists</a></li>
-      <li><a ng-href="#/artists/1">Artist ID=1</a></li>
-      <li><a ng-href="#/users/1">Profile</a></li>
-      <li><a href="#/view1">view1</a></li>
-      <li><a href="#/view2">view2</a></li>
-    </ul>
-  </div>
-
-  <div ng-view></div>
-
-  <footer>Version:<span app-version></span></footer>
-
-  <script src="js/lib/jquery-2.0.3.min.js"></script>
-  <script src="js/lib/angular/angular.js"></script>
-  <script src="js/lib/angular/angular-resource.js"></script>
-  <script src="js/app.js"></script>
-  <script src="js/services.js"></script>
-  <script src="js/controllers.js"></script>
-  <script src="js/filters.js"></script>
-  <script src="js/directives.js"></script>
 </body>
 </html>

@@ -8,14 +8,19 @@ exports.index = function(req, res) {
   res.render('index');
 };
 
+exports.welcome = function(req, res) {
+  console.log("index.welcome:" + req.user);
+  res.render('welcome');
+}
+
 exports.partials = function (req, res) {
-  console.log("index.partials:" + req.params.name);
+  console.log("index.partials:" + req.user);
   var name = req.params.name;
   res.render('partials/' + name);
 };
 
 exports.profile = function (req, res) {
-  console.log("index.profile");
+  console.log("index.profile:" + req.user);
   var name = req.params.name;
   res.render('partials/profile/userDetail');
 };

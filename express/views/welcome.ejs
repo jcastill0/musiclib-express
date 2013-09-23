@@ -1,0 +1,75 @@
+<!doctype html>
+<html ng-app="myMusicLib">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="My Music Library"/>
+  <meta name="author" content="JC"/>
+  <title>My Music Library</title>
+  <link rel="stylesheet" href="css/app.css"/>
+  <link rel="stylesheet" href="css/bootstrap.css"/>
+  <link rel="shortcut icon" href="img/favicon.ico"/>
+  <style type="text/css">
+      body {
+          padding-top: 60px;
+          padding-bottom: 40px;
+      }
+      .sidebar-nav {
+          padding: 9px 0;
+      }
+  </style>
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+	<a class="brand" ng-href="#">My Music Library</a>
+	<div class="nav-collapse collapse">
+	  <ul class="nav">
+	    <li class="active"><a ng-href="#">Home</a></li>
+	    <li><a ng-href="#about">About</a></li>
+	    <li><a ng-href="#contact">Contact</a></li>
+	  </ul>
+	</div> 
+      </div> 
+    </div>
+  </div>
+
+  <div>
+    <ul class="menu">
+      <li><a ng-href="#/welcome">Welcome</a></li>
+      <li><a ng-href="#/playlists">Playlists</a></li>
+      <li><a ng-href="#/playlists/play/1">Play ID=1</a></li>
+      <li><a ng-href="#/playlists/edit/1">Playlist ID=1</a></li>
+      <li><a ng-href="#/artists">Artists</a></li>
+      <li><a ng-href="#/artists/1">Artist ID=1</a></li>
+      <li><a ng-href="#/users/1">Profile</a></li>
+      <li><a href="#/view1">view1</a></li>
+      <li><a href="#/view2">view2</a></li>
+    </ul>
+  </div>
+
+  <div ng-view></div>
+
+  <div class="container" ng-controller="WelcomeCtrl">
+    <div class="hero-unit">
+      <h1><em>Welcome</em>
+	<h2>{{name}}</h2>
+      </h1>
+      <p>to my music library....</p>
+      <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    </div>
+  </div>
+
+  <footer>Version:<span app-version></span></footer>
+
+  <script src="js/lib/jquery-2.0.3.min.js"></script>
+  <script src="js/lib/angular/angular.js"></script>
+  <script src="js/lib/angular/angular-resource.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+</body>
+</html>

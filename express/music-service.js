@@ -7,6 +7,7 @@ var express = require('express'),
     api = require('./routes/api'),
     config = require('./modules/config'),
     auth = require('./modules/auth'),
+    findUser = require ('./modules/findUserByID'),
     path = require('path');
 
 var app = module.exports = express();
@@ -22,11 +23,11 @@ app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
 app.set("view engine", "ejs");
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
-app.use(express.methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.cookieParser());
-app.use(express.session({secret:'keyboard cat'}));
+app.use(express.cookieParser("ThisSecretRocks"));
+app.use(express.bodyParser());
+app.use(express.methodOverride());	// must come after bodyParser
+app.use(express.session({secret:'ThisSecretRocks'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
@@ -42,9 +43,20 @@ passport.serializeUser(function(user, done) {
   console.log("Serializing:", user.id);
   done(null, user.id);
 });
-passport.deserializeUser(function(id, done) {
-  console.log("Deserializing:" + id);
-  done(null, id);
+passport.deserializeUser(function(googleID, done) {
+  console.log("Deserializing:" + googleID);
+  findUser(connPool, googleID, function (error, id) {
+	if (error) {
+	    return(done(error));
+	}
+	if (id != null) {
+	    console.log("FoundUser-OK:" + id);
+	    done(null, id);
+	} else {
+	    console.log("FoundUser-BAD:" + googleID);
+	    done("User not found");
+	}
+    });
 });
 
 
@@ -89,6 +101,7 @@ passport.use(new GoogleStrategy({
 
 // serve index and view partials
 app.get('/', routes.index);
+app.get('/welcome', routes.welcome);
 app.get('/partials/:name', routes.partials);
 app.get('/partials/profile/userDetail', routes.profile);
 app.get('/partials/playlist/:name', routes.playlist);
@@ -99,8 +112,8 @@ app.get('/api/name', api.name);
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/oauth2callback', 
 	passport.authenticate('google', {
-		successRedirect: '/index',
-		failureRedirect: '/partials/welcome'})
+		successRedirect: '/welcome',
+		failureRedirect: '/index'})
 );
 
 // redirect all others to the index (HTML5 history)
