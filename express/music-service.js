@@ -7,7 +7,8 @@ var express = require('express'),
     api = require('./routes/api'),
     config = require('./modules/config'),
     auth = require('./modules/auth'),
-    findUser = require ('./modules/findUserByID'),
+//    findUser = require ('./modules/findUserByID'),
+    user = require('./modules/user'),
     path = require('path');
 
 var app = module.exports = express();
@@ -39,19 +40,20 @@ var connPool = mysql.createPool({
   database : config.dB
 });
 
-passport.serializeUser(function(user, done) {
-  console.log("Serializing:", user.id);
-  done(null, user.id);
+passport.serializeUser(function(gProfile, done) {
+  console.log("Serializing:", gProfile.id);
+  done(null, gProfile.id);
 });
 passport.deserializeUser(function(googleID, done) {
   console.log("Deserializing:" + googleID);
-  findUser(connPool, googleID, function (error, id) {
+  userInstance = new user();
+  userInstance.find(connPool, googleID, function (error, userInstance) {
 	if (error) {
 	    return(done(error));
 	}
-	if (id != null) {
-	    console.log("FoundUser-OK:" + id);
-	    done(null, id);
+	if (userInstance != null) {
+	    console.log("FoundUser-OK:" + userInstance.email);
+	    done(null, userInstance);
 	} else {
 	    console.log("FoundUser-BAD:" + googleID);
 	    done("User not found");
@@ -77,16 +79,16 @@ passport.use(new GoogleStrategy({
     callbackURL: google_callback,
     scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
   },
-  function(accessToken, refreshToken, profile, done) {
-    auth(connPool, profile, function (error, foundIt) {
+  function(accessToken, refreshToken, gProfile, done) {
+    auth(connPool, gProfile, function (error, foundIt) {
 	if (error) {
 	    return(done(error));
 	}
 	if (foundIt) {
-	    console.log("Auth-OK:" + profile.displayName);
-	    done(null, profile);
+	    console.log("Auth-OK:" + gProfile.displayName);
+	    done(null, gProfile);
 	} else {
-	    console.log("Auth-BAD:" + profile.emails[0].value);
+	    console.log("Auth-BAD:" + gProfile.emails[0].value);
 	    done(null, false, {message: 'Credentials not found'});
 	}
     });

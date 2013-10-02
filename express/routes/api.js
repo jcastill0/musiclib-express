@@ -3,8 +3,8 @@
  */
 
 exports.name = function (req, res) {
-  console.log("api.name:" + req.user);
+  console.log("api.name:" + req.user.email);
   res.json({
-  	name: 'Julio'
+  	name: req.user.displayName
   });
 };

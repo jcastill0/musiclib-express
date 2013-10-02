@@ -9,18 +9,18 @@ exports.index = function(req, res) {
 };
 
 exports.welcome = function(req, res) {
-  console.log("index.welcome:" + req.user);
+  console.log("index.welcome:" + req.user.id);
   res.render('welcome');
 }
 
 exports.partials = function (req, res) {
-  console.log("index.partials:" + req.user);
+  console.log("index.partials:" + req.user.id);
   var name = req.params.name;
   res.render('partials/' + name);
 };
 
 exports.profile = function (req, res) {
-  console.log("index.profile:" + req.user);
+  console.log("index.profile:" + req.user.id);
   var name = req.params.name;
   res.render('partials/profile/userDetail');
 };

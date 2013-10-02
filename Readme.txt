@@ -10,7 +10,7 @@ INSTALLATION
 %sudo npm install jade
 %sudo npm install ejs
 %sudo npm install html
-%sudo npm install csv
+%sudo npm install node-inspector
 %sudo npm install passport
 %sudo npm install passport-google
 %sudo npm install passport-oauth
