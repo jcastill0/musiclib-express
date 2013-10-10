@@ -1,18 +1,19 @@
-/*exports.user = function(id, email, displayName) {
-  this.id = id;
-  this.email = email;
-  this.displayName = displayName;
-};*/
+var config = require('./config');
 
-var User = function() {
+module.exports = User;
+
+function User() {
   var googleID = null;
   this.id = null;
   this.email = null;
   this.displayName = null;
-  this.find = function (connPool, google_id, cb) {
+};
+
+User.find = function (google_id, cb) {
     googleID = google_id;
-    console.log("Find: " + googleID);
-    connPool.getConnection (function(error, connection) {
+    if (config.debug)
+	console.log("Find: " + googleID);
+    config.getConnPool().getConnection (function(error, connection) {
       if (error) {
 	  console.error("Connection Pool Error: " + error.message);
           console.error(error.stack);
@@ -22,7 +23,7 @@ var User = function() {
       var sql = "SELECT id, google_display_name, google_email FROM google_user WHERE google_id = "+ googleID + " AND is_active = 1";
       connection.query(sql, function (error, row) {
 	if (error) {
-	    console.log("SQL Error: " + error.message);
+	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
 	if (row.length == 1) {
@@ -36,7 +37,5 @@ var User = function() {
       });
       connection.end();
     });
-  };
 };
 
-module.exports = User;

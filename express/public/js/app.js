@@ -11,7 +11,7 @@ var app = angular.module('myMusicLib', [
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider
     .when('/welcome', {
-	templateUrl: 'partials/welcome',
+	templateUrl: 'welcome',
 	controller: 'WelcomeCtrl'
     })
     .when('/playlists', {

@@ -2,13 +2,11 @@ var express = require('express'),
     http = require('http'),
     passport = require('passport'),
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
-    mysql = require('mysql'),
     routes = require('./routes'),
     api = require('./routes/api'),
     config = require('./modules/config'),
     auth = require('./modules/auth'),
-//    findUser = require ('./modules/findUserByID'),
-    user = require('./modules/user'),
+    User = require('./modules/user'),
     path = require('path');
 
 var app = module.exports = express();
@@ -33,27 +31,25 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(app.router);
 
-var connPool = mysql.createPool({
-  host     : config.dBhost,
-  user     : config.dBuser,
-  password : config.dBpassword,
-  database : config.dB
-});
+config.createConnPool();
 
 passport.serializeUser(function(gProfile, done) {
-  console.log("Serializing:", gProfile.id);
+  if (config.debug)
+      console.log("Serializing:", gProfile.id);
   done(null, gProfile.id);
 });
 passport.deserializeUser(function(googleID, done) {
-  console.log("Deserializing:" + googleID);
-  userInstance = new user();
-  userInstance.find(connPool, googleID, function (error, userInstance) {
+  if (config.debug)
+      console.log("Deserializing:" + googleID);
+  user = new User();
+  User.find(googleID, function (error, user) {
 	if (error) {
 	    return(done(error));
 	}
-	if (userInstance != null) {
-	    console.log("FoundUser-OK:" + userInstance.email);
-	    done(null, userInstance);
+	if (user != null) {
+	    if (config.debug)
+		console.log("FoundUser-OK:" + user.email);
+	    done(null, user);
 	} else {
 	    console.log("FoundUser-BAD:" + googleID);
 	    done("User not found");
@@ -80,12 +76,13 @@ passport.use(new GoogleStrategy({
     scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
   },
   function(accessToken, refreshToken, gProfile, done) {
-    auth(connPool, gProfile, function (error, foundIt) {
+    auth(gProfile, function (error, foundIt) {
 	if (error) {
 	    return(done(error));
 	}
 	if (foundIt) {
-	    console.log("Auth-OK:" + gProfile.displayName);
+	    if (config.debug)
+		console.log("Auth-OK:" + gProfile.displayName);
 	    done(null, gProfile);
 	} else {
 	    console.log("Auth-BAD:" + gProfile.emails[0].value);
@@ -110,6 +107,7 @@ app.get('/partials/playlist/:name', routes.playlist);
 app.get('/partials/artist/:name', routes.artist);
 // JSON API
 app.get('/api/name', api.name);
+app.get('/api/playlists', api.playlists);
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/oauth2callback', 

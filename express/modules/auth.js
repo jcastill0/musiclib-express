@@ -1,5 +1,7 @@
-module.exports = function(connPool, profile, cb) {
-  connPool.getConnection (function(error, connection) {
+var config = require('./config');
+
+module.exports = function(profile, cb) {
+  config.getConnPool().getConnection (function(error, connection) {
     if (error) {
 	console.error("Connection Pool Error: " + error.message);
         console.error(error.stack);

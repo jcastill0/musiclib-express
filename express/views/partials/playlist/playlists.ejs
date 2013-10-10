@@ -5,6 +5,7 @@
       <div class="span5">
 	<h2>Playlists
 	  <a class="btn btn-small btn-info" ng-href="#/playlists/add"><i class="icon-plus-sign"></i></a>
+	  <!--a class="btn btn-small btn-info" ng-href="#/playlist/add"><i class="icon-plus-sign"></i></a-->
 	</h2>
       </div>
       <div class="span6">
@@ -18,12 +19,15 @@
       </div>
       <div class="span1">
 	<a class="btn btn-small btn-default" ng-href="#/playlists/play/{{playlist.id}}" data-toggle="tooltip" title="Play"><i class="icon-play"></i></a>
+	<!--a class="btn btn-small btn-default" ng-href="#/playlists/{{playlist.id/play}}" data-toggle="tooltip" title="Play"><i class="icon-play"></i></a-->
       </div>
       <div class="span1">
 	<a class="btn btn-small btn-danger" ng-href="#/playlists/delete/{{playlist.id}}" data-toggle="tooltip" title="Delete" id="DeleteActionID" onClick="return confirm('Are you sure you want to delete this playlist?');"><i class="icon-remove icon-red"></i></a>
+	<!--a class="btn btn-small btn-danger" ng-href="#/playlists/{{playlist.id/delete}}" data-toggle="tooltip" title="Delete" id="DeleteActionID" onClick="return confirm('Are you sure you want to delete this playlist?');"><i class="icon-remove icon-red"></i></a-->
       </div>
       <div class="span1">
 	<a class="btn btn-small btn-warning" ng-href="#/playlists/edit/{{playlist.id}}" data-toggle="tooltip" title="Edit"><i class="icon-edit"></i></a>
+	<!--a class="btn btn-small btn-warning" ng-href="#/playlists/{{playlist.id/edit}}" data-toggle="tooltip" title="Edit"><i class="icon-edit"></i></a-->
 </div>
       <div class="span4">
       </div>

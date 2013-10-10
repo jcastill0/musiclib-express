@@ -4,17 +4,14 @@
 
 /*
 angular.module('myMusicLib.controllers', []).
-  controller('AppCtrl', function ($scope, $http) {
-    $http({method: 'GET', url: '/api/name'
-    }).
+  controller('AppCtrl', function ($scope, $http) {$http({method: 'GET', url: '/api/name'}).
     success(function(data, status, headers, config) {$scope.name = data.name;}).
     error(function (data, status, headers, config) {$scope.name = 'Error!'});
   }).
   controller('MyCtrl1', function ($scope) {}).
   controller('MyCtrl2', function ($scope) {});
-*/
 
-/*app.controller('AppCtrl', function ($scope, $http) {
+app.controller('AppCtrl', function ($scope, $http) {
     $http({method: 'GET', url: '/api/name'}).
     success(function(data, status, headers, config) {$scope.name = data.name;}).
     error(function (data, status, headers, config) {$scope.name = 'Error!'});
@@ -63,7 +60,8 @@ app.controller('PlaylistDCtrl', function($scope, $routeParams, $log, Playlist) {
 
 app.controller('PlaylistCtrl', function($scope, $log, Playlist) {
   $log.log("PlaylistCtrl");
-  $scope.playlists = Playlist.query();
+  //$scope.playlists = Playlist.query();
+  $scope.playlists = Playlist2.query();
 });
 
 app.controller('PlayCtrl', function($scope, $routeParams, Playlist, $log, audioControl) {
