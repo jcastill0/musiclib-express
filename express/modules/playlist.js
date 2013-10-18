@@ -20,7 +20,7 @@ Playlist.find = function (userID, playlistID, cb) {
 	  return;
       }
       var sql = "SELECT id, name FROM playlist WHERE owner_id = " + userID;
-      if (playlistID != null)
+      if ((playlistID != undefined) && (playlistID != null))
 	  sql = sql + " AND id = " + playlistID;
       connection.query(sql, function (error, rows) {
 	if (error) {
@@ -29,8 +29,8 @@ Playlist.find = function (userID, playlistID, cb) {
 	}
 	if (rows.length >= 1) {
 	    if (config.debug)
-		console.log("Playlists found:" + rows.length);
-	    cb(null, JSON.stringify(rows));
+		console.log("Playlists found:" + JSON.stringify(rows));
+	    cb(null, rows);
 	} else {
 	    cb("Playlist not found");
 	}
@@ -49,17 +49,13 @@ Playlist.create = function (userID, name, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "INSERT INTO playslist (name, owner_id, created) VALUES ('"+name+"', " + userID + ", NOW())";
-      connection.query(sql, function (error, rows) {
+      var sql = "INSERT INTO playlist (name, owner_id, created) VALUES ('"+name+"', " + userID + ", NOW())";
+      connection.query(sql, function (error, result) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
-	if (rows.length >= 1) {
-	    cb(null, this);
-	} else {
-	    cb("Record not found");
-	}
+	cb(null, result.insertId);
       });
       connection.end();
   });
@@ -76,13 +72,13 @@ Playlist.update = function (playlistID, userID, name, cb) {
 	  return;
       }
       var sql = "UPDATE playlist SET (name = '"+name+"') WHERE (id = "+playlistID +" AND owner_id = "+userID+")";
-      connection.query(sql, function (error, rows) {
+      connection.query(sql, function (error, result) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
-	if (rows.length >= 1) {
-	    cb(null, this);
+	if (result) {
+	    cb(null, result);
 	} else {
 	    cb("Record not found");
 	}
@@ -102,13 +98,13 @@ Playlist.delete = function (playlistID, userID, cb) {
 	  return;
       }
       var sql = "DELETE FROM playlist WHERE (id = "+playlistID +" AND owner_id = "+userID+")";
-      connection.query(sql, function (error, rows) {
+      connection.query(sql, function (error, result) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
-	if (rows.length >= 1) {
-	    cb(null, this);
+	if (result) {
+	    cb(null, result);
 	} else {
 	    cb("Record not found");
 	}

@@ -47,7 +47,7 @@ app.factory('User', function ($resource, $log) {
   return (userRsrc);
 });
 
-app.factory('Artist', function ($resource, $log) {
+/*app.factory('Artist', function ($resource, $log) {
   $log.log("Artist Factory");
   var artistRsrc = $resource('data/artists/:artistID.json',
 	  {artistID:'@artistID'},
@@ -56,21 +56,28 @@ app.factory('Artist', function ($resource, $log) {
 		}
 	  });
   return (artistRsrc);
+});*/
+app.factory('Artist2', function ($resource, $log) {
+  $log.log("Artist2 Factory");
+  var artistRsrc = $resource('api/artists/:artistID',
+	  {artistID:'@artistID'},
+	  {query: {
+		method:'GET', isArray:true
+		}
+	  });
+  return (artistRsrc);
 });
 
-app.factory('Playlist', function ($resource, $log) {
+/*app.factory('Playlist', function ($resource, $log) {
   $log.log("Playlist Factory");
   var playlistRsrc = $resource('data/playlists/:playlistID.json',
 	  {playlistID:'@playlistID'},
 	  {query: {
 		method:'GET', params:{playlistID:'playlists'}, isArray:true
-		},
-	   delete: {
-		method:'DELETE'
-		   }
+		}
 	  });
   return (playlistRsrc);
-});
+});*/
 app.factory('Playlist2', function ($resource, $log) {
   $log.log("Playlist2 Factory");
   var playlistsRsrc = $resource('api/playlists/:playlistID',
@@ -78,11 +85,8 @@ app.factory('Playlist2', function ($resource, $log) {
 	  {query: {
 		method:'GET', isArray:true
 		},
-	    save: {
+	   save: {
 		method: 'POST'
-		},
-	   delete: {
-		method:'DELETE'
 		}
 	  });
   return (playlistsRsrc);

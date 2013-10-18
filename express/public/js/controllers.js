@@ -54,11 +54,11 @@ app.controller('AuthCtrl', function($scope, authService, $log, $location) {
 
 app.controller('PlaylistDCtrl', function($scope, $routeParams, $log, Playlist) {
   $log.log("PlaylistDCtrl:" + $routeParams.playlistID);
-  Playlist.delete({playlistID:$routeParams.playlistID});
+  //Playlist.delete({playlistID:$routeParams.playlistID});
   $scope.playlists = Playlist.query();
 });
 
-app.controller('PlaylistCtrl', function($scope, $log, Playlist) {
+app.controller('PlaylistCtrl', function($scope, $log, Playlist2 /*Playlist*/) {
   $log.log("PlaylistCtrl");
   //$scope.playlists = Playlist.query();
   $scope.playlists = Playlist2.query();
@@ -126,9 +126,10 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, So
 });
 
 /////////////////////////////
-app.controller('ArtistCtrl', function($scope, $log, Artist) {
+app.controller('ArtistCtrl', function($scope, $log, /*Artist,*/ Artist2) {
   $log.log("ArtistCtrl");
-  $scope.artists = Artist.query();
+  //$scope.artists = Artist.query();
+  $scope.artists = Artist2.query();
 });
 
 

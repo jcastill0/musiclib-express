@@ -108,6 +108,7 @@ app.get('/partials/artist/:name', routes.artist);
 // JSON API
 app.get('/api/name', api.name);
 app.get('/api/playlists', api.playlists);
+app.get('/api/artists', api.artists);
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/oauth2callback', 
