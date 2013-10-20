@@ -12,7 +12,7 @@
       <div class="span8">
 	<input type="text" ng-model="searchSong" class="search-query" placeHolder="Search"/>
 	<ul class="unstyled">
-	  <li ng-repeat="song in artist.songs | filter:searchSong | orderBy:'name'">
+	  <li ng-repeat="song in songs | filter:searchSong | orderBy:'name'">
 	    <input type="checkbox" ng-model="checkedValue" ng-click="songChecked(song, checkedValue)"/>
 	    <a ng-href="{{song.path}}">{{song.name}}</a>
           </li>

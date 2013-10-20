@@ -10,23 +10,18 @@ app.service('authService', function ($http, $log) {
     this.login = function (scope, formData) {
 	$http.post('auth/login', formData)
 		.success(function(data, status, headers, config) {
-			$log.log("SUCCESS:" + status);
 			scope.loggedIn = true;
 			return (true);
 		})
 		.error(function(data, status, headers, config) {
-			$log.log("Login Error: " + status);
 			scope.loggedIn = true;	// for now
 			return (false);
 		});
     };
     this.logout = function() {
 	$http.get('auth/logout')
-		.success(function(data, status, headers, config) {
-			return(true);
-		})
+		.success(function(data,status,headers,config) {return(true);})
 		.error(function(data, status, headers, config) {
-			$log.log("Logout Error: " + status);
 			return ("Request failed:" + status);
 		});
     };
@@ -36,12 +31,8 @@ app.factory('User', function ($resource, $log) {
   $log.log("User Factory");
   var userRsrc = $resource('data/users/:userID.json',
 	  {userID:'@userID'},
-	  {get: {
-		method: 'GET'
-		},
-	   save: {
-		method:'POST'
-		}
+	  {get: {method: 'GET'},
+	   save: {method:'POST'}
 	  });
   return (userRsrc);
 });
@@ -57,6 +48,17 @@ app.factory('Artist', function ($resource, $log) {
 		}
 	  });
   return (artistRsrc);
+});
+
+app.factory('ArtistSongs', function ($resource, $log) {
+  $log.log("ArtistSongs Factory");
+  var artistSongsRsrc = $resource('api/artists/:artistID/songs',
+	  {artistID:'@artistID'},
+	  {query: {
+		method:'GET', isArray:true
+		}
+	  });
+  return (artistSongsRsrc);
 });
 
 app.factory('Playlist', function ($resource, $log) {

@@ -10,7 +10,6 @@ angular.module('myMusicLib.controllers', []).
   }).
   controller('MyCtrl1', function ($scope) {}).
   controller('MyCtrl2', function ($scope) {});
-
 app.controller('AppCtrl', function ($scope, $http) {
     $http({method: 'GET', url: '/api/name'}).
     success(function(data, status, headers, config) {$scope.name = data.name;}).
@@ -131,10 +130,11 @@ app.controller('ArtistCtrl', function($scope, $log, Artist) {
 });
 
 
-app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $location, Artist, Playlist) {
+app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $location, Artist, Playlist, ArtistSongs) {
   $log.log("ArtistDetailCtrl:" + $routeParams.artistID);
   $scope.artist = Artist.get({artistID:$routeParams.artistID});
   $scope.playlists = Playlist.query();
+  $scope.songs = ArtistSongs.query({artistID:$routeParams.artistID});
   var songs = [];
   var selectedPlaylist = null;
 
