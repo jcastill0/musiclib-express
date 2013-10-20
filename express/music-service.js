@@ -105,10 +105,13 @@ app.get('/partials/:name', routes.partials);
 app.get('/partials/profile/userDetail', routes.profile);
 app.get('/partials/playlist/:name', routes.playlist);
 app.get('/partials/artist/:name', routes.artist);
+app.get('/partials/artist/artistDetail', routes.artistDetail);
 // JSON API
 app.get('/api/name', api.name);
 app.get('/api/playlists', api.playlists);
+app.get('/api/playlists/:playlistID', api.playlists);
 app.get('/api/artists', api.artists);
+app.get('/api/artists/:artistID', api.artists);
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/oauth2callback', 

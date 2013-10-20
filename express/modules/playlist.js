@@ -10,7 +10,7 @@ function Playlist() {
 
 
 Playlist.find = function (userID, playlistID, cb) {
-  if (config.debug)
+//if (config.debug)
       console.log("Find Playlist for: " + userID + " PlaylistID:" + playlistID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {

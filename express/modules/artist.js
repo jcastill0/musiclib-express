@@ -9,7 +9,7 @@ function Artist() {
 
 
 Artist.find = function (userID, artistID, cb) {
-  if (config.debug)
+//  if (config.debug)
       console.log("Find Artist for ArtistID:" + artistID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {
@@ -20,15 +20,17 @@ Artist.find = function (userID, artistID, cb) {
       }
       var sql = "SELECT id, name FROM artist";
       if ((artistID != undefined) && (artistID != null))
-	  sql = sql + " AND id = " + artistID;
+	  sql = sql + " WHERE id = " + artistID;
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
-	if (rows.length >= 1) {
-	    if (config.debug)
-		console.log("Artists found:" + JSON.stringify(rows));
+	if (config.debug)
+	    console.log("Artists found:" + JSON.stringify(rows));
+	if (rows.length == 1) {
+	    cb(null, rows[0]);
+	} else if (rows.length > 1) {
 	    cb(null, rows);
 	} else {
 	    cb("Artist not found");

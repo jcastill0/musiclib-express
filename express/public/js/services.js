@@ -2,7 +2,6 @@
 
 /* Services */
 
-// In this case it is a simple value service.
 //angular.module('myMusicLib.services', []).value('version', '0.1');
 
 app.value('version', '0.2');
@@ -47,43 +46,27 @@ app.factory('User', function ($resource, $log) {
   return (userRsrc);
 });
 
-/*app.factory('Artist', function ($resource, $log) {
+app.factory('Artist', function ($resource, $log) {
   $log.log("Artist Factory");
-  var artistRsrc = $resource('data/artists/:artistID.json',
-	  {artistID:'@artistID'},
-	  {query: {
-		method:'GET', params:{artistID:'artists'}, isArray:true
-		}
-	  });
-  return (artistRsrc);
-});*/
-app.factory('Artist2', function ($resource, $log) {
-  $log.log("Artist2 Factory");
   var artistRsrc = $resource('api/artists/:artistID',
+//var artistRsrc = $resource('data/artists/:artistID.json',
 	  {artistID:'@artistID'},
 	  {query: {
 		method:'GET', isArray:true
+//		method:'GET', params:{artistID:'artists'}, isArray:true
 		}
 	  });
   return (artistRsrc);
 });
 
-/*app.factory('Playlist', function ($resource, $log) {
+app.factory('Playlist', function ($resource, $log) {
   $log.log("Playlist Factory");
-  var playlistRsrc = $resource('data/playlists/:playlistID.json',
-	  {playlistID:'@playlistID'},
-	  {query: {
-		method:'GET', params:{playlistID:'playlists'}, isArray:true
-		}
-	  });
-  return (playlistRsrc);
-});*/
-app.factory('Playlist2', function ($resource, $log) {
-  $log.log("Playlist2 Factory");
   var playlistsRsrc = $resource('api/playlists/:playlistID',
+//var playlistRsrc = $resource('data/playlists/:playlistID.json',
 	  {playlistID:'@playlistID'},
 	  {query: {
 		method:'GET', isArray:true
+//		method:'GET', params:{playlistID:'playlists'}, isArray:true
 		},
 	   save: {
 		method: 'POST'
@@ -95,10 +78,12 @@ app.factory('Playlist2', function ($resource, $log) {
 
 app.factory('Song', function ($resource, $log) {
   $log.log("Song Factory");
-  var songRsrc = $resource('data/songs/:songID.json',
+  var songRsrc = $resource('api/songs/:songID',
+//var songRsrc = $resource('data/songs/:songID.json',
 	  {songID:'@songID'},
 	  {query: {
-		method:'GET', params:{songID:'songs'}, isArray:true
+		method:'GET', isArray:true
+//		method:'GET', params:{songID:'songs'}, isArray:true
 		}
 	  });
   return (songRsrc);

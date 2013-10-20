@@ -58,10 +58,9 @@ app.controller('PlaylistDCtrl', function($scope, $routeParams, $log, Playlist) {
   $scope.playlists = Playlist.query();
 });
 
-app.controller('PlaylistCtrl', function($scope, $log, Playlist2 /*Playlist*/) {
+app.controller('PlaylistCtrl', function($scope, $log, Playlist) {
   $log.log("PlaylistCtrl");
-  //$scope.playlists = Playlist.query();
-  $scope.playlists = Playlist2.query();
+  $scope.playlists = Playlist.query();
 });
 
 app.controller('PlayCtrl', function($scope, $routeParams, Playlist, $log, audioControl) {
@@ -126,10 +125,9 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, So
 });
 
 /////////////////////////////
-app.controller('ArtistCtrl', function($scope, $log, /*Artist,*/ Artist2) {
+app.controller('ArtistCtrl', function($scope, $log, Artist) {
   $log.log("ArtistCtrl");
-  //$scope.artists = Artist.query();
-  $scope.artists = Artist2.query();
+  $scope.artists = Artist.query();
 });
 
 
