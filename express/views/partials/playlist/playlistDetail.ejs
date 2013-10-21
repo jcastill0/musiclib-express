@@ -30,7 +30,7 @@
 	  <tbody>
 	    <tr ng-repeat="song in songs | filter:searchSong | orderBy:'artist'">
 	      <td><button class="btn" ng-click="addSong(song)"><i class="icon-chevron-right"></i></button></td>
-	      <td>{{song.artist}}</td>
+	      <td>{{song.artistName}}</td>
 	      <td>{{song.name}}</td>
 	    </tr>
 	  </tbody>

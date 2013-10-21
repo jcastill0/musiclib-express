@@ -113,6 +113,7 @@ app.get('/api/playlists/:playlistID', api.playlists);
 app.get('/api/artists', api.artists);
 app.get('/api/artists/:artistID', api.artists);
 app.get('/api/artists/:artistID/songs', api.artistSongs);
+app.get('/api/songs', api.songs);
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/oauth2callback', 

@@ -39,6 +39,19 @@ exports.artists = function (req, res) {
   });
 };
 
+exports.songs = function (req, res) {
+  if (config.debug)
+      console.log("api.songs.artistID: " + req.params.songID);
+  Song.find(req.user.id, req.params.songID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
 exports.artistSongs = function (req, res) {
   if (config.debug)
       console.log("api.artistSongs.artistID: " + req.params.artistID);
