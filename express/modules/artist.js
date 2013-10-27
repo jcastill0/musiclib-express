@@ -9,7 +9,7 @@ function Artist() {
 
 
 Artist.find = function (userID, artistID, cb) {
-//  if (config.debug)
+  if (config.debug)
       console.log("Find Artist for ArtistID:" + artistID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {

@@ -69,4 +69,31 @@ Song.findByArtist = function (userID, artistID, cb) {
   });
 };
 
+Song.findByPlaylist = function (userID, playlistID, cb) {
+  if (config.debug)
+      console.log("Find Song for PlaylistID:" + playlistID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "SELECT pls.song_id AS id, song.name, artist.name AS artistName FROM playlist_songs AS pls INNER JOIN song ON song.id = pls.song_id INNER JOIN artist on artist.id = song.artist_id WHERE pls.playlist_id = " + playlistID;
+      connection.query(sql, function (error, rows) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	if (rows.length >= 1) {
+	    if (config.debug)
+		console.log("Songs found:" + JSON.stringify(rows));
+	    cb(null, rows);
+	} else {
+	    cb("Song not found");
+	}
+      });
+      connection.end();
+  });
+};
 

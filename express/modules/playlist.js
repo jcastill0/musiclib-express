@@ -61,7 +61,7 @@ Playlist.create = function (userID, name, cb) {
   });
 };
 
-Playlist.update = function (playlistID, userID, name, cb) {
+Playlist.update = function (userID, playlistID, name, cb) {
   if (config.debug)
       console.log("Update: " + playlistID);
   config.getConnPool().getConnection (function(error, connection) {
@@ -87,7 +87,7 @@ Playlist.update = function (playlistID, userID, name, cb) {
   });
 };
 
-Playlist.delete = function (playlistID, userID, cb) {
+Playlist.delete = function (userID, playlistID, cb) {
   if (config.debug)
       console.log("Delete: " + playlistID);
   config.getConnPool().getConnection (function(error, connection) {
@@ -109,6 +109,55 @@ Playlist.delete = function (playlistID, userID, cb) {
 	    cb("Record not found");
 	}
       });
+      connection.end();
+  });
+};
+
+Playlist.addSongs = function (userID, playlistID, songs, cb) {
+  if (config.debug)
+      console.log("AddSongsToPlaylist: " + playlistID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      };
+      var sql = null;
+      for (ix in songs) {
+	  sql = "INSERT INTO playlist_songs (playlist_id, song_id) VALUES ("+playlistID +", "+songs[ix].id +")";
+	  connection.query(sql, function (error, result) {
+	    if (error) {
+		console.error("SQL Error: " + error.message);
+		cb(error);
+	    }
+	  });
+      };
+      cb (null, songs.length);
+      connection.end();
+  });
+};
+
+Playlist.removeSongs = function (userID, playlistID, songs, cb) {
+  if (config.debug)
+      console.log("RemoveSongsFromPlaylist: " + playlistID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      };
+      var sql = null;
+      for (song in songs) {
+	  sql = "DELETE FROM playlist_songs WHERE playlist_id = "+playlistID+" AND song_id = "+song.id;
+	  connection.query(sql, function (error, result) {
+	    if (error) {
+		console.error("SQL Error: " + error.message);
+		cb(error);
+	    }
+	  });
+      };
       connection.end();
   });
 };

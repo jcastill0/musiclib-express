@@ -110,10 +110,12 @@ app.get('/partials/artist/artistDetail', routes.artistDetail);
 app.get('/api/name', api.name);
 app.get('/api/playlists', api.playlists);
 app.get('/api/playlists/:playlistID', api.playlists);
+app.get('/api/playlists/:playlistID/songs', api.playlistSongs);
 app.get('/api/artists', api.artists);
 app.get('/api/artists/:artistID', api.artists);
 app.get('/api/artists/:artistID/songs', api.artistSongs);
 app.get('/api/songs', api.songs);
+app.post('/api/playlists/:playlistID/songs', api.addPlaylistSongs);
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/oauth2callback', 

@@ -41,7 +41,7 @@ exports.artists = function (req, res) {
 
 exports.songs = function (req, res) {
   if (config.debug)
-      console.log("api.songs.artistID: " + req.params.songID);
+      console.log("api.songs.songID: " + req.params.songID);
   Song.find(req.user.id, req.params.songID, function (err, data) {
 	if (err) {
 	    console.error(err);
@@ -64,3 +64,31 @@ exports.artistSongs = function (req, res) {
 	}
   });
 };
+
+exports.playlistSongs = function (req, res) {
+  if (config.debug)
+      console.log("api.playlistSongs.playlistID: " + req.params.playlistID);
+  Song.findByPlaylist(req.user.id, req.params.playlistID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
+exports.addPlaylistSongs = function (req, res) {
+  if (config.debug)
+      console.log("api.addPlaylistSongs.playlistID: " + req.params.playlistID);
+  Playlist.addSongs(req.user.id, req.params.playlistID, req.body.songs, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
+

@@ -77,6 +77,20 @@ app.factory('Playlist', function ($resource, $log) {
   return (playlistsRsrc);
 });
 
+app.factory('PlaylistSongs', function ($resource, $log) {
+  $log.log("PlaylistSongs Factory");
+  var playlistsRsrc = $resource('api/playlists/:playlistID/songs',
+	  {playlistID:'@playlistID'},
+	  {query: {
+		method:'GET', isArray:true
+		},
+	   save: {
+		method: 'POST', isArray:true
+		}
+	  });
+  return (playlistsRsrc);
+});
+
 
 app.factory('Song', function ($resource, $log) {
   $log.log("Song Factory");
