@@ -91,4 +91,30 @@ exports.addPlaylistSongs = function (req, res) {
   });
 };
 
+exports.createPlaylist = function (req, res) {
+  if (config.debug)
+      console.log("api.createPlaylist");
+  Playlist.create(req.user.id, req.body.name, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json({id:data});
+	}
+  });
+};
+
+exports.updatePlaylist = function (req, res) {
+  if (config.debug)
+      console.log("api.updatePlaylist");
+  Playlist.create(req.user.id, req.params.playlistID, req.body.name, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
 

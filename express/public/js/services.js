@@ -72,7 +72,10 @@ app.factory('Playlist', function ($resource, $log) {
 		},
 	   save: {
 		method: 'POST'
-		}
+		},
+	   update: {
+		method: 'PUT'
+	        }
 	  });
   return (playlistsRsrc);
 });

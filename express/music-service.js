@@ -116,6 +116,8 @@ app.get('/api/artists/:artistID', api.artists);
 app.get('/api/artists/:artistID/songs', api.artistSongs);
 app.get('/api/songs', api.songs);
 app.post('/api/playlists/:playlistID/songs', api.addPlaylistSongs);
+app.post('/api/playlists', api.createPlaylist);
+app.put ('/api/playlists/:playlistID', api.updatePlaylist);
 
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/oauth2callback', 

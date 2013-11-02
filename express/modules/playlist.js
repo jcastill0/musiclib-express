@@ -41,7 +41,7 @@ Playlist.find = function (userID, playlistID, cb) {
 
 Playlist.create = function (userID, name, cb) {
   if (config.debug)
-      console.log("Create: " + userID);
+      console.log("Create Playlist for: " + userID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {
 	  console.error("Connection Pool Error: " + error.message);
