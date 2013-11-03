@@ -101,7 +101,7 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, Pl
   } else {
       $log.log("PlaylistDetailCtr:" + $routeParams.playlistID);
       $scope.playlist = Playlist.get({playlistID:$routeParams.playlistID});
-      $scope.playlistSongs = PlaylistSongs.get({playlistID:$routeParams.playlistID});
+      $scope.playlistSongs = PlaylistSongs.query({playlistID:$routeParams.playlistID});
   }
   $scope.songs = Song.query();
 

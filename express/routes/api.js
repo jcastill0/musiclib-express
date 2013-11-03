@@ -15,8 +15,8 @@ exports.name = function (req, res) {
 
 exports.playlists = function (req, res) {
   if (config.debug)
-      console.log("api.playlists.playlistID: " + req.playlistID);
-  Playlist.find(req.user.id, req.playlistID, function (err, data) {
+      console.log("api.playlists.playlistID: " + req.params.playlistID);
+  Playlist.find(req.user.id, req.params.playlistID, function (err, data) {
 	if (err) {
 	    console.error(err);
 	    res.send(500, {Error:err});
@@ -107,7 +107,7 @@ exports.createPlaylist = function (req, res) {
 exports.updatePlaylist = function (req, res) {
   if (config.debug)
       console.log("api.updatePlaylist");
-  Playlist.create(req.user.id, req.params.playlistID, req.body.name, function (err, data) {
+  Playlist.update(req.user.id, req.params.playlistID, req.body.name, function (err, data) {
 	if (err) {
 	    console.error(err);
 	    res.send(500, {Error:err});

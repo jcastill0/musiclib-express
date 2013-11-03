@@ -75,10 +75,13 @@ app.factory('Playlist', function ($resource, $log) {
 		},
 	   update: {
 		method: 'PUT'
-	        },
+		},
 	   delete: {
 		method: 'DELETE'
-	        }
+		},
+	   get: {
+		method: 'GET', isArray:false
+		}
 	  });
   return (playlistsRsrc);
 });

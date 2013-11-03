@@ -10,7 +10,7 @@ function Playlist() {
 
 
 Playlist.find = function (userID, playlistID, cb) {
-//if (config.debug)
+  if (config.debug)
       console.log("Find Playlist for: " + userID + " PlaylistID:" + playlistID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {
@@ -30,7 +30,10 @@ Playlist.find = function (userID, playlistID, cb) {
 	if (rows.length >= 1) {
 	    if (config.debug)
 		console.log("Playlists found:" + JSON.stringify(rows));
-	    cb(null, rows);
+      	    if (playlistID != undefined)
+	        cb (null, rows[0]);
+	    else
+		cb(null, rows);
 	} else {
 	    cb("Playlist not found");
 	}
@@ -71,7 +74,7 @@ Playlist.update = function (userID, playlistID, name, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "UPDATE playlist SET (name = '"+name+"') WHERE (id = "+playlistID +" AND owner_id = "+userID+")";
+      var sql = "UPDATE playlist SET name = '"+name+"' WHERE (id = "+playlistID +" AND owner_id = "+userID+")";
       connection.query(sql, function (error, result) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
