@@ -118,3 +118,16 @@ exports.updatePlaylist = function (req, res) {
 };
 
 
+exports.deletePlaylist = function (req, res) {
+  if (config.debug)
+      console.log("api.deletePlaylist");
+  Playlist.delete(req.user.id, req.params.playlistID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+

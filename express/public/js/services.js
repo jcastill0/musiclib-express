@@ -75,6 +75,9 @@ app.factory('Playlist', function ($resource, $log) {
 		},
 	   update: {
 		method: 'PUT'
+	        },
+	   delete: {
+		method: 'DELETE'
 	        }
 	  });
   return (playlistsRsrc);
