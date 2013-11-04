@@ -78,10 +78,10 @@ exports.playlistSongs = function (req, res) {
   });
 };
 
-exports.addPlaylistSongs = function (req, res) {
+exports.updatePlaylistSongs = function (req, res) {
   if (config.debug)
-      console.log("api.addPlaylistSongs.playlistID: " + req.params.playlistID);
-  Playlist.addSongs(req.user.id, req.params.playlistID, req.body.songs, function (err, data) {
+      console.log("api.updatePlaylistSongs.playlistID: "+req.params.playlistID);
+  Playlist.updateSongs(req.user.id, req.params.playlistID, req.body.addSongs, req.body.remSongs, function (err, data) {
 	if (err) {
 	    console.error(err);
 	    res.send(500, {Error:err});

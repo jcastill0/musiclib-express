@@ -115,7 +115,7 @@ app.get('/api/artists', api.artists);
 app.get('/api/artists/:artistID', api.artists);
 app.get('/api/artists/:artistID/songs', api.artistSongs);
 app.get('/api/songs', api.songs);
-app.post('/api/playlists/:playlistID/songs', api.addPlaylistSongs);
+app.post('/api/playlists/:playlistID/songs', api.updatePlaylistSongs);
 app.post('/api/playlists', api.createPlaylist);
 app.put ('/api/playlists/:playlistID', api.updatePlaylist);
 app.delete('/api/playlists/:playlistID', api.deletePlaylist);

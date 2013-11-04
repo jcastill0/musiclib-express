@@ -104,21 +104,42 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, Pl
       $scope.playlistSongs = PlaylistSongs.query({playlistID:$routeParams.playlistID});
   }
   $scope.songs = Song.query();
+  var addSongs = [];
+  var remSongs = [];
 
   $scope.addSong = function(song) {
     $log.log("PlaylistDetailCtrl.addSong: " + song.name);
     $scope.playlistSongs.push(song);	// add to playlist
+    addSongs.push(song);
+    var index = 0;
+    var songIDtoBeRemoved = song.id;
+    angular.forEach(remSongs, function(s) {
+	if (s.id == songIDtoBeRemoved) {
+	    remSongs.splice(index, 1);
+	}
+	index++
+    });
   };
   $scope.removeSong = function(song) {
     var songIDtoBeRemoved = song.id;
     var index = 0;
     $log.log ("PlaylistDetailCtrl.removeSong: " + song.name);
-    angular.forEach($scope.playlistSongs, function(song) {
-	if (song.id == songIDtoBeRemoved) {
+    angular.forEach($scope.playlistSongs, function(s) {
+	if (s.id == songIDtoBeRemoved) {
 	    $scope.playlistSongs.splice(index, 1);
 	}
 	index++;
     });
+    var foundInAddList = false;
+    angular.forEach(addSongs, function (s) {
+	if (s.id == songIDtoBeRemoved) {
+	    addSongs.splice(index, 1);
+	    foundInAddList = true;
+	}
+	index++;
+    });
+    if (!foundInAddList)
+	remSongs.push(song);
   };
 
   $scope.save = function() {
@@ -126,7 +147,8 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, Pl
     if ($routeParams.playlistID == undefined) {
 	Playlist.save({name:$scope.playlist.name}, function (newPlaylist) {
 		$log.log("PlaylistDetailCtrl.Playlist.save.cb: " + newPlaylist.id);
-		PlaylistSongs.save({playlistID:newPlaylist.id, songs:$scope.playlistSongs}, function (pl) {
+		var emptyList = [];
+		PlaylistSongs.save({playlistID:newPlaylist.id, addSongs:$scope.playlistSongs, remSongs:emptyList}, function (pl) {
 			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + pl.name);
 			$location.path('/');
     		});
@@ -134,7 +156,7 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, Pl
     } else {
 	Playlist.update({playlistID:$routeParams.playlistID, name:$scope.playlist.name}, function (currentPlaylist) {
 		$log.log("PlaylistDetailCtrl.Playlist.update.cb: " + currentPlaylist.name);
-		PlaylistSongs.save({playlistID:$routeParams.playlistID, songs:$scope.playlistSongs}, function (pl) {
+		PlaylistSongs.save({playlistID:$routeParams.playlistID, addSongs:addSongs, remSongs:remSongs}, function (pl) {
 			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + pl.name);
 			$location.path('/');
     		});
