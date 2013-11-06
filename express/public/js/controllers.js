@@ -62,17 +62,18 @@ app.controller('PlaylistCtrl', function($scope, $log, Playlist) {
   $scope.playlists = Playlist.query();
 });
 
-app.controller('PlayCtrl', function($scope, $routeParams, Playlist, $log, audioControl) {
+app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, $log, audioControl) {
   $log.log("PlayCtrl:" + $routeParams.playlistID);
   $scope.playlist = Playlist.get({playlistID:$routeParams.playlistID});
+  $scope.playlistSongs = PlaylistSongs.query({playlistID:$routeParams.playlistID});
   var ix = 0;
   $scope.currentlyPlaying = null;
   audioControl.addEventListener('ended', function() {
       ix = ix + 1;
-      if (ix >= $scope.playlist.songs.length) {
+      if (ix >= $scope.playlistSongs.length) {
 	  return;
       }
-      var song = $scope.playlist.songs[ix];
+      var song = $scope.playlistSongs[ix];
       $log.log("PlayCtrl.addEventListener.cb Play["+ix+"]: " + song.name);
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
@@ -81,11 +82,11 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, $log, audioC
 
   $scope.startPlaying = function () {
       ix = 0;
-      if ($scope.playlist.songs.length == 0) {
+      if ($scope.playlistSongs.length == 0) {
 	  alert("Empty Playlist");
 	  return;
       }
-      var song = $scope.playlist.songs[ix];
+      var song = $scope.playlistSongs[ix];
       $log.log("PlayCtrl.startPlaying Play["+ix+"]: " + song.name);
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
@@ -193,7 +194,8 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
 	return;
     }
     $log.log("ArtistDetailCtrl.save:" + selectedPlaylist.name);
-    PlaylistSongs.save({playlistID:selectedPlaylist.id, songs:localSongs}, function (playlist) {
+    var emptyList = [];
+    PlaylistSongs.save({playlistID:selectedPlaylist.id, addSongs:localSongs, remSongs:emptyList}, function (playlist) {
 	$log.log("ArtistDetailCtrl.PlaylistSongs.save.cb:" + playlist.name);
 	$location.path('/');
     });

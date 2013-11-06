@@ -13,9 +13,9 @@
     <div class="row">
       <div class="span6">
 	<ul class="nav nav-list" id="SongListID">
-	  <li class="nav-header">[{{playlist.songs.length}}] Songs</li>
-	  <li ng-repeat="song in playlist.songs">
-	      <i class="icon-music"></i>{{song.artist}} - {{song.name}}
+	  <li class="nav-header">[{{playlistSongs.length}}] Songs</li>
+	  <li ng-repeat="song in playlistSongs">
+	      <i class="icon-music"></i>{{song.artistName}} - {{song.name}}
 	  </li>
 	</ul>
       </div>
