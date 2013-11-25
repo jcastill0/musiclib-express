@@ -10,8 +10,14 @@ var connPool = null;
 
 exports.serverPort = "3000";
 exports.debug = false;
-exports.google_callback_dev = "http://localhost:3000/oauth2callback";
-exports.google_callback_prod= "http://www.guantanamera.us/oauth2callback";
+
+// Google stuff
+var callbackPath = "/musiclib/auth/oauth2callback";
+exports.google_callback_dev = "http://localhost:3000" + callbackPath;
+exports.google_callback_prod= "http://www.guantanamera.us" + callbackPath;
+exports.googleClientSecret = "gRR2ir5camkaMzqukmFmw7fS";
+exports.googleClientID = "680561429810.apps.googleusercontent.com";
+exports.googleScope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
 
 exports.getConnPool = function() {return (connPool);};
 

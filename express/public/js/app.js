@@ -50,15 +50,15 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/partial2',
 	controller: 'MyCtrl2'
     })
-    .when('/auth/google', {
-	templateUrl: 'auth/google',
+    .when('/musiclib/auth/google', {
+	templateUrl: 'musiclib/auth/google',
 	controller: 'OAuthCtrl'
     })
-    .when('/auth/login', {
+    .when('/musiclib/auth/login', {
 	templateUrl: 'partials/welcome',
 	controller: 'AuthCtrl'
     })
-    .when('/auth/logout', {
+    .when('/musiclib/auth/logout', {
 	templateUrl: '/',
 	controller: 'AuthCtrl'
     })

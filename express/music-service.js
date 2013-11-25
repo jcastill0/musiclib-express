@@ -70,10 +70,10 @@ if (app.get('env') === 'production') {
 };
 
 passport.use(new GoogleStrategy({
-    clientID: '680561429810.apps.googleusercontent.com',
-    clientSecret: 'gRR2ir5camkaMzqukmFmw7fS',
+    clientID: config.googleClientID,
+    clientSecret: config.googleClientSecret,
     callbackURL: google_callback,
-    scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile'
+    scope: config.googleScope
   },
   function(accessToken, refreshToken, gProfile, done) {
     auth(gProfile, function (error, foundIt) {
@@ -120,8 +120,8 @@ app.post('/api/playlists', api.createPlaylist);
 app.put ('/api/playlists/:playlistID', api.updatePlaylist);
 app.delete('/api/playlists/:playlistID', api.deletePlaylist);
 
-app.get('/auth/google', passport.authenticate('google'));
-app.get('/oauth2callback', 
+app.get('/musiclib/auth/google', passport.authenticate('google'));
+app.get('/musiclib/auth/oauth2callback', 
 	passport.authenticate('google', {
 		successRedirect: '/welcome',
 		failureRedirect: '/index'})

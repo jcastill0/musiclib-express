@@ -8,7 +8,7 @@ app.value('version', '0.2');
 
 app.service('authService', function ($http, $log) {
     this.login = function (scope, formData) {
-	$http.post('auth/login', formData)
+	$http.post('musiclib/auth/login', formData)
 		.success(function(data, status, headers, config) {
 			scope.loggedIn = true;
 			return (true);
@@ -19,7 +19,7 @@ app.service('authService', function ($http, $log) {
 		});
     };
     this.logout = function() {
-	$http.get('auth/logout')
+	$http.get('musiclib/auth/logout')
 		.success(function(data,status,headers,config) {return(true);})
 		.error(function(data, status, headers, config) {
 			return ("Request failed:" + status);
