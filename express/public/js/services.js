@@ -8,7 +8,7 @@ app.value('version', '0.2');
 
 app.service('authService', function ($http, $log) {
     this.login = function (scope, formData) {
-	$http.post('musiclib/auth/login', formData)
+	$http.post('auth/login', formData)
 		.success(function(data, status, headers, config) {
 			scope.loggedIn = true;
 			return (true);
@@ -19,7 +19,7 @@ app.service('authService', function ($http, $log) {
 		});
     };
     this.logout = function() {
-	$http.get('musiclib/auth/logout')
+	$http.get('auth/logout')
 		.success(function(data,status,headers,config) {return(true);})
 		.error(function(data, status, headers, config) {
 			return ("Request failed:" + status);
@@ -39,12 +39,10 @@ app.factory('User', function ($resource, $log) {
 
 app.factory('Artist', function ($resource, $log) {
   $log.log("Artist Factory");
-  var artistRsrc = $resource('api/artists/:artistID',
-//var artistRsrc = $resource('data/artists/:artistID.json',
+  var artistRsrc = $resource('musiclib/api/artists/:artistID',
 	  {artistID:'@artistID'},
 	  {query: {
 		method:'GET', isArray:true
-//		method:'GET', params:{artistID:'artists'}, isArray:true
 		}
 	  });
   return (artistRsrc);
@@ -52,7 +50,7 @@ app.factory('Artist', function ($resource, $log) {
 
 app.factory('ArtistSongs', function ($resource, $log) {
   $log.log("ArtistSongs Factory");
-  var artistSongsRsrc = $resource('api/artists/:artistID/songs',
+  var artistSongsRsrc = $resource('musiclib/api/artists/:artistID/songs',
 	  {artistID:'@artistID'},
 	  {query: {
 		method:'GET', isArray:true
@@ -63,12 +61,10 @@ app.factory('ArtistSongs', function ($resource, $log) {
 
 app.factory('Playlist', function ($resource, $log) {
   $log.log("Playlist Factory");
-  var playlistsRsrc = $resource('api/playlists/:playlistID',
-//var playlistRsrc = $resource('data/playlists/:playlistID.json',
+  var playlistsRsrc = $resource('musiclib/api/playlists/:playlistID',
 	  {playlistID:'@playlistID'},
 	  {query: {
 		method:'GET', isArray:true
-//		method:'GET', params:{playlistID:'playlists'}, isArray:true
 		},
 	   save: {
 		method: 'POST'
@@ -88,7 +84,7 @@ app.factory('Playlist', function ($resource, $log) {
 
 app.factory('PlaylistSongs', function ($resource, $log) {
   $log.log("PlaylistSongs Factory");
-  var playlistsRsrc = $resource('api/playlists/:playlistID/songs',
+  var playlistsRsrc = $resource('musiclib/api/playlists/:playlistID/songs',
 	  {playlistID:'@playlistID'},
 	  {query: {
 		method:'GET', isArray:true
@@ -103,12 +99,10 @@ app.factory('PlaylistSongs', function ($resource, $log) {
 
 app.factory('Song', function ($resource, $log) {
   $log.log("Song Factory");
-  var songRsrc = $resource('api/songs/:songID',
-//var songRsrc = $resource('data/songs/:songID.json',
+  var songRsrc = $resource('musiclib/api/songs/:songID',
 	  {songID:'@songID'},
 	  {query: {
 		method:'GET', isArray:true
-//		method:'GET', params:{songID:'songs'}, isArray:true
 		}
 	  });
   return (songRsrc);

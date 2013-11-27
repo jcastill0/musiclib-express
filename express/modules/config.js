@@ -12,7 +12,7 @@ exports.serverPort = "3000";
 exports.debug = false;
 
 // Google stuff
-var callbackPath = "/musiclib/auth/oauth2callback";
+var callbackPath = "/auth/oauth2callback";
 exports.google_callback_dev = "http://localhost:3000" + callbackPath;
 exports.google_callback_prod= "http://www.guantanamera.us" + callbackPath;
 exports.googleClientSecret = "gRR2ir5camkaMzqukmFmw7fS";

@@ -9,7 +9,7 @@ var config = require('../modules/config');
 
 exports.name = function (req, res) {
   if (config.debug)
-      console.log("api.name:" + req.user.email);
+      console.log("musiclib.api.name:" + req.user.email);
   res.json({name: req.user.displayName});
 };
 

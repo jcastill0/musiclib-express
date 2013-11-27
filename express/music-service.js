@@ -62,11 +62,13 @@ passport.deserializeUser(function(googleID, done) {
 if (app.get('env') === 'development') {
   google_callback = config.google_callback_dev;
   app.use(express.errorHandler());
+  console.log("DEVELOPMENT ENV");
 }
 
 // production only
 if (app.get('env') === 'production') {
   google_callback = config.google_callback_prod;
+  console.log("PRODUCTION ENV");
 };
 
 passport.use(new GoogleStrategy({
@@ -107,21 +109,21 @@ app.get('/partials/playlist/:name', routes.playlist);
 app.get('/partials/artist/:name', routes.artist);
 app.get('/partials/artist/artistDetail', routes.artistDetail);
 // JSON API
-app.get('/api/name', api.name);
-app.get('/api/playlists', api.playlists);
-app.get('/api/playlists/:playlistID', api.playlists);
-app.get('/api/playlists/:playlistID/songs', api.playlistSongs);
-app.get('/api/artists', api.artists);
-app.get('/api/artists/:artistID', api.artists);
-app.get('/api/artists/:artistID/songs', api.artistSongs);
-app.get('/api/songs', api.songs);
-app.post('/api/playlists/:playlistID/songs', api.updatePlaylistSongs);
-app.post('/api/playlists', api.createPlaylist);
-app.put ('/api/playlists/:playlistID', api.updatePlaylist);
-app.delete('/api/playlists/:playlistID', api.deletePlaylist);
+app.get('/musiclib/api/name', api.name);
+app.get('/musiclib/api/playlists', api.playlists);
+app.get('/musiclib/api/playlists/:playlistID', api.playlists);
+app.get('/musiclib/api/playlists/:playlistID/songs', api.playlistSongs);
+app.get('/musiclib/api/artists', api.artists);
+app.get('/musiclib/api/artists/:artistID', api.artists);
+app.get('/musiclib/api/artists/:artistID/songs', api.artistSongs);
+app.get('/musiclib/api/songs', api.songs);
+app.post('/musiclib/api/playlists/:playlistID/songs', api.updatePlaylistSongs);
+app.post('/musiclib/api/playlists', api.createPlaylist);
+app.put ('/musiclib/api/playlists/:playlistID', api.updatePlaylist);
+app.delete('/musiclib/api/playlists/:playlistID', api.deletePlaylist);
 
-app.get('/musiclib/auth/google', passport.authenticate('google'));
-app.get('/musiclib/auth/oauth2callback', 
+app.get('/auth/google', passport.authenticate('google'));
+app.get('/auth/oauth2callback', 
 	passport.authenticate('google', {
 		successRedirect: '/welcome',
 		failureRedirect: '/index'})

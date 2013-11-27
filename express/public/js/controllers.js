@@ -18,7 +18,7 @@ app.controller('AppCtrl', function ($scope, $http) {
 
 app.controller('WelcomeCtrl', function($scope, $http, $log) {
   $log.log("WelcomeCtrl");
-  $http({method: 'GET', url: '/api/name'}).
+  $http({method: 'GET', url: '/musiclib/api/name'}).
     success(function(data, status, headers, config) {$scope.name = data.name;}).
     error(function (data, status, headers, config) {$scope.name = 'Error!'});
 });
