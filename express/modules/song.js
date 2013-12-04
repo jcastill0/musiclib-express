@@ -20,7 +20,7 @@ Song.find = function (userID, songID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT song.id, song.name, file_path, played_count, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id ";
+      var sql = "SELECT song.id, song.name, file_path, played_count, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id ORDER BY artist.name, song.name";
       if ((songID != undefined) && (songID != null))
 	  sql = sql + " WHERE id = " + songID;
       connection.query(sql, function (error, rows) {

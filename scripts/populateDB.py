@@ -86,9 +86,10 @@ def read_songs (dirName, artistDict, conn):
 	    songID = cursor.fetchone()
 	    if (songID is None):
 #		print ("NEW Song:" + songNamefilePath)
+		relFilePath = filePath.split('/home/julio/');
 		newSongsCnt = newSongsCnt + 1
 		cursor.execute(
-			"""INSERT INTO song (name, artist_id, file_path, created) VALUES (%s, %s, %s, NOW())""", (songName, artistID[0], filePath))
+			"""INSERT INTO song (name, artist_id, file_path, created) VALUES (%s, %s, %s, NOW())""", (songName, artistID[0], relFilePath[1]))
 	conn.commit()
 	cursor.close()
     except MySQLdb.Error, e:

@@ -197,7 +197,7 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
     var emptyList = [];
     PlaylistSongs.save({playlistID:selectedPlaylist.id, addSongs:localSongs, remSongs:emptyList}, function (playlist) {
 	$log.log("ArtistDetailCtrl.PlaylistSongs.save.cb:" + playlist.name);
-	$location.path('/');
+//	$location.path('/');
     });
   };
 
