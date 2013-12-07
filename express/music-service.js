@@ -23,6 +23,7 @@ app.set('views', __dirname + '/views');
 app.set("view engine", "ejs");
 app.use(express.logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'img')));
 app.use(express.cookieParser("ThisSecretRocks"));
 app.use(express.bodyParser());
 app.use(express.methodOverride());	// must come after bodyParser
@@ -129,8 +130,10 @@ app.get('/auth/oauth2callback',
 		failureRedirect: '/index'})
 );
 
+app.get('/MusicSrc/*', routes.musicSrc);
+
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.index);
+app.get('*', routes.forbidden);
 
 
 /**

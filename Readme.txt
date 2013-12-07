@@ -15,10 +15,12 @@ INSTALLATION
 %sudo npm install passport-google
 %sudo npm install passport-oauth
 %sudo npm install passport-google-oauth
+%sudo npm install forever
 
 TO RUN
 ======
 % ~/express/node music-service.js
+% sudo forever start music-service.js
 
 
 NOTES

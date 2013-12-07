@@ -4,7 +4,7 @@
  */
 
 exports.index = function(req, res) {
-  console.log("index.index");
+  console.log("index.index:" + req.ip + ":" + req.params);
   res.render('index');
 };
 
@@ -46,3 +46,15 @@ exports.auth = function (req, res, done) {
   console.log("index.auth:" + req.params);
   res.redirect('partials/welcome');
 };
+
+exports.forbidden = function (req, res) {
+  console.log("index.forbidden:" + req.ip + ":" +req.params);
+  res.send(500);
+};
+
+exports.musicSrc = function (req, res) {
+  console.log("index.musicSrc:" + req.params);
+  res.send(200);
+};
+
+
