@@ -28,13 +28,9 @@ Song.find = function (userID, songID, cb) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
-	if (rows.length >= 1) {
-	    if (config.debug)
-		console.log("Songs found:" + JSON.stringify(rows));
-	    cb(null, rows);
-	} else {
-	    cb("Song not found");
-	}
+	if (config.debug)
+	    console.log("Songs found:" + JSON.stringify(rows));
+	cb(null, rows);
       });
       connection.end();
   });
@@ -57,13 +53,9 @@ Song.findByArtist = function (userID, artistID, cb) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
-	if (rows.length >= 1) {
-	    if (config.debug)
-		console.log("Songs found:" + JSON.stringify(rows));
-	    cb(null, rows);
-	} else {
-	    cb("Song not found");
-	}
+	if (config.debug)
+	    console.log("Songs found:" + JSON.stringify(rows));
+	cb(null, rows);
       });
       connection.end();
   });
@@ -85,13 +77,9 @@ Song.findByPlaylist = function (userID, playlistID, cb) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
 	}
-	if (rows.length >= 1) {
-	    if (config.debug)
-		console.log("Songs found:" + JSON.stringify(rows));
-	    cb(null, rows);
-	} else {
-	    cb("Song not found");
-	}
+	if (config.debug)
+	    console.log("Songs found:" + JSON.stringify(rows));
+	cb(null, rows);
       });
       connection.end();
   });

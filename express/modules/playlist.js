@@ -118,7 +118,7 @@ Playlist.delete = function (userID, playlistID, cb) {
 
 Playlist.updateSongs = function (userID, playlistID, addSongs, remSongs, cb) {
   if (config.debug)
-      console.log("UpdateSongsToPlaylist: " + playlistID);
+      console.log("UpdateSongsToPlaylist:" + playlistID + " ADDS:" + addSongs.length + " REMS:" + remSongs.length);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {
 	  console.error("Connection Pool Error: " + error.message);
@@ -145,7 +145,11 @@ Playlist.updateSongs = function (userID, playlistID, addSongs, remSongs, cb) {
 	    }
 	  });
       };
-      cb (null, "DONE");
+      var resultData = {
+	'addedRows': addSongs.length,
+	'deletedRows': remSongs.length
+      };
+      cb (null, resultData);
       connection.end();
   });
 };

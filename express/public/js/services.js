@@ -90,7 +90,7 @@ app.factory('PlaylistSongs', function ($resource, $log) {
 		method:'GET', isArray:true
 		},
 	   save: {
-		method: 'POST', isArray:true
+		method: 'POST'
 		}
 	  });
   return (playlistsRsrc);

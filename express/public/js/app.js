@@ -4,6 +4,7 @@
 
 var app = angular.module('myMusicLib', [
 	'ngResource',
+	'ngRoute',
 	'myMusicLib.filters',
 	'myMusicLib.directives'
 	]);

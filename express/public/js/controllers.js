@@ -144,21 +144,25 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, Pl
   };
 
   $scope.save = function() {
-    $log.log("PlaylistDetailCtrl.save: " + $scope.playlist.name);
     if ($routeParams.playlistID == undefined) {
+	$log.log("PlaylistDetailCtrl.save: " + $scope.playlist.name);
 	Playlist.save({name:$scope.playlist.name}, function (newPlaylist) {
 		$log.log("PlaylistDetailCtrl.Playlist.save.cb: " + newPlaylist.id);
-		var emptyList = [];
-		PlaylistSongs.save({playlistID:newPlaylist.id, addSongs:$scope.playlistSongs, remSongs:emptyList}, function (pl) {
-			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + pl.name);
+		if ($scope.playlistSongs.length != 0) {
+		    var emptyList = [];
+		    PlaylistSongs.save({playlistID:newPlaylist.id, addSongs:$scope.playlistSongs, remSongs:emptyList}, function (sData) {
+			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + sData.addedRows);
 			$location.path('/');
-    		});
+		    });
+		} else
+			$location.path('/');
 	});
     } else {
-	Playlist.update({playlistID:$routeParams.playlistID, name:$scope.playlist.name}, function (currentPlaylist) {
-		$log.log("PlaylistDetailCtrl.Playlist.update.cb: " + currentPlaylist.name);
-		PlaylistSongs.save({playlistID:$routeParams.playlistID, addSongs:addSongs, remSongs:remSongs}, function (pl) {
-			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + pl.name);
+	$log.log("PlaylistDetailCtrl.update: " + $scope.playlist.name);
+	Playlist.update({playlistID:$routeParams.playlistID, name:$scope.playlist.name}, function (uData) {
+		$log.log("PlaylistDetailCtrl.Playlist.update.cb: "+uData.affectedRows);
+		PlaylistSongs.save({playlistID:$routeParams.playlistID, addSongs:addSongs, remSongs:remSongs}, function (sData) {
+			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + sData.addedRows);
 			$location.path('/');
     		});
 	});
