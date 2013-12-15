@@ -49,7 +49,7 @@ exports.auth = function (req, res, done) {
 
 exports.forbidden = function (req, res) {
   console.log("index.forbidden:" + req.ip + ":" +req.params);
-  res.send(500);
+  res.send(500, {Error:"Sorry, not through here"});
 };
 
 exports.musicSrc = function (req, res) {

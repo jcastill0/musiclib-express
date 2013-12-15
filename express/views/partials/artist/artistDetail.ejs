@@ -13,7 +13,7 @@
 	<input type="text" ng-model="searchSong" class="search-query" placeHolder="Search"/>
 	<ul class="unstyled">
 	  <li ng-repeat="song in songs | filter:searchSong | orderBy:'name'">
-	    <input type="checkbox" ng-model="checkedValue" ng-click="songChecked(song, checkedValue)"/>
+	    <input type="checkbox" ng-model="checkedValue" ng-click="songChecked(song)"/>
 	    <a ng-href="{{song.file_path}}">{{song.name}}</a>
           </li>
 	</ul>

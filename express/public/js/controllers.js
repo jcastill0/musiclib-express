@@ -185,6 +185,8 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
   $scope.artist = Artist.get({artistID:$routeParams.artistID});
   $scope.playlists = Playlist.query();
   $scope.songs = ArtistSongs.query({artistID:$routeParams.artistID});
+  $scope.checkedValue = false;
+  $scope.checkedValue2 = false;
   var localSongs = [];
   var selectedPlaylist = null;
 
@@ -199,8 +201,8 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
     }
     $log.log("ArtistDetailCtrl.save:" + selectedPlaylist.name);
     var emptyList = [];
-    PlaylistSongs.save({playlistID:selectedPlaylist.id, addSongs:localSongs, remSongs:emptyList}, function (playlist) {
-	$log.log("ArtistDetailCtrl.PlaylistSongs.save.cb:" + playlist.name);
+    PlaylistSongs.save({playlistID:selectedPlaylist.id, addSongs:localSongs, remSongs:emptyList}, function (sData) {
+	$log.log("ArtistDetailCtrl.PlaylistSongs.save.cb:" + sData.addedRows);
 //	$location.path('/');
     });
   };
@@ -221,13 +223,13 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
     });
   };
 
-  $scope.songChecked = function(song, checkedValue) {
-    $log.log("ArtistDetailCtrl.songChecked: " + song.name);
-    if (checkedValue) {
+  $scope.songChecked = function(song) {
+    $log.log("ArtistDetailCtrl.songChecked: "+song.name+" CHECK:"+$scope.checkedValue);
+    //if ($scope.checkedValue) {
 	addSongToPlaylist(song);
-    } else {
+    /*} else {
 	removeSongFromPlaylist(song);
-    }
+    }*/
   };
 
   $scope.playlistSelected = function (playlist) {

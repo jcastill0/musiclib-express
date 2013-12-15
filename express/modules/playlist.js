@@ -128,12 +128,22 @@ Playlist.updateSongs = function (userID, playlistID, addSongs, remSongs, cb) {
       };
       var sql = null;
       for (ix in addSongs) {
-	  sql = "INSERT INTO playlist_songs (playlist_id, song_id) VALUES ("+playlistID +", "+addSongs[ix].id +")";
-	  connection.query(sql, function (error, result) {
-	    if (error) {
-		console.error("SQL Error: " + error.message);
-		cb(error);
-	    }
+	  sql = "SELECT (1) FROM playlist_songs WHERE playlist_id = "+playlistID+" AND song_id = " + addSongs[ix].id;
+	  connection.query(sql, function (error, row) {
+		if (error) {
+		    console.error("SQL Error: " + error.message);
+		    cb(error);
+		}
+		if (row.length < 1) {
+		    sql = "INSERT INTO playlist_songs (playlist_id, song_id) VALUES ("+playlistID +", "+addSongs[ix].id +")";
+		    connection.query(sql, function (error, result) {
+			if (error) {
+			    console.error("SQL Error: " + error.message);
+			    cb(error);
+			}
+		    });
+		} else
+		  console.log("Skipping Duplicate Song:" + addSongs[ix].id);
 	  });
       };
       for (ix in remSongs) {
