@@ -19,7 +19,9 @@ app.controller('AppCtrl', function ($scope, $http) {
 app.controller('WelcomeCtrl', function($scope, $http, $log) {
   $log.log("WelcomeCtrl");
   $http({method: 'GET', url: '/musiclib/api/name'}).
-    success(function(data, status, headers, config) {$scope.name = data.name;}).
+    success(function(data, status, headers, config) {
+	    $scope.name = data.name;
+    	    $scope.su = data.su}).
     error(function (data, status, headers, config) {$scope.name = 'Error!'});
 });
 
@@ -239,6 +241,11 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
 });
 
 ////////////////////////////////////////////////
+
+app.controller('UserCtrl', function($scope, $log, User) {
+  $log.log("UserCtrl");
+  $scope.users = User.query();
+});
 
 app.controller('UserDetailCtrl', function($scope, $routeParams, $log, $location, User) {
   $log.log("UserDetailCtrl:" + $routeParams.userID);

@@ -29,10 +29,9 @@ app.service('authService', function ($http, $log) {
 
 app.factory('User', function ($resource, $log) {
   $log.log("User Factory");
-  var userRsrc = $resource('data/users/:userID.json',
+  var userRsrc = $resource('musiclib/api/users',
 	  {userID:'@userID'},
-	  {get: {method: 'GET'},
-	   save: {method:'POST'}
+	  {get: {method: 'GET', isArray:true},
 	  });
   return (userRsrc);
 });

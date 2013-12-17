@@ -5,13 +5,30 @@
 var Playlist = require('../modules/playlist');
 var Artist = require('../modules/artist');
 var Song = require('../modules/song');
+var User = require('../modules/user');
 var config = require('../modules/config');
 
 exports.name = function (req, res) {
   if (config.debug)
       console.log("musiclib.api.name:" + req.user.email);
-  res.json({name: req.user.displayName});
+  res.json({
+	name: req.user.displayName,
+  	su: req.user.isSU});
 };
+
+exports.users = function (req, res) {
+  if (config.debug)
+      console.log("api.users");
+  User.findAll(function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
 
 exports.playlists = function (req, res) {
   if (config.debug)

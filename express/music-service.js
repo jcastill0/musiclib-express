@@ -109,8 +109,10 @@ app.get('/partials/profile/userDetail', routes.profile);
 app.get('/partials/playlist/:name', routes.playlist);
 app.get('/partials/artist/:name', routes.artist);
 app.get('/partials/artist/artistDetail', routes.artistDetail);
+app.get('/partials/admin/users', routes.users);
 // JSON API
 app.get('/musiclib/api/name', api.name);
+app.get('/musiclib/api/users', api.users);
 app.get('/musiclib/api/playlists', api.playlists);
 app.get('/musiclib/api/playlists/:playlistID', api.playlists);
 app.get('/musiclib/api/playlists/:playlistID/songs', api.playlistSongs);
