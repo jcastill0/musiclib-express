@@ -108,6 +108,17 @@ app.factory('Song', function ($resource, $log) {
 });
 
 
+app.factory('Suggestion', function ($resource, $log) {
+  $log.log("Suggestion Factory");
+  var suggestionRsrc = $resource('musiclib/api/suggestion',
+	  {suggestionID:'@suggestionID'},
+	  {save: {method: 'POST'}
+	  });
+  return (suggestionRsrc);
+});
+
+
+
 app.factory('audioControl', function ($document, $log) {
   $log.log("AudioControl");
   var player = $document[0].getElementById('AudioPlayerID');

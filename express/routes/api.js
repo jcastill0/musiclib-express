@@ -29,6 +29,15 @@ exports.users = function (req, res) {
   });
 };
 
+exports.suggestion = function (req, res) {
+  if (config.debug)
+      console.log("api.suggestion");
+  console.log("USER:" + req.user.id);
+  console.log("FROM:" + req.body.from);
+  console.log("MSG:" + req.body.message);
+  res.send (200);
+};
+
 
 exports.playlists = function (req, res) {
   if (config.debug)

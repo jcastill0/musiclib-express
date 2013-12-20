@@ -24,6 +24,11 @@ exports.users = function (req, res) {
   res.render('partials/admin/users');
 };
 
+exports.suggestion = function (req, res) {
+  console.log("index.suggestion:" + req.user.id);
+  res.render('partials/admin/suggestion');
+};
+
 exports.profile = function (req, res) {
   console.log("index.profile:" + req.user.id);
   var name = req.params.name;

@@ -188,7 +188,6 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
   $scope.playlists = Playlist.query();
   $scope.songs = ArtistSongs.query({artistID:$routeParams.artistID});
   $scope.checkedValue = false;
-  $scope.checkedValue2 = false;
   var localSongs = [];
   var selectedPlaylist = null;
 
@@ -245,6 +244,18 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
 app.controller('UserCtrl', function($scope, $log, User) {
   $log.log("UserCtrl");
   $scope.users = User.query();
+});
+
+app.controller('SuggestionCtrl', function($scope, $log, $location, Suggestion) {
+  $log.log("SuggestionCtrl");
+  $scope.from = null;
+  $scope.message = null;
+  $scope.submitSuggestion = function () {
+    Suggestion.save({from:$scope.from, message:$scope.message}, function(result) {
+	$log.log("SuggestionCtrl.Suggestion.save.cb:" + result);
+    });
+    $location.path('/');
+  };
 });
 
 app.controller('UserDetailCtrl', function($scope, $routeParams, $log, $location, User) {

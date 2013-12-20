@@ -110,32 +110,34 @@ app.get('/partials/playlist/:name', routes.playlist);
 app.get('/partials/artist/:name', routes.artist);
 app.get('/partials/artist/artistDetail', routes.artistDetail);
 app.get('/partials/admin/users', routes.users);
+app.get('/partials/admin/suggestion', routes.suggestion);
 // JSON API
-app.get('/musiclib/api/name', api.name);
-app.get('/musiclib/api/users', api.users);
-app.get('/musiclib/api/playlists', api.playlists);
-app.get('/musiclib/api/playlists/:playlistID', api.playlists);
-app.get('/musiclib/api/playlists/:playlistID/songs', api.playlistSongs);
-app.get('/musiclib/api/artists', api.artists);
-app.get('/musiclib/api/artists/:artistID', api.artists);
-app.get('/musiclib/api/artists/:artistID/songs', api.artistSongs);
-app.get('/musiclib/api/songs', api.songs);
+app.get ('/musiclib/api/name', api.name);
+app.get ('/musiclib/api/users', api.users);
+app.post('/musiclib/api/suggestion', api.suggestion);
+app.get ('/musiclib/api/playlists', api.playlists);
+app.get ('/musiclib/api/playlists/:playlistID', api.playlists);
+app.get ('/musiclib/api/playlists/:playlistID/songs', api.playlistSongs);
+app.get ('/musiclib/api/artists', api.artists);
+app.get ('/musiclib/api/artists/:artistID', api.artists);
+app.get ('/musiclib/api/artists/:artistID/songs', api.artistSongs);
+app.get ('/musiclib/api/songs', api.songs);
 app.post('/musiclib/api/playlists/:playlistID/songs', api.updatePlaylistSongs);
 app.post('/musiclib/api/playlists', api.createPlaylist);
 app.put ('/musiclib/api/playlists/:playlistID', api.updatePlaylist);
 app.delete('/musiclib/api/playlists/:playlistID', api.deletePlaylist);
 
-app.get('/auth/google', passport.authenticate('google'));
-app.get('/auth/oauth2callback', 
+app.get ('/auth/google', passport.authenticate('google'));
+app.get ('/auth/oauth2callback', 
 	passport.authenticate('google', {
 		successRedirect: '/welcome',
-		failureRedirect: '/index'})
+		failureRedirect: '/'})
 );
 
-app.get('/MusicSrc/*', routes.musicSrc);
+app.get ('/MusicSrc/*', routes.musicSrc);
 
 // redirect all others to the index (HTML5 history)
-app.get('*', routes.forbidden);
+app.get ('*', routes.forbidden);
 
 
 /**

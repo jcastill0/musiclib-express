@@ -47,9 +47,9 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/admin/users',
 	controller: 'UserCtrl'
     })
-    .when('/view2', {
-	templateUrl: 'partials/partial2',
-	controller: 'MyCtrl2'
+    .when('/suggest', {
+	templateUrl: 'partials/admin/suggestion',
+	controller: 'SuggestionCtrl'
     })
     .when('/auth/google', {
 	templateUrl: 'auth/google',

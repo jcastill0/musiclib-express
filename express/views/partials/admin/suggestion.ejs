@@ -1,0 +1,22 @@
+  <div class="container" ng-controller="SuggestionCtrl">
+    <form class="form-horizontal" ng-submit="submitSuggestion()">
+      <fieldset>
+	<div class="control-group">
+	  <label class="control-label" for="from">From:</label>
+	  <div class="controls">
+	    <input type="text" id="from" name="from" placeHolder="Please put your name here" ng-model="from" required/>
+	  </div>
+	</div>
+	<div class="control-group">
+	  <label class="control-label" for="message">Message:</label>
+	  <div class="controls">
+	    <textarea id="message" name="message" cols="20" rows="10" ng-model="message" required/>
+	  </div>
+	</div>
+	<div class="controls">
+	  <input type="submit" name="submit" value"Suggestion" class="btn btn-primary"/>
+	  <a ng-href="#"/">Cancel</a>
+	</div>
+      </fieldset>
+    </form>
+  </div>
