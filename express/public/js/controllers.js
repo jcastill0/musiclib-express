@@ -187,7 +187,6 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
   $scope.artist = Artist.get({artistID:$routeParams.artistID});
   $scope.playlists = Playlist.query();
   $scope.songs = ArtistSongs.query({artistID:$routeParams.artistID});
-  $scope.checkedValue = false;
   var localSongs = [];
   var selectedPlaylist = null;
 
@@ -225,12 +224,12 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
   };
 
   $scope.songChecked = function(song) {
-    $log.log("ArtistDetailCtrl.songChecked: "+song.name+" CHECK:"+$scope.checkedValue);
-    //if ($scope.checkedValue) {
+    $log.log("ArtistDetailCtrl.songChecked: "+song.name+" CHECK:" + song.isSelected);
+    if (song.isSelected) {
 	addSongToPlaylist(song);
-    /*} else {
+    } else {
 	removeSongFromPlaylist(song);
-    }*/
+    }
   };
 
   $scope.playlistSelected = function (playlist) {
