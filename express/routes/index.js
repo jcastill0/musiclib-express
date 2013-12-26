@@ -13,6 +13,11 @@ exports.welcome = function(req, res) {
   res.render('welcome');
 }
 
+exports.home = function(req, res) {
+  console.log("index.home:" + req.user.id);
+  res.render('home');
+}
+
 exports.partials = function (req, res) {
   console.log("index.partials:" + req.user.id);
   var name = req.params.name;

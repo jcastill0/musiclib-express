@@ -104,6 +104,7 @@ passport.use(new GoogleStrategy({
 // serve index and view partials
 app.get('/', routes.index);
 app.get('/welcome', routes.welcome);
+app.get('/home', routes.home);
 app.get('/partials/:name', routes.partials);
 app.get('/partials/profile/userDetail', routes.profile);
 app.get('/partials/playlist/:name', routes.playlist);
@@ -114,6 +115,7 @@ app.get('/partials/admin/suggestion', routes.suggestion);
 // JSON API
 app.get ('/musiclib/api/name', api.name);
 app.get ('/musiclib/api/users', api.users);
+app.get ('/musiclib/api/stats', api.stats);
 app.post('/musiclib/api/suggestion', api.suggestion);
 app.get ('/musiclib/api/playlists', api.playlists);
 app.get ('/musiclib/api/playlists/:playlistID', api.playlists);
@@ -122,6 +124,7 @@ app.get ('/musiclib/api/artists', api.artists);
 app.get ('/musiclib/api/artists/:artistID', api.artists);
 app.get ('/musiclib/api/artists/:artistID/songs', api.artistSongs);
 app.get ('/musiclib/api/songs', api.songs);
+app.get ('/musiclib/api/recentSongs', api.recentSongs);
 app.post('/musiclib/api/playlists/:playlistID/songs', api.updatePlaylistSongs);
 app.post('/musiclib/api/playlists', api.createPlaylist);
 app.put ('/musiclib/api/playlists/:playlistID', api.updatePlaylist);

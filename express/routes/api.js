@@ -6,6 +6,7 @@ var Playlist = require('../modules/playlist');
 var Artist = require('../modules/artist');
 var Song = require('../modules/song');
 var User = require('../modules/user');
+var Stats = require('../modules/stats');
 var config = require('../modules/config');
 
 exports.name = function (req, res) {
@@ -20,6 +21,19 @@ exports.users = function (req, res) {
   if (config.debug)
       console.log("api.users");
   User.findAll(function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
+exports.stats = function (req, res) {
+  if (config.debug)
+      console.log("api.stats");
+  Stats.getAll(function (err, data) {
 	if (err) {
 	    console.error(err);
 	    res.send(500, {Error:err});
@@ -95,6 +109,19 @@ exports.playlistSongs = function (req, res) {
   if (config.debug)
       console.log("api.playlistSongs.playlistID: " + req.params.playlistID);
   Song.findByPlaylist(req.user.id, req.params.playlistID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
+exports.recentSongs = function (req, res) {
+  if (config.debug)
+      console.log("api.recentSongs");
+  Song.findRecent(req.user.id, function (err, data) {
 	if (err) {
 	    console.error(err);
 	    res.send(500, {Error:err});

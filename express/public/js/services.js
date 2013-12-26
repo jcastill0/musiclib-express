@@ -96,6 +96,18 @@ app.factory('PlaylistSongs', function ($resource, $log) {
 });
 
 
+app.factory('RecentSongs', function ($resource, $log) {
+  $log.log("RecentSongs Factory");
+  var songRsrc = $resource('musiclib/api/recentSongs',
+	  {songID:'@songID'},
+	  {query: {
+		method:'GET', isArray:true
+		}
+	  });
+  return (songRsrc);
+});
+
+
 app.factory('Song', function ($resource, $log) {
   $log.log("Song Factory");
   var songRsrc = $resource('musiclib/api/songs/:songID',
@@ -118,6 +130,15 @@ app.factory('Suggestion', function ($resource, $log) {
 });
 
 
+app.factory('Stats', function ($resource, $log) {
+  $log.log("Stats Factory");
+  var statsRsrc = $resource('musiclib/api/stats',
+	  {query: {
+		method:'GET'
+		}
+	  });
+  return (statsRsrc);
+});
 
 app.factory('audioControl', function ($document, $log) {
   $log.log("AudioControl");

@@ -1,0 +1,27 @@
+  <div class="container" ng-controller="HomeCtrl">
+    <!--div class="row">
+      <div class="span1">
+      </div>
+      <div class="span11">
+	<h5>Total Songs:</h5><span>{{stats.totalSongs}}</span>
+      </div>
+    </div-->
+    <div class="row">
+      <div class="span1">
+      </div>
+      <div class="span11">
+	<h5>Recently Added Songs</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span1">
+      </div>
+    </div>
+    <div class="row" ng-repeat="song in songs">
+      <div class="span1">
+      </div>
+      <div class="span11">
+	<a ng-href="{{song.file_path}}">{{song.artistName}} - {{song.name}}</a>
+      </div>
+    </div>
+  </div>

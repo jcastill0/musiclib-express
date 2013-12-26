@@ -55,9 +55,9 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'auth/google',
 	controller: 'OAuthCtrl'
     })
-    .when('/auth/login', {
-	templateUrl: 'partials/welcome',
-	controller: 'AuthCtrl'
+    .when('/home', {
+	templateUrl: 'home',
+	controller: 'HomeCtrl'
     })
     .when('/auth/logout', {
 	templateUrl: '/',
