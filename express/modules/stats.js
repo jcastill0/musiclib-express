@@ -3,10 +3,10 @@ var config = require('./config');
 module.exports = Stats;
 
 function Stats() {
-  /*this.totalUsers = null;
+  this.totalUsers = null;
   this.totalSongs = null;
   this.totalPlaylists = null;
-  this.totalArtists = null;*/
+  this.totalArtists = null;
 };
 
 Stats.getAll= function (cb) {
@@ -30,7 +30,7 @@ Stats.getAll= function (cb) {
 	    cb(error);
 	}
 	if (row.length == 1) {
-	    totalUsers = row;
+	    this.totalUsers = row;
 	} else {
 	    cb("Record not found");
 	}
@@ -42,7 +42,7 @@ Stats.getAll= function (cb) {
 	    cb(error);
 	}
 	if (row.length == 1) {
-	    totalSongs = row;
+	    this.totalSongs = row;
 	} else {
 	    cb("Record not found");
 	}
@@ -54,7 +54,7 @@ Stats.getAll= function (cb) {
 	    cb(error);
 	}
 	if (row.length == 1) {
-	    totalPlaylists = row;
+	    this.totalPlaylists = row;
 	} else {
 	    cb("Record not found");
 	}
@@ -66,15 +66,14 @@ Stats.getAll= function (cb) {
 	    cb(error);
 	}
 	if (row.length == 1) {
-	    totalArtists = row;
+	    this.totalArtists = row;
 	} else {
 	    cb("Record not found");
 	}
       });
-console.log("U:"+totalUsers+" S:"+totalSongs+" P:"+totalPlaylists+" A:"+totalArtists);
-      cb (null, {"totalUsers":totalUsers, "totalSongs":totalSongs, "totalPlaylists":totalPlaylists, "totalArtists":totalArtists});
+console.log("U:"+this.totalUsers+" S:"+this.totalSongs+" P:"+this.totalPlaylists+" A:"+this.totalArtists);
+      cb (null, {"totalUsers":this.totalUsers, "totalSongs":this.totalSongs, "totalPlaylists":this.totalPlaylists, "totalArtists":this.totalArtists});
       connection.end();
     });
 };
-
 

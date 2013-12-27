@@ -62,7 +62,6 @@ Song.findRecent = function (userID, cb) {
 };
 
 
-
 Song.findByArtist = function (userID, artistID, cb) {
   if (config.debug)
       console.log("Find Song for ArtistID:" + artistID);
@@ -73,7 +72,7 @@ Song.findByArtist = function (userID, artistID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT id, name, file_path, played_count FROM song WHERE artist_id = " + artistID;
+      var sql = "SELECT id, name, file_path, played_count FROM song WHERE artist_id = " + artistID + " ORDER BY name";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
@@ -97,7 +96,7 @@ Song.findByPlaylist = function (userID, playlistID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT pls.song_id AS id, song.name, artist.name AS artistName, song.file_path AS path FROM playlist_songs AS pls INNER JOIN song ON song.id = pls.song_id INNER JOIN artist on artist.id = song.artist_id WHERE pls.playlist_id = " + playlistID;
+      var sql = "SELECT pls.song_id AS id, song.name, artist.name AS artistName, song.file_path AS path FROM playlist_songs AS pls INNER JOIN song ON song.id = pls.song_id INNER JOIN artist on artist.id = song.artist_id WHERE pls.playlist_id = " + playlistID + " ORDER BY artist.name, song.name";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
@@ -109,5 +108,27 @@ Song.findByPlaylist = function (userID, playlistID, cb) {
       });
       connection.end();
   });
+};
+
+Song.mostPopularSongs = function (cb) {
+    if (config.debug)
+	console.log("Song.mostPopularSongs");
+    config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "SELECT COUNT(song_id) AS songCnts, song_id FROM playlist_songs GROUP BY song_id ORDER BY id LIMIT 10";
+      connection.query(sql, function (error, row) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	cb (null, rows);
+      });
+      connection.end();
+    });
 };
 
