@@ -9,8 +9,12 @@ exports.index = function(req, res) {
 };
 
 exports.welcome = function(req, res) {
-  console.log("index.welcome:" + req.user.id);
-  res.render('welcome');
+  if (req.user == undefined)
+	res.render('index');
+  else {
+	console.log("index.welcome:" + req.user.id);
+       	res.render('welcome');
+  }
 }
 
 exports.home = function(req, res) {
@@ -60,6 +64,12 @@ exports.artistDetail = function (req, res) {
 exports.auth = function (req, res, done) {
   console.log("index.auth:" + req.params);
   res.redirect('partials/welcome');
+};
+
+exports.video = function (req, res) {
+  console.log("index.video:" + req.params.name);
+  var name = req.params.name;
+  res.render('partials/video/' + name);
 };
 
 exports.forbidden = function (req, res) {

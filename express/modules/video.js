@@ -6,6 +6,7 @@ function Video() {
   this.id = null;
   this.name = null;
   this.url = null;
+  this.embedded = null;
 };
 
 
@@ -19,7 +20,7 @@ Video.find = function (userID, videoID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT id, name, url, FROM video ORDER BY name";
+      var sql = "SELECT id, name, url, embedded FROM video ORDER BY name";
       if ((videoID != undefined) && (videoID != null))
 	  sql = sql + " WHERE id = " + videoID;
       connection.query(sql, function (error, rows) {
@@ -28,7 +29,7 @@ Video.find = function (userID, videoID, cb) {
 	    cb(error);
 	}
 	if (config.debug)
-	    console.log("Songs found:" + JSON.stringify(rows));
+	    console.log("Videos found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
       connection.end();
@@ -46,7 +47,7 @@ Video.findRecent = function (userID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT id, name, url FROM video ORDER BY video.created DESC LIMIT 5";
+      var sql = "SELECT id, name, url FROM video ORDER BY created DESC LIMIT 5";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);

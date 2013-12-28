@@ -110,6 +110,7 @@ app.get('/partials/profile/userDetail', routes.profile);
 app.get('/partials/playlist/:name', routes.playlist);
 app.get('/partials/artist/:name', routes.artist);
 app.get('/partials/artist/artistDetail', routes.artistDetail);
+app.get('/partials/video/:name', routes.video);
 app.get('/partials/admin/users', routes.users);
 app.get('/partials/admin/suggestion', routes.suggestion);
 // JSON API
@@ -123,6 +124,8 @@ app.get ('/musiclib/api/playlists/:playlistID/songs', api.playlistSongs);
 app.get ('/musiclib/api/artists', api.artists);
 app.get ('/musiclib/api/artists/:artistID', api.artists);
 app.get ('/musiclib/api/artists/:artistID/songs', api.artistSongs);
+app.get ('/musiclib/api/videos', api.videos);
+app.get ('/musiclib/api/videos/:videoID', api.videos);
 app.get ('/musiclib/api/songs', api.songs);
 app.get ('/musiclib/api/recentSongs', api.recentSongs);
 app.post('/musiclib/api/playlists/:playlistID/songs', api.updatePlaylistSongs);

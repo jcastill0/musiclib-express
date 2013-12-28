@@ -61,7 +61,7 @@ app.controller('AuthCtrl', function($scope, authService, $log, $location) {
 
 app.controller('PlaylistDCtrl', function($scope, $routeParams, $log, Playlist) {
   $log.log("PlaylistDCtrl:" + $routeParams.playlistID);
-  Playlist.delete({playlistID:$routeParams.playlistID});
+  Playlist.del({playlistID:$routeParams.playlistID});
   $scope.playlists = Playlist.query();
 });
 

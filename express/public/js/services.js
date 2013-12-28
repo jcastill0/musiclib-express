@@ -31,7 +31,7 @@ app.factory('User', function ($resource, $log) {
   $log.log("User Factory");
   var userRsrc = $resource('musiclib/api/users',
 	  {userID:'@userID'},
-	  {get: {method: 'GET', isArray:true},
+	  {get: {method: 'GET', isArray:true}
 	  });
   return (userRsrc);
 });
@@ -71,7 +71,7 @@ app.factory('Playlist', function ($resource, $log) {
 	   update: {
 		method: 'PUT'
 		},
-	   delete: {
+	   del: {
 		method: 'DELETE'
 		},
 	   get: {
