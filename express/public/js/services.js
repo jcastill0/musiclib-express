@@ -107,7 +107,6 @@ app.factory('RecentSongs', function ($resource, $log) {
   return (songRsrc);
 });
 
-
 app.factory('Song', function ($resource, $log) {
   $log.log("Song Factory");
   var songRsrc = $resource('musiclib/api/songs/:songID',
@@ -129,6 +128,17 @@ app.factory('Video', function ($resource, $log) {
 		},
 	   save: {
 		method: 'POST'
+		}
+	  });
+  return (videoRsrc);
+});
+
+app.factory('RecentVideos', function ($resource, $log) {
+  $log.log("RecentVideos Factory");
+  var videoRsrc = $resource('musiclib/api/recentVideos',
+	  {videoID:'@videoID'},
+	  {query: {
+		method:'GET', isArray:true
 		}
 	  });
   return (videoRsrc);

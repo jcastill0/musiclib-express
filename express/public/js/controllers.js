@@ -25,9 +25,10 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
     error(function (data, status, headers, config) {$scope.name = 'Error!'});
 });
 
-app.controller('HomeCtrl', function($scope, $log, RecentSongs, Stats) {
+app.controller('HomeCtrl', function($scope, $log, RecentSongs, RecentVideos, Stats) {
   $log.log("HomeCtrl");
   $scope.songs = RecentSongs.query();
+  $scope.videos = RecentVideos.query();
   $scope.stats = Stats.get();
 });
 
