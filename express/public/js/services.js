@@ -120,6 +120,21 @@ app.factory('Song', function ($resource, $log) {
 });
 
 
+app.factory('Video', function ($resource, $log) {
+  $log.log("VideoFactory");
+  var videoRsrc = $resource('musiclib/api/videos/:videoID',
+	  {videoID:'@videoID'},
+	  {query: {
+		method:'GET', isArray:true
+		},
+	   save: {
+		method: 'POST'
+		}
+	  });
+  return (videoRsrc);
+});
+
+
 app.factory('Suggestion', function ($resource, $log) {
   $log.log("Suggestion Factory");
   var suggestionRsrc = $resource('musiclib/api/suggestion',

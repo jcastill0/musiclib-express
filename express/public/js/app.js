@@ -59,6 +59,18 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'home',
 	controller: 'HomeCtrl'
     })
+    .when('/videos', {
+	templateUrl: 'partials/video/videos',
+	controller: 'VideoCtrl'
+    })
+    .when('/videos/add', {
+	templateUrl: 'partials/video/videoDetail',
+	controller: 'VideoDetailCtrl'
+    })
+    .when('/videos/:videoID', {
+	templateUrl: 'partials/video/videoDetail',
+	controller: 'VideoDetailCtrl'
+    })
     .when('/auth/logout', {
 	templateUrl: '/',
 	controller: 'AuthCtrl'

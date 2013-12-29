@@ -246,6 +246,19 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
 
 ////////////////////////////////////////////////
 
+app.controller('VideoCtrl', function($scope, $log, Video) {
+  $log.log("VideoCtrl");
+  $scope.videos = Video.query();
+});
+
+
+app.controller('VideoDetailCtrl', function($scope, $routeParams, $log, $location, Video) {
+  $log.log("VideoDetailCtrl:" + $routeParams.videoID);
+});
+
+
+////////////////////////////////////////////////
+
 app.controller('UserCtrl', function($scope, $log, User) {
   $log.log("UserCtrl");
   $scope.users = User.query();

@@ -5,6 +5,7 @@
 var Playlist = require('../modules/playlist');
 var Artist = require('../modules/artist');
 var Song = require('../modules/song');
+var Video = require('../modules/video');
 var User = require('../modules/user');
 var Stats = require('../modules/stats');
 var config = require('../modules/config');
