@@ -61,3 +61,25 @@ Video.findRecent = function (userID, cb) {
   });
 };
 
+Video.create = function (userID, name, url, embedded, cb) {
+  if (config.debug)
+      console.log("Create Video for: " + userID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "INSERT INTO video (name, url, embedded, created) VALUES ('"+name+"', '" + url + "', '" + embedded + "', NOW())";
+      connection.query(sql, function (error, result) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	cb(null, result.insertId);
+      });
+      connection.end();
+  });
+};
+

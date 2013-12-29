@@ -3,22 +3,27 @@
       <div class="row">
 	<div class="span6">
 	  <div class="control-group">
-	    <label class="control-label" for="inputName">Video</label>
+	    <label class="control-label" for="inputName">Video *</label>
 	    <div class="controls">
-	      <input type="text" id="inputName" placeHolder="Video name" name="VideoName" ng-model="video.name" required/>
-	      <input type="text" id="inputName" placeHolder="URL" name="VideoURL" ng-model="video.url" required/>
-	      <input type="text" id="inputName" placeHolder="Embedded Code" name="VideoEmbed" ng-model="video.embedded"/>
+	      <input type="text" id="inputName" placeHolder="Give the Video a name" name="VideoName" ng-model="name" required/>
+	    </div>
+	    <label class="control-label" for="inputURL">Link *</label>
+	    <div class="controls">
+	      <input type="text" id="inputURL" placeHolder="URL" name="VideoURL" ng-model="url" required/>
+	    </div>
+	    <label class="control-label" for="inputCode">Embed (Optional)</label>
+	    <div class="controls">
+	      <input type="text" id="inputCode" placeHolder="Embedded Code" name="VideoEmbed" ng-model="embedded"/>
 	    </div>
 	  </div>
 	</div>
-	<div class="span1">
-	</div>
-	<div class="span1">
+	<div class="span5">
 	  <div class="controls">
+	    <input type="submit" id="saveVideo" value="Save" class="btn btn-primary"/>
 	    <a ng-href="#/home/">Cancel</a>
 	  </div>
 	</div>
-	<div class="span4">
+	<div class="span3">
 	</div>
       </div>
     </form>

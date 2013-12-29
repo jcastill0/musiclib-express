@@ -254,7 +254,16 @@ app.controller('VideoCtrl', function($scope, $log, Video) {
 
 
 app.controller('VideoDetailCtrl', function($scope, $routeParams, $log, $location, Video) {
-  $log.log("VideoDetailCtrl:" + $routeParams.videoID);
+  $log.log("VideoDetailCtrl");
+  $scope.name = null;
+  $scope.url = null;
+  $scope.embedded = null;
+  $scope.save = function () {
+	Video.save({name:$scope.name, url:$scope.url, embedded:$scope.embedded}, function(data) {
+		$log.log ("VideoDetailCtrl.save.cb:" + data);
+	});
+	$location.path('/videos');
+  };
 });
 
 

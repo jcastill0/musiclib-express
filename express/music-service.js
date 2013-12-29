@@ -126,6 +126,7 @@ app.get ('/musiclib/api/artists/:artistID', api.artists);
 app.get ('/musiclib/api/artists/:artistID/songs', api.artistSongs);
 app.get ('/musiclib/api/videos', api.videos);
 app.get ('/musiclib/api/videos/:videoID', api.videos);
+app.post('/musiclib/api/videos', api.createVideo);
 app.get ('/musiclib/api/recentVideos', api.recentVideos);
 app.get ('/musiclib/api/songs', api.songs);
 app.get ('/musiclib/api/recentSongs', api.recentSongs);
