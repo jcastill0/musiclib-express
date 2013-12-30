@@ -15,7 +15,7 @@ exports.debug = false;
 var callbackPath = "/auth/oauth2callback";
 exports.google_callback_dev = "http://localhost:3000" + callbackPath;
 exports.google_callback_prod= "http://www.guantanamera.us" + callbackPath;
-exports.googleClientSecret = "gRR2ir5camkaMzqukmFmw7fS";
+exports.googleClientSecret = "";
 exports.googleClientID = "680561429810.apps.googleusercontent.com";
 exports.googleScope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
 
