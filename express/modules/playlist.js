@@ -128,8 +128,11 @@ Playlist.updateSongs = function (userID, playlistID, addSongs, remSongs, cb) {
       };
       var sql = null;
       for (ix in addSongs) {
-	  sql = "SELECT (1) FROM playlist_songs WHERE playlist_id = "+playlistID+" AND song_id = " + addSongs[ix].id;
-	  connection.query(sql, function (error, row) {
+	  (function(connection, ix, addSongs, playlistID, cb) {
+		  // self-invoking anonymous function
+		  // needed since in I couldn't pass the ix value to the callback
+	    sql = "SELECT (1) FROM playlist_songs WHERE playlist_id = "+playlistID+" AND song_id = " + addSongs[ix].id;
+	    connection.query(sql, function (error, row) {
 		if (error) {
 		    console.error("SQL Error: " + error.message);
 		    cb(error);
@@ -144,7 +147,8 @@ Playlist.updateSongs = function (userID, playlistID, addSongs, remSongs, cb) {
 		    });
 		} else
 		  console.log("Skipping Duplicate Song:" + addSongs[ix].id);
-	  });
+	    });
+	  })(connection, ix, addSongs, playlistID, cb);
       };
       for (ix in remSongs) {
 	  sql = "DELETE FROM playlist_songs WHERE playlist_id = " + playlistID + " AND song_id = " +remSongs[ix].id;
