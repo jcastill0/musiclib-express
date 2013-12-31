@@ -107,6 +107,17 @@ app.factory('RecentSongs', function ($resource, $log) {
   return (songRsrc);
 });
 
+app.factory('PopularSongs', function ($resource, $log) {
+  $log.log("PopularSongs Factory");
+  var songRsrc = $resource('musiclib/api/popularSongs',
+	  {songID:'@songID'},
+	  {query: {
+		method:'GET', isArray:true
+		}
+	  });
+  return (songRsrc);
+});
+
 app.factory('Song', function ($resource, $log) {
   $log.log("Song Factory");
   var songRsrc = $resource('musiclib/api/songs/:songID',

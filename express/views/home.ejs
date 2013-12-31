@@ -41,17 +41,25 @@
     <div class="row">
       <div class="span1">
       </div>
-      <div class="span11">
+      <div class="span6">
 	<h5>Favorite Links</h5>
+      </div>
+      <div class="span5">
+	<h5>Popular Songs</h5>
       </div>
     </div>
     <div class="row">
       <div class="span1">
       </div>
-      <div class="span11">
+      <div class="span6">
 	<a href="http://www.kfog.com/" target="_blank">KFOG</a>
 	<br/>
 	<a href="http://www.pandora.com/" target="_blank">Pandora</a>
+      </div>
+      <div class="span5">
+	<div ng-repeat="song in popularSongs">
+	  <a ng-href="{{song.file_path}}">{{song.artistName}} - {{song.name}}</a>
+	</div>
       </div>
     </div>
 

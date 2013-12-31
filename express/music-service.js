@@ -130,6 +130,7 @@ app.post('/musiclib/api/videos', api.createVideo);
 app.get ('/musiclib/api/recentVideos', api.recentVideos);
 app.get ('/musiclib/api/songs', api.songs);
 app.get ('/musiclib/api/recentSongs', api.recentSongs);
+app.get ('/musiclib/api/popularSongs', api.popularSongs);
 app.post('/musiclib/api/playlists/:playlistID/songs', api.updatePlaylistSongs);
 app.post('/musiclib/api/playlists', api.createPlaylist);
 app.put ('/musiclib/api/playlists/:playlistID', api.updatePlaylist);
