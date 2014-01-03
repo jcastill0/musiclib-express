@@ -16,6 +16,7 @@ INSTALLATION
 %sudo npm install passport-oauth
 %sudo npm install passport-google-oauth
 %sudo npm install forever
+%sudo npm install nodemailer
 
 TO RUN
 ======

@@ -283,7 +283,7 @@ app.controller('SuggestionCtrl', function($scope, $log, $location, Suggestion) {
     Suggestion.save({from:$scope.from, message:$scope.message}, function(result) {
 	$log.log("SuggestionCtrl.Suggestion.save.cb:" + result);
     });
-    $location.path('/');
+    $location.path('/home');
   };
 });
 

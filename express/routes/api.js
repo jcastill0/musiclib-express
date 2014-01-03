@@ -46,11 +46,21 @@ exports.stats = function (req, res) {
 
 exports.suggestion = function (req, res) {
   if (config.debug)
-      console.log("api.suggestion");
-  console.log("USER:" + req.user.id);
-  console.log("FROM:" + req.body.from);
-  console.log("MSG:" + req.body.message);
-  res.send (200);
+      console.log("api.suggestion:" + req.user.id);
+  var message = {
+	from: req.user.displayName + " <" + req.user.email + ">",
+	to: config.getMyEmail(),
+	subject: 'Suggestion Request from ' + req.body.from,
+	text: req.body.message
+  };
+  config.getMailTransport().sendMail (message, function (err, response) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(response);
+	}
+  });
 };
 
 

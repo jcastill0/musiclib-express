@@ -33,6 +33,7 @@ app.use(passport.session());
 app.use(app.router);
 
 config.createConnPool();
+config.createMailTransport();
 
 passport.serializeUser(function(gProfile, done) {
   if (config.debug)
