@@ -87,6 +87,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       $log.log("PlayCtrl.addEventListener.cb Play["+ix+"]: " + song.name);
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
+      $scope.$apply();
       audioControl.play();
   });
 
