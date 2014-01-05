@@ -255,13 +255,15 @@ app.controller('VideoCtrl', function($scope, $log, Video) {
 });
 
 
-app.controller('VideoDetailCtrl', function($scope, $routeParams, $log, $location, Video) {
+app.controller('VideoDetailCtrl', function($scope, $routeParams, $log, $location, Video, Artist) {
   $log.log("VideoDetailCtrl");
+  $scope.artists = Artist.query();
   $scope.name = null;
   $scope.url = null;
   $scope.embedded = null;
+  $scope.artistID = null;
   $scope.save = function () {
-	Video.save({name:$scope.name, url:$scope.url, embedded:$scope.embedded}, function(data) {
+	Video.save({name:$scope.name, url:$scope.url, embedded:$scope.embedded, artistID:$scope.artistID}, function(data) {
 		$log.log ("VideoDetailCtrl.save.cb:" + data);
 	});
 	$location.path('/videos');

@@ -120,7 +120,7 @@ Song.mostPopularSongs = function (userID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT COUNT(song_id) AS songCnts, ps.song_id, song.name, artist.name AS artistName, song.file_path AS path FROM playlist_songs AS ps INNER JOIN song ON song.id = ps.song_id INNER JOIN artist ON artist.id = song.artist_id GROUP BY ps.song_id ORDER BY songCnts DESC LIMIT 10";
+      var sql = "SELECT COUNT(song_id) AS songCnts, ps.song_id, song.name, artist.name AS artistName, song.file_path FROM playlist_songs AS ps INNER JOIN song ON song.id = ps.song_id INNER JOIN artist ON artist.id = song.artist_id GROUP BY ps.song_id ORDER BY songCnts DESC LIMIT 10";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);

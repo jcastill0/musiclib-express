@@ -15,6 +15,10 @@
 	    <div class="controls">
 	      <input type="text" id="inputCode" placeHolder="Embedded Code" name="VideoEmbed" ng-model="embedded"/>
 	    </div>
+	    <label class="control-label" for="inputArtist">Artist</label>
+	    <div class="controls">
+	      <select id="inputArtist" ng-model="artistID" ng-options="artist.id as artist.name for artist in artists"/>
+	    </div>
 	  </div>
 	</div>
 	<div class="span5">

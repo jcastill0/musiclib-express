@@ -86,11 +86,6 @@ CREATE  TABLE IF NOT EXISTS song (
     FOREIGN KEY (artist_id)
     REFERENCES artist (id)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT video_id_fk
-    FOREIGN KEY (video_id)
-    REFERENCES video (id)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION )
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
@@ -121,7 +116,24 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 35
 DEFAULT CHARACTER SET = utf8;
 
-
+-- -----------------------------------------------------
+-- Table artist_videos
+-- -----------------------------------------------------
+CREATE  TABLE artist_videos (
+  artist_id	INT(11) NOT NULL ,
+  video_id	INT(11) NOT NULL ,
+  INDEX artist_id_fk_idx (artist_id ASC) ,
+  INDEX video_id_fk_idx (video_id ASC) ,
+  CONSTRAINT artist_id_fk1
+    FOREIGN KEY (artist_id)
+    REFERENCES artist (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT video_id_fk1
+    FOREIGN KEY (video_id)
+    REFERENCES video (id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

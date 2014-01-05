@@ -21,6 +21,7 @@ Artist.find = function (userID, artistID, cb) {
       var sql = "SELECT id, name FROM artist";
       if ((artistID != undefined) && (artistID != null))
 	  sql = sql + " WHERE id = " + artistID;
+      sql = sql + " ORDER BY name";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);

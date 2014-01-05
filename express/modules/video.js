@@ -61,7 +61,7 @@ Video.findRecent = function (userID, cb) {
   });
 };
 
-Video.create = function (userID, name, url, embedded, cb) {
+Video.create = function (userID, name, url, embedded, artistID, cb) {
   if (config.debug)
       console.log("Create Video for: " + userID);
   config.getConnPool().getConnection (function(error, connection) {
@@ -74,8 +74,17 @@ Video.create = function (userID, name, url, embedded, cb) {
       var sql = "INSERT INTO video (name, url, embedded, created) VALUES ('"+name+"', '" + url + "', '" + embedded + "', NOW())";
       connection.query(sql, function (error, result) {
 	if (error) {
-	    console.error("SQL Error: " + error.message);
-	    cb(error);
+		console.error("SQL Error: " + error.message);
+		cb(error);
+	}
+	if (artistID != null) {
+	    var sql = "INSERT INTO artist_videos (artist_id, video_id) VALUES ("+artistID+","+result.insertId+")";
+	    connection.query(sql, function(error, result2) {
+		if (error) {
+		    console.error("SQL Error: " + error.message);
+		    cb (error);
+		}
+	    });
 	}
 	cb(null, result.insertId);
       });
