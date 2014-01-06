@@ -129,6 +129,7 @@ app.get ('/musiclib/api/videos', api.videos);
 app.get ('/musiclib/api/videos/:videoID', api.videos);
 app.post('/musiclib/api/videos', api.createVideo);
 app.get ('/musiclib/api/recentVideos', api.recentVideos);
+app.delete('/musiclib/api/videos/:videoID', api.deleteVideo);
 app.get ('/musiclib/api/songs', api.songs);
 app.get ('/musiclib/api/recentSongs', api.recentSongs);
 app.get ('/musiclib/api/popularSongs', api.popularSongs);

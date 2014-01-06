@@ -137,6 +137,9 @@ app.factory('Video', function ($resource, $log) {
 	  {query: {
 		method:'GET', isArray:true
 		},
+	   del: {
+		method: 'DELETE'
+		},
 	   save: {
 		method: 'POST'
 		}

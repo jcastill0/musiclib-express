@@ -247,4 +247,17 @@ exports.createVideo = function (req, res) {
   });
 };
 
+exports.deleteVideo = function (req, res) {
+  if (config.debug)
+      console.log("api.deleteVideo");
+  Video.delete(req.user.id, req.params.videoID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
 

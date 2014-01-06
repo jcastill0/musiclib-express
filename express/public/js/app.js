@@ -71,6 +71,10 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/video/videoDetail',
 	controller: 'VideoDetailCtrl'
     })
+    .when('/videos/delete/:videoID', {
+	templateUrl: 'partials/video/videos',
+	controller: 'VideoDelCtrl'
+    })
     .when('/auth/logout', {
 	templateUrl: '/',
 	controller: 'AuthCtrl'

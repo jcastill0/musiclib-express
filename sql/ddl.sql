@@ -127,12 +127,12 @@ CREATE  TABLE artist_videos (
   CONSTRAINT artist_id_fk1
     FOREIGN KEY (artist_id)
     REFERENCES artist (id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT video_id_fk1
     FOREIGN KEY (video_id)
     REFERENCES video (id)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
 
 SET SQL_MODE=@OLD_SQL_MODE;

@@ -249,9 +249,14 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
 
 ////////////////////////////////////////////////
 
-app.controller('VideoCtrl', function($scope, $log, Video) {
+app.controller('VideoCtrl', function($scope, $log, $http, Video) {
   $log.log("VideoCtrl");
   $scope.videos = Video.query();
+  $http({method: 'GET', url: '/musiclib/api/name'}).
+    success(function(data, status, headers, config) {
+	    $scope.name = data.name;
+    	    $scope.su = data.su}).
+    error(function (data, status, headers, config) {$scope.name = 'Error!'});
 });
 
 
@@ -268,6 +273,12 @@ app.controller('VideoDetailCtrl', function($scope, $routeParams, $log, $location
 	});
 	$location.path('/videos');
   };
+});
+
+app.controller('VideoDelCtrl', function($scope, $routeParams, $log, Video) {
+  $log.log("VideoDelCtrl:" + $routeParams.videoID);
+  Video.del({videoID:$routeParams.videoID});
+  $scope.videos = Video.query();
 });
 
 

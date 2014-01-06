@@ -92,3 +92,30 @@ Video.create = function (userID, name, url, embedded, artistID, cb) {
   });
 };
 
+Video.delete = function (userID, videoID, cb) {
+  if (config.debug)
+      console.log("Delete: " + videoID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "DELETE FROM video WHERE (id = "+videoID +")";
+      connection.query(sql, function (error, result) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	if (result) {
+	    cb(null, result);
+	} else {
+	    cb("Record not found");
+	}
+      });
+      connection.end();
+  });
+};
+
+
