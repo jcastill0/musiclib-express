@@ -26,12 +26,12 @@
 	<a class="brand" ng-href="#">My Music Library</a>
 	<div class="nav-collapse collapse">
 	  <ul class="nav">
-	    <li class="active"><a ng-href="#/home">Home</a></li>
-	    <li><a ng-href="#/playlists">Playlists</a></li>
-	    <li><a ng-href="#/artists">Artists</a></li>
-	    <li><a ng-href="#/admin" ng-show="su">Admin</a></li>
-	    <li><a ng-href="#/videos">Videos</a></li>
-	    <li><a ng-href="#/suggest">Suggest a Song</a></li>
+	    <li class="{{menuHome}}"><a ng-href="#/home" ng-click="activate('home')">Home</a></li>
+	    <li class="{{menuPlaylists}}"><a ng-href="#/playlists" ng-click="activate('playlists')">Playlists</a></li>
+	    <li class="{{menuArtists}}"><a ng-href="#/artists" ng-click="activate('artists')">Artists</a></li>
+	    <li class="{{menuAdmin}}"><a ng-href="#/admin" ng-click="activate('admin')" ng-show="su">Admin</a></li>
+	    <li class="{{menuVideos}}"><a ng-href="#/videos" ng-click="activate('videos')">Videos</a></li>
+	    <li class="{{menuSuggest}}"><a ng-href="#/suggest" ng-click="activate('suggest')">Suggest a Song</a></li>
 	  </ul>
 	  <div class="pull-right"><h4>{{name}}</h4></div>
 	</div>

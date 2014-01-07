@@ -23,6 +23,57 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
 	    $scope.name = data.name;
     	    $scope.su = data.su}).
     error(function (data, status, headers, config) {$scope.name = 'Error!'});
+  $scope.menuHome = "active";
+  $scope.menuPlaylists = null;
+  $scope.menuArtists = null;
+  $scope.menuAdmin = null;
+  $scope.menuVideos = null;
+  $scope.menuSuggest = null;
+  $scope.activate = function (menuItem) {
+    if (menuItem == 'suggest') {
+	$scope.menuHome = null;
+	$scope.menuPlaylists = null;
+	$scope.menuArtists = null;
+	$scope.menuAdmin = null;
+	$scope.menuVideos = null;
+	$scope.menuSuggest = "active";
+    } else if (menuItem == 'playlists') {
+	$scope.menuHome = null;
+	$scope.menuPlaylists = "active";
+	$scope.menuArtists = null;
+	$scope.menuAdmin = null;
+	$scope.menuVideos = null;
+	$scope.menuSuggest = null;
+    } else if (menuItem == 'artists') {
+	$scope.menuHome = null;
+	$scope.menuPlaylists = null;
+	$scope.menuArtists = "active";
+	$scope.menuAdmin = null;
+	$scope.menuVideos = null;
+	$scope.menuSuggest = null;
+    } else if (menuItem == 'admin') {
+	$scope.menuHome = null;
+	$scope.menuPlaylists = null;
+	$scope.menuArtists = null;
+	$scope.menuAdmin = "active";
+	$scope.menuVideos = null;
+	$scope.menuSuggest = null;
+    } else if (menuItem == 'videos') {
+	$scope.menuHome = null;
+	$scope.menuPlaylists = null;
+	$scope.menuArtists = null;
+	$scope.menuAdmin = null;
+	$scope.menuVideos = "active";
+	$scope.menuSuggest = null;
+    } else {
+	$scope.menuHome = "active";
+	$scope.menuPlaylists = null;
+	$scope.menuArtists = null;
+	$scope.menuAdmin = null;
+	$scope.menuVideos = null;
+	$scope.menuSuggest = null;
+    }
+  };
 });
 
 app.controller('HomeCtrl', function($scope, $log, RecentSongs, RecentVideos, PopularSongs, Stats) {
