@@ -6,25 +6,12 @@
 
 app.value('version', '0.2');
 
-app.service('authService', function ($http, $log) {
-    this.login = function (scope, formData) {
-	$http.post('auth/login', formData)
-		.success(function(data, status, headers, config) {
-			scope.loggedIn = true;
-			return (true);
-		})
-		.error(function(data, status, headers, config) {
-			scope.loggedIn = true;	// for now
-			return (false);
-		});
-    };
-    this.logout = function() {
-	$http.get('auth/logout')
-		.success(function(data,status,headers,config) {return(true);})
-		.error(function(data, status, headers, config) {
-			return ("Request failed:" + status);
-		});
-    };
+app.service('Auth', function ($resource, $log) {
+  $log.log("Auth Factory");
+  var authRsrc = $resource('auth/logout',
+	  {get: {method: 'GET'}
+	  });
+  return (authRsrc);
 });
 
 app.factory('User', function ($resource, $log) {

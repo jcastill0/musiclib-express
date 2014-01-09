@@ -82,4 +82,9 @@ exports.musicSrc = function (req, res) {
   res.send(200);
 };
 
+exports.logout = function (req, res) {
+  console.log("index.logout:" + req.user.id);
+  req.logout();
+  res.redirect('/');
+};
 

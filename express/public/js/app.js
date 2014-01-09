@@ -55,6 +55,10 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'auth/google',
 	controller: 'OAuthCtrl'
     })
+    .when('/auth/logout', {
+	templateUrl: '/',
+	controller: 'AuthCtrl'
+    })
     .when('/home', {
 	templateUrl: 'home',
 	controller: 'HomeCtrl'
@@ -74,10 +78,6 @@ app.config(function ($routeProvider, $locationProvider) {
     .when('/videos/delete/:videoID', {
 	templateUrl: 'partials/video/videos',
 	controller: 'VideoDelCtrl'
-    })
-    .when('/auth/logout', {
-	templateUrl: '/',
-	controller: 'AuthCtrl'
     })
     .when('/users/:userID', {
 	templateUrl: 'partials/profile/userDetail',

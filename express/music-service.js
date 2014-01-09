@@ -144,6 +144,7 @@ app.get ('/auth/oauth2callback',
 		successRedirect: '/welcome',
 		failureRedirect: '/'})
 );
+app.get('/auth/logout', routes.logout);
 
 app.get ('/MusicSrc/*', routes.musicSrc);
 

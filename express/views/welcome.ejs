@@ -33,7 +33,12 @@
 	    <li class="{{menuVideos}}"><a ng-href="#/videos" ng-click="activate('videos')">Videos</a></li>
 	    <li class="{{menuSuggest}}"><a ng-href="#/suggest" ng-click="activate('suggest')">Suggest a Song</a></li>
 	  </ul>
-	  <div class="pull-right"><h4>{{name}}</h4></div>
+	  <div class="pull-right">
+	    <ul class="nav">
+	      <li><h4>{{name}}</h4></li>
+	      <li><a ng-href="#/auth/logout">Logout</a></li>
+	    </ul>
+	  </div>
 	</div>
       </div> 
     </div>

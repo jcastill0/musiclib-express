@@ -88,26 +88,9 @@ app.controller('OAuthCtrl', function($scope, $http, $log) {
   $log.log("OAuthCtrl");
 });
 
-app.controller('AuthCtrl', function($scope, authService, $log, $location) {
+app.controller('AuthCtrl', function($scope, Auth, $log, $location) {
   $log.log("AuthCtrl");
-  $scope.loggedIn = null;
-  $scope.loginName = null;
-  $scope.password = null;
-  $scope.login = function () {
-    var formData = {
-	'loginName' : $scope.loginName,
-	'password'  : $scope.password
-    };
-    formData = JSON.stringify(formData);
-    authService.login($scope, formData);
-    $scope.password = null;
-  };
-  $scope.logout = function() {
-    authService.logout();
-    $scope.loggedIn = "false";
-    $scope.password = null;
-    $location.path('/');
-  };
+  Auth.get();
 });
 
 //////////////////////////////////
