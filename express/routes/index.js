@@ -44,6 +44,11 @@ exports.profile = function (req, res) {
   res.render('partials/profile/userDetail');
 };
 
+exports.searchSongs = function (req, res) {
+  console.log("index.searchSongs:" + req.user.id);
+  res.render('partials/song/songs');
+};
+
 exports.playlist = function (req, res) {
   console.log("index.playlist:" + req.params.name);
   var name = req.params.name;

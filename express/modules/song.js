@@ -37,6 +37,31 @@ Song.find = function (userID, songID, cb) {
 };
 
 
+Song.search = function (userID, term, cb) {
+  if (config.debug)
+      console.log("Search Song with term:" + term);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "SELECT song.id, song.name, file_path, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE LOWER(song.name) LIKE '%" + term + "%' ORDER BY artist.name, song.name";
+      connection.query(sql, function (error, rows) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	if (config.debug)
+	    console.log("Songs found:" + JSON.stringify(rows));
+	cb(null, rows);
+      });
+      connection.end();
+  });
+};
+
+
 Song.findRecent = function (userID, cb) {
   if (config.debug)
       console.log("Find Recent Songs");

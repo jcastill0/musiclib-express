@@ -83,9 +83,20 @@ app.factory('PlaylistSongs', function ($resource, $log) {
 });
 
 
+app.factory('SearchSongs', function ($resource, $log) {
+  $log.log("SearchSongs Factory");
+  var songRsrc = $resource('musiclib/api/search/songs/query/:queryTerm',
+	  {queryTerm:'@queryTerm'},
+	  {query: {
+		method:'GET', isArray:true
+		}
+	  });
+  return (songRsrc);
+});
+
 app.factory('RecentSongs', function ($resource, $log) {
   $log.log("RecentSongs Factory");
-  var songRsrc = $resource('musiclib/api/recentSongs',
+  var songRsrc = $resource('musiclib/api/search/songs/recent',
 	  {songID:'@songID'},
 	  {query: {
 		method:'GET', isArray:true
@@ -96,7 +107,7 @@ app.factory('RecentSongs', function ($resource, $log) {
 
 app.factory('PopularSongs', function ($resource, $log) {
   $log.log("PopularSongs Factory");
-  var songRsrc = $resource('musiclib/api/popularSongs',
+  var songRsrc = $resource('musiclib/api/search/songs/popular',
 	  {songID:'@songID'},
 	  {query: {
 		method:'GET', isArray:true
@@ -136,7 +147,7 @@ app.factory('Video', function ($resource, $log) {
 
 app.factory('RecentVideos', function ($resource, $log) {
   $log.log("RecentVideos Factory");
-  var videoRsrc = $resource('musiclib/api/recentVideos',
+  var videoRsrc = $resource('musiclib/api/search/videos/recent',
 	  {videoID:'@videoID'},
 	  {query: {
 		method:'GET', isArray:true

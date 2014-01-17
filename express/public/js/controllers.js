@@ -29,6 +29,7 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
   $scope.menuAdmin = null;
   $scope.menuVideos = null;
   $scope.menuSuggest = null;
+  $scope.menuSongs = null;
   $scope.activate = function (menuItem) {
     if (menuItem == 'suggest') {
 	$scope.menuHome = null;
@@ -37,6 +38,7 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
 	$scope.menuAdmin = null;
 	$scope.menuVideos = null;
 	$scope.menuSuggest = "active";
+	$scope.menuSongs = null;
     } else if (menuItem == 'playlists') {
 	$scope.menuHome = null;
 	$scope.menuPlaylists = "active";
@@ -44,6 +46,7 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
 	$scope.menuAdmin = null;
 	$scope.menuVideos = null;
 	$scope.menuSuggest = null;
+	$scope.menuSongs = null;
     } else if (menuItem == 'artists') {
 	$scope.menuHome = null;
 	$scope.menuPlaylists = null;
@@ -51,6 +54,7 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
 	$scope.menuAdmin = null;
 	$scope.menuVideos = null;
 	$scope.menuSuggest = null;
+	$scope.menuSongs = null;
     } else if (menuItem == 'admin') {
 	$scope.menuHome = null;
 	$scope.menuPlaylists = null;
@@ -58,6 +62,7 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
 	$scope.menuAdmin = "active";
 	$scope.menuVideos = null;
 	$scope.menuSuggest = null;
+	$scope.menuSongs = null;
     } else if (menuItem == 'videos') {
 	$scope.menuHome = null;
 	$scope.menuPlaylists = null;
@@ -65,6 +70,15 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
 	$scope.menuAdmin = null;
 	$scope.menuVideos = "active";
 	$scope.menuSuggest = null;
+	$scope.menuSongs = null;
+    } else if (menuItem == 'songs') {
+	$scope.menuHome = null;
+	$scope.menuPlaylists = null;
+	$scope.menuArtists = null;
+	$scope.menuAdmin = null;
+	$scope.menuVideos = null;
+	$scope.menuSuggest = null;
+	$scope.menuSongs= "active";
     } else {
 	$scope.menuHome = "active";
 	$scope.menuPlaylists = null;
@@ -72,6 +86,7 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
 	$scope.menuAdmin = null;
 	$scope.menuVideos = null;
 	$scope.menuSuggest = null;
+	$scope.menuSongs = null;
     }
   };
 });
@@ -346,6 +361,21 @@ app.controller('UserDetailCtrl', function($scope, $routeParams, $log, $location,
 	$location.path('/');
   };
 });
+
+///////////////////////////////////////////
+
+app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs) {
+  $scope.songs = null;
+  $scope.queryTerm = null;
+  $scope.search = function () {
+    $log.log("SongCtrl:" + $scope.queryTerm);
+    if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 1))
+	$scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
+  };
+});
+
+
+
 
 app.controller('MyCtrl1', function ($scope, $log) {$log.log("MyCtrl1");});
 app.controller('MyCtrl2', function ($scope, $log) {$log.log("MyCtrl2");});

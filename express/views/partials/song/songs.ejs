@@ -1,0 +1,28 @@
+    <div class="container" ng-controller="SongCtrl">
+      <div class="row">
+	<div class="span1">
+	</div>
+	<div class="span9">
+	  <h2>Songs</h2>
+	</div>
+	<div class="span2">
+	  <a ng-href="#/home">[Back to Home]</a>
+	</div>
+      </div>
+      <div class="row">
+	<div class="span1">
+	</div>
+	<div class="span11">
+	  <input type="text" ng-model="queryTerm" class="search-query" placeholder="Search" ng-change="search()"/>
+	</div>
+      </div>
+      <div class="row" ng-repeat="song in songs">
+	<div class="span1">
+	</div>
+	<div class="span11">
+	    <a ng-href="{{song.file_path}}">{{song.name}}</a>
+	</div>
+      </div>
+    </div>
+
+
