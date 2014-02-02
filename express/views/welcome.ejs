@@ -6,26 +6,30 @@
   <meta name="description" content="My Music Library"/>
   <meta name="author" content="JC"/>
   <title>My Music Library</title>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="css/app.css"/>
-  <link rel="stylesheet" href="css/bootstrap.css"/>
   <link rel="shortcut icon" href="img/favicon.ico"/>
   <style type="text/css">
       body {
           padding-top: 60px;
           padding-bottom: 40px;
       }
-      .sidebar-nav {
-          padding: 9px 0;
-      }
   </style>
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="WelcomeCtrl">
-    <div class="navbar-inner">
-      <div class="container">
-	<a class="brand" ng-href="#">My Music Library</a>
-	<div class="nav-collapse collapse">
-	  <ul class="nav">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller="WelcomeCtrl">
+    <div class="container">
+      <div class="navbar-header">
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	  <span class="sr-only">Toggle navigation</span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	  <span class="icon-bar"></span>
+	</button>
+	<a class="navbar-brand" ng-href="#">My Music Library</a>
+      </div>
+      <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
 	    <li class="{{menuHome}}"><a ng-href="#/home" ng-click="activate('home')">Home</a></li>
 	    <li class="{{menuPlaylists}}"><a ng-href="#/playlists" ng-click="activate('playlists')">Playlists</a></li>
 	    <li class="{{menuArtists}}"><a ng-href="#/artists" ng-click="activate('artists')">Artists</a></li>
@@ -33,16 +37,11 @@
 	    <li class="{{menuAdmin}}"><a ng-href="#/admin" ng-click="activate('admin')" ng-show="su">Admin</a></li>
 	    <li class="{{menuVideos}}"><a ng-href="#/videos" ng-click="activate('videos')">Videos</a></li>
 	    <li class="{{menuSuggest}}"><a ng-href="#/suggest" ng-click="activate('suggest')">Suggest a Song</a></li>
-	  </ul>
-	  <div class="pull-right">
-	    <ul class="nav">
-	      <li><h4>{{name}}</h4></li>
-	      <li><a ng-href="#/auth/logout">Logout</a></li>
-	    </ul>
-	  </div>
-	</div>
-      </div> 
-    </div>
+	    <li><h4>{{name}}</h4></li>
+	    <li class="pull-right"><a ng-href="#/auth/logout">Logout</a></li>
+          </ul>
+      </div><!--/.nav-collapse -->
+    </div><!-- container -->
   </div>
 
   <div ng-view></div>
@@ -50,6 +49,7 @@
   <footer>Version:<span app-version></span></footer>
 
   <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
   <script src="js/lib/angular/angular.js"></script>
   <script src="js/lib/angular/angular-resource.js"></script>
   <script src="js/lib/angular/angular-route.js"></script>

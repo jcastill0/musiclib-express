@@ -6,35 +6,32 @@
   <meta name="description" content="My Music Library"/>
   <meta name="author" content="JC"/>
   <title>My Music Library</title>
-  <link rel="stylesheet" href="/css/app.css"/>
-  <link rel="stylesheet" href="/css/bootstrap.css"/>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
   <link rel="shortcut icon" href="/img/favicon.ico"/>
   <style type="text/css">
       body {
           padding-top: 60px;
           padding-bottom: 40px;
       }
-      .sidebar-nav {
-          padding: 9px 0;
-      }
   </style>
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
 	 <a href="/auth/google">
-	    <img src="/img/sign-in-with-google.png"/>
+	    <img src="./img/sign-in-with-google.png" width="300" height="64"/>
 	 </a>
-      </div> 
-    </div>
+      </div>
+    </div> <!-- container -->
   </div>
-  <div class="container">
-    <div class="hero-unit">
+  <div class="jumbotron">
+    <div class="container">
       <h1><em>Welcome</em></h1>
       <p>to my music library....</p>
     </div>
   </div>
+
   
   <script type="text/javascript">
   var _gaq = _gaq || [];
