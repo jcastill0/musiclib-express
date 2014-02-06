@@ -10,9 +10,9 @@
   <form class="form-horizontal" role="form" ng-submit="save()">
     <div class="row">
       <div class="col-md-8">
-	<input type="text" ng-model="searchSong" class="search-query" placeHolder="Search"/>
-	<ul class="unstyled">
-	  <li ng-repeat="song in songs | filter:searchSong | orderBy:'name'">
+	<input type="search" ng-model="searchSong" class="search-query" placeHolder="Search"/>
+	<ul class="list-group">
+	  <li class="list-group-item" ng-repeat="song in songs | filter:searchSong | orderBy:'name'">
 	    <input type="checkbox" id="remove-{{song.id}}" ng-model="song.isSelected" ng-change="songChecked(song)"/>
 	    <a ng-href="{{song.file_path}}">{{song.name}}</a>
           </li>
@@ -21,8 +21,8 @@
       <div class="col-md-4">
 	<legend>Playlists</legend>
 	<fieldset>
-	  <ul class="unstyled">
-	    <li ng-repeat="playlist in playlists | orderBy:'name'">
+	  <ul class="list-group">
+	    <li class="list-group-item" ng-repeat="playlist in playlists | orderBy:'name'">
 	      <input type="radio" ng-model="selectedValue" value="playlist.name" ng-click="playlistSelected(playlist)"/>
 	      <span>{{playlist.name}}</span>
 	    </li>
