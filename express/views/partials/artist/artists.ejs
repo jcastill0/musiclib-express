@@ -13,7 +13,7 @@
 	<div class="col-md-1">
 	</div>
 	<div class="col-md-11">
-	  <input type="search" ng-model="searchArtist" class="search-query" placeholder="Search"/>
+	  <input type="search" ng-model="searchArtist" class="rounded search-query" placeholder="Search"/>
 	</div>
       </div>
       <div class="row" ng-repeat="artist in artists | filter:searchArtist | orderBy:'name'">
