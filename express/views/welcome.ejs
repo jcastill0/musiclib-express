@@ -38,8 +38,12 @@
 	    <li class="{{menuAdmin}}"><a ng-href="#/admin" ng-click="activate('admin')" ng-show="su">Admin</a></li>
 	    <li class="{{menuVideos}}"><a ng-href="#/videos" ng-click="activate('videos')">Videos</a></li>
 	    <li class="{{menuSuggest}}"><a ng-href="#/suggest" ng-click="activate('suggest')">Suggest a Song</a></li>
-	    <li><h4>{{name}}</h4></li>
-	    <li class="pull-right"><a ng-href="#/auth/logout">Logout</a></li>
+	    <li class="active pull-right dropdown">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{name}}<b class="caret"></b></a>
+	      <ul class="dropdown-menu">
+		<li><a ng-href="#/auth/logout">Logout</a></li>
+	      </ul>
+	    </li>
           </ul>
       </div><!--/.nav-collapse -->
     </div><!-- container -->
