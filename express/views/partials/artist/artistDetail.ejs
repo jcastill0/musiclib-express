@@ -11,6 +11,7 @@
     <div class="row">
       <div class="col-md-8">
 	<input type="search" ng-model="searchSong" class="rounded search-query" placeHolder="Search"/>
+	<hr/>
 	<ul class="list-group">
 	  <li class="list-group-item" ng-repeat="song in songs | filter:searchSong | orderBy:'name'">
 	    <input type="checkbox" id="remove-{{song.id}}" ng-model="song.isSelected" ng-change="songChecked(song)"/>
