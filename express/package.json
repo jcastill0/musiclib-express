@@ -1,9 +1,20 @@
 {
   "name": "musiclib-express",
+  "description": "My Music Lib Service",
   "version": "0.0.1",
   "private": true,
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/jcastill0/musiclib-express.git"
+  },
   "dependencies": {
-    "express": "~3.2.6",
-    "jade": "~0.31.2"
+    "express": "~3.4.8",
+    "mysql": ">=2.1.0",
+    "node-static": "~0.7.3",
+    "nodemailer": "~0.6.0",
+    "connect": "~2.13.0",
+    "passport": "~0.2.0",
+    "passport-google-oauth": "~0.1.5",
+    "ejs": "~0.8.5"
   }
 }

@@ -1,0 +1,46 @@
+    <ul class="nav nav-tabs">
+      <li><a ng-href="#/admin">Users</a></li>
+      <li><a ng-href="#/songs/add">Song <span class="glyphicon glyphicon-plus-sign"></span></a></li>
+      <li class="active"><a ng-href="#/songs/edit">Song <span class="glyphicon glyphicon-edit"></span></a></li>
+    </ul>
+    <div class="container" ng-controller="SongDetailCtrl">
+      <div class="row">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-11">
+	  <h4>Songs</h4>
+	</div>
+      </div>
+      <div class="row">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-11">
+	  <input type="search" ng-model="queryTerm" class="rounded search-query" placeholder="Search" ng-change="search()"/>
+	</div>
+      </div>
+      <br/>
+      <div class="row" ng-repeat="song in songs">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-11">
+	    <a class="btn btn-default btn-xs" ng-click="toggleSongForm(song);"><span class="glyphicon glyphicon-expand"></span></a> {{song.name}}
+	    <form class="form-horizontal" role="form" ng-submit="save()" ng-show="song.isSelected">
+	      <div class="form-group">
+		<label class="control-label" for="inputName">Name</label>
+	  	<input class="form-control" type="text" id="inputName" placeHolder="Song name" name="SongName" ng-model="song.name" required/>
+	      </div>
+	      <div class="form-group">
+		<label class="control-label" for="inputPath">Path</label>
+	  	<input class="form-control" type="text" id="inputPath" placeHolder="Song path" name="SongPath" ng-model="song.file_path" required/>
+	      </div>
+	      <div class="form-group">
+		<input type="hidden" id="id_songID" name="songID" value="{{song.id}}">
+	  	<input type="submit" id="updateSong" value="Save" class="btn btn-primary btn-xs" ng-click="toggleSongForm(song);"/>
+		<a class="btn btn-default btn-xs" ng-click="toggleSongForm(song);">Cancel</a>
+	      </div>
+	    </form>
+	</div>
+      </div>
+    </div>
+
+

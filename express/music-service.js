@@ -113,6 +113,7 @@ app.get('/partials/artist/:name', routes.artist);
 app.get('/partials/artist/artistDetail', routes.artistDetail);
 app.get('/partials/video/:name', routes.video);
 app.get('/partials/song/songs', routes.searchSongs);
+app.get('/partials/song/songDetail', routes.songDetail);
 app.get('/partials/admin/users', routes.users);
 app.get('/partials/admin/suggestion', routes.suggestion);
 // JSON API
@@ -132,6 +133,8 @@ app.post('/musiclib/api/videos', api.createVideo);
 app.get ('/musiclib/api/search/videos/recent', api.recentVideos);
 app.delete('/musiclib/api/videos/:videoID', api.deleteVideo);
 app.get ('/musiclib/api/songs', api.songs);
+app.post('/musiclib/api/songs', api.createSong);
+app.put ('/musiclib/api/songs/:songID', api.updateSong);
 app.get ('/musiclib/api/search/songs/query/:queryTerm', api.searchSongs);
 app.get ('/musiclib/api/search/songs/recent', api.recentSongs);
 app.get ('/musiclib/api/search/songs/popular', api.popularSongs);

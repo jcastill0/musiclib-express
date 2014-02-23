@@ -157,3 +157,51 @@ Song.mostPopularSongs = function (userID, cb) {
     });
 };
 
+Song.create = function (userID, name, filePath, artistID, cb) {
+  if (config.debug)
+      console.log("Create Song for: " + userID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "INSERT INTO song (name, file_path, artist_id, played_count, created) VALUES ('"+name+"', '"+filePath+"', '"+artistID+"',0, NOW())";
+      connection.query(sql, function (error, result) {
+	if (error) {
+		console.error("SQL Error: " + error.message);
+		cb(error);
+	}
+	cb(null, result.insertId);
+      });
+      connection.end();
+  });
+};
+
+Song.update = function (userID, songID, name, filePath, artistID, cb) {
+  if (config.debug)
+      console.log("Update: " + songID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "UPDATE song SET name='"+name+"', file_path='"+filePath+"', artistID="+artistID+" WHERE (id = "+songID +")";
+      connection.query(sql, function (error, result) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	if (result) {
+	    cb(null, result);
+	} else {
+	    cb("Record not found");
+	}
+      });
+      connection.end();
+  });
+};
+

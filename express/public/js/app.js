@@ -83,6 +83,10 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/song/songs',
 	controller: 'SongCtrl'
     })
+    .when('/songs/edit', {
+	templateUrl: 'partials/song/songDetail',
+	controller: 'SongDetailCtrl'
+    })
     .when('/users/:userID', {
 	templateUrl: 'partials/profile/userDetail',
 	controller: 'UserDetailCtrl'

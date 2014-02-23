@@ -49,6 +49,11 @@ exports.searchSongs = function (req, res) {
   res.render('partials/song/songs');
 };
 
+exports.songDetail = function (req, res) {
+  console.log("index.songDetail:" + req.user.id);
+  res.render('partials/song/songDetail');
+};
+
 exports.playlist = function (req, res) {
   console.log("index.playlist:" + req.params.name);
   var name = req.params.name;

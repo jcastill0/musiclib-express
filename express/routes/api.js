@@ -116,6 +116,33 @@ exports.songs = function (req, res) {
   });
 };
 
+exports.createSong = function (req, res) {
+  if (config.debug)
+      console.log("api.createSong");
+  Song.create(req.user.id, req.body.name, req.body.filePath, req.body.artistID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json({id:data});
+	}
+  });
+};
+
+exports.updateSong = function (req, res) {
+  if (config.debug)
+      console.log("api.updateSong");
+  Song.update(req.user.id, req.params.songID, req.body.name, req.body.filePath, req.body.artistID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
+
 exports.artistSongs = function (req, res) {
   if (config.debug)
       console.log("api.artistSongs.artistID: " + req.params.artistID);

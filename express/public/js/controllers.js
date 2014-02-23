@@ -374,8 +374,26 @@ app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs) {
   };
 });
 
+app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSongs) {
+  $scope.songs = null;
+  $scope.queryTerm = null;
+  $scope.collapse = true;
+  $scope.search = function () {
+    $log.log("SongDetailCtrl:" + $scope.queryTerm);
+    if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 1))
+	$scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
+  };
+  $scope.toggleSongForm = function(song) {
+    if (song.isSelected == undefined) {
+	song.isSelected = true;
+    } else {
+	song.isSelected = !song.isSelected;
+    }
+  };
+});
 
 
 
+/////////////////////////////////////////////
 app.controller('MyCtrl1', function ($scope, $log) {$log.log("MyCtrl1");});
 app.controller('MyCtrl2', function ($scope, $log) {$log.log("MyCtrl2");});
