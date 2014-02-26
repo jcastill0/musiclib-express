@@ -47,7 +47,7 @@ Song.search = function (userID, term, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT song.id, song.name, file_path, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE LOWER(song.name) LIKE '%" + term + "%' ORDER BY artist.name, song.name";
+      var sql = "SELECT song.id, song.name, file_path, artist.name AS artistName, artist.id AS artistID FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE LOWER(song.name) LIKE '%" + term + "%' ORDER BY artist.name, song.name";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
@@ -189,7 +189,7 @@ Song.update = function (userID, songID, name, filePath, artistID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "UPDATE song SET name='"+name+"', file_path='"+filePath+"', artistID="+artistID+" WHERE (id = "+songID +")";
+      var sql = "UPDATE song SET name='"+name+"', file_path='"+filePath+"', artist_id="+artistID+" WHERE (id = "+songID +")";
       connection.query(sql, function (error, result) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);

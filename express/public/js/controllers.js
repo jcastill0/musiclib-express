@@ -374,7 +374,7 @@ app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs) {
   };
 });
 
-app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSongs) {
+app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSongs, Song) {
   $scope.songs = null;
   $scope.queryTerm = null;
   $scope.collapse = true;
@@ -390,6 +390,20 @@ app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSong
 	song.isSelected = !song.isSelected;
     }
   };
+
+  $scope.save = function() {
+    $log.log("SongDetailCtrl.save: " + song.name);
+    Song.save({name:song.name, filePath:song.file_path, artistID:song.artistID}, function (newSong) {
+	$log.log("SongDetailCtrl.Song.save.cb: " + newSong.id);
+    });
+  };
+  $scope.update = function(song) {
+    $log.log("SongDetailCtrl.update: " + song.name);
+    Song.update({songID:song.id, name:song.name, filePath:song.file_path, artistID:song.artistID}, function (uData) {
+	$log.log("SongDetailCtrl.Song.update.cb: "+uData.affectedRows);
+    });
+  };
+
 });
 
 

@@ -122,6 +122,12 @@ app.factory('Song', function ($resource, $log) {
 	  {songID:'@songID'},
 	  {query: {
 		method:'GET', isArray:true
+		},
+	   update: {
+		method: 'PUT'
+		},
+	   save: {
+		method: 'POST'
 		}
 	  });
   return (songRsrc);
