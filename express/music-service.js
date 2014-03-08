@@ -114,6 +114,7 @@ app.get('/partials/artist/artistDetail', routes.artistDetail);
 app.get('/partials/video/:name', routes.video);
 app.get('/partials/song/songs', routes.searchSongs);
 app.get('/partials/song/songDetail', routes.songDetail);
+app.get('/partials/song/songAdd', routes.songAdd);
 app.get('/partials/admin/users', routes.users);
 app.get('/partials/admin/suggestion', routes.suggestion);
 // JSON API

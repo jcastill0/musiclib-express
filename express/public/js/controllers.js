@@ -391,12 +391,6 @@ app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSong
     }
   };
 
-  $scope.save = function() {
-    $log.log("SongDetailCtrl.save: " + song.name);
-    Song.save({name:song.name, filePath:song.file_path, artistID:song.artistID}, function (newSong) {
-	$log.log("SongDetailCtrl.Song.save.cb: " + newSong.id);
-    });
-  };
   $scope.update = function(song) {
     $log.log("SongDetailCtrl.update: " + song.name);
     Song.update({songID:song.id, name:song.name, filePath:song.file_path, artistID:song.artistID}, function (uData) {
@@ -406,6 +400,21 @@ app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSong
 
 });
 
+
+app.controller('SongAddCtrl', function($scope, $log, $location, Song, Artist) {
+  $scope.songName = null;
+  $scope.songFilePath = null;
+  $scope.artistID = null;
+  $scope.artists = Artist.query();
+
+  $scope.save = function() {
+    $log.log("SongAddCtrl.save: "+$scope.songName+" artistID:"+$scope.artistID);
+    Song.save({name:$scope.songName, filePath:$scope.songFilePath, artistID:$scope.artistID}, function (newSong) {
+	$log.log("SongAddCtrl.Song.save.cb: " + newSong.id);
+	$location.path('/admin');
+    });
+  };
+});
 
 
 /////////////////////////////////////////////
