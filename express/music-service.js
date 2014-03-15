@@ -25,7 +25,7 @@ app.use(express.logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'img')));
 app.use(express.cookieParser("ThisSecretRocks"));
-app.use(express.bodyParser());
+app.use(express.bodyParser({uploadDir:'public/data'}));
 app.use(express.methodOverride());	// must come after bodyParser
 app.use(express.session({secret:'ThisSecretRocks'}));
 app.use(passport.initialize());
@@ -115,6 +115,7 @@ app.get('/partials/video/:name', routes.video);
 app.get('/partials/song/songs', routes.searchSongs);
 app.get('/partials/song/songDetail', routes.songDetail);
 app.get('/partials/song/songAdd', routes.songAdd);
+app.get('/partials/song/songUpload', routes.songUpload);
 app.get('/partials/admin/users', routes.users);
 app.get('/partials/admin/suggestion', routes.suggestion);
 // JSON API
@@ -135,6 +136,7 @@ app.get ('/musiclib/api/search/videos/recent', api.recentVideos);
 app.delete('/musiclib/api/videos/:videoID', api.deleteVideo);
 app.get ('/musiclib/api/songs', api.songs);
 app.post('/musiclib/api/songs', api.createSong);
+app.post('/musiclib/api/songs/upload', api.uploadSong);
 app.put ('/musiclib/api/songs/:songID', api.updateSong);
 app.get ('/musiclib/api/search/songs/query/:queryTerm', api.searchSongs);
 app.get ('/musiclib/api/search/songs/recent', api.recentSongs);

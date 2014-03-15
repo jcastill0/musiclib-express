@@ -1,0 +1,44 @@
+    <ul class="nav nav-tabs">
+      <li><a ng-href="#/admin">Users</a></li>
+      <li class="active"><a ng-href="#/songs/upload">Song <span class="glyphicon glyphicon-plus-sign"></span></a></li>
+      <li><a ng-href="#/songs/edit">Song <span class="glyphicon glyphicon-edit"></span></a></li>
+    </ul>
+    <div class="container" ng-controller="SongUploadCtrl">
+      <div class="row">
+	<div class="col-md-1">
+	</div>
+	<div class="col-md-11">
+	  <h4>Upload Song</h4>
+	</div>
+      </div>
+      <br/>
+      <!--form class="form-horizontal" role="form" ng-submit="save()" enctype="multipart/form-data">
+	<div class="form-group">
+	  <label class="control-label" for="inputArtist">Artist</label>
+	  <select id="inputArtist" class="form-control" ng-model="artistID" ng-options="artist.id as artist.name for artist in artists"/>
+	</div>
+	<div class="form-group">
+	  <label class="control-label" for="inputFile">Upload</label>
+	  <input class="form-control" type="file" id="inputFile" name="songFile" required/>
+	</div>
+	<div class="form-group">
+	  <input type="submit" id="updateSong" value="Save" class="btn btn-primary btn-xs"/>
+	  <a class="btn btn-default btn-xs" ng-href="#/admin/">Cancel</a>
+	</div>
+      </form-->
+      <form method="POST" class="form-horizontal" role="form" enctype="multipart/form-data" action="musiclib/api/songs/upload">
+	<div class="form-group">
+	  <label class="control-label" for="inputArtist">Artist</label>
+	  <input class="form-control" type="text" id="inputArtist" placeHolder="Artist name" name="ArtistName" required/>
+	</div>
+	<div class="form-group">
+	  <label class="control-label" for="inputFile">Upload</label>
+	  <input class="form-control" type="file" id="inputFile" name="songFile" required/>
+	</div>
+	<div class="form-group">
+	  <input type="submit" id="updateSong" value="Save" class="btn btn-primary btn-xs"/>
+	  <a class="btn btn-default btn-xs" ng-href="#/admin/">Cancel</a>
+	</div>
+      </form>
+    </div>
+

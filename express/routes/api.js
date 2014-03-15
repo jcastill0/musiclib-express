@@ -1,6 +1,7 @@
 /*
  * Serve JSON to our AngularJS client
  */
+var fs = require('fs');
 
 var Playlist = require('../modules/playlist');
 var Artist = require('../modules/artist');
@@ -127,6 +128,27 @@ exports.createSong = function (req, res) {
 	    res.json({id:data});
 	}
   });
+};
+
+exports.uploadSong = function (req, res) {
+  if (config.debug)
+      console.log("api.uploadSong:" + req.body.ArtistName);
+  //console.log(req.body);
+  artistName = req.body.ArtistName;
+  //console.log(req.files);
+  newPath = 'public/MusicSrc/' + artistName + "/" + req.files.songFile.name;
+  console.log ("SRC:"+ req.files.songFile.path + " DEST:" newPath);
+  try {
+	stats = fs.statSync(req.files.songFile.path);
+	if (stats.isFile()) {
+	    console.log('Its a file!');
+	}
+	fs.renameSync(req.files.songFile.path, newPath);
+  } catch (ex) {
+	console.error("Unable to move file. " + ex);
+	res.send(500, {Error:ex});
+  }
+  res.send("File uploaded: " + req.files.songFile.name+ " Size:" + req.files.songFile.size + " Original File name:" + req.files.songFile.originalFilename + " Path:" + req.files.songFile.path);
 };
 
 exports.updateSong = function (req, res) {

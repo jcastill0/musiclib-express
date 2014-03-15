@@ -416,6 +416,24 @@ app.controller('SongAddCtrl', function($scope, $log, $location, Song, Artist) {
   };
 });
 
+app.controller('SongUploadCtrl', function($scope, $log, $http, $location, Artist) {
+  $scope.artistID = null;
+  $scope.artists = Artist.query();
+
+  $scope.save = function() {
+    $log.log("SongUploadCtrl.save: artistID:"+$scope.artistID);
+    $http({ method:'POST',
+	    data:{artistID:$scope.artistID},
+	    url: 'musiclib/api/songs/upload'}).
+	success(function(data, status,  headers, config) {
+		$log.log("SongAddCtrl.Song.upload.cb: " + data);
+		$location.path('/admin');}).
+	error(function(data, status, headers, config) {
+		$log.error('Status:' + data);
+		$location.path('/admin');});
+  };
+});
+
 
 /////////////////////////////////////////////
 app.controller('MyCtrl1', function ($scope, $log) {$log.log("MyCtrl1");});
