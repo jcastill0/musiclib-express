@@ -137,7 +137,7 @@ exports.uploadSong = function (req, res) {
   artistName = req.body.ArtistName;
   //console.log(req.files);
   newPath = 'public/MusicSrc/' + artistName + "/" + req.files.songFile.name;
-  console.log ("SRC:"+ req.files.songFile.path + " DEST:" newPath);
+  console.log ("SRC:"+ req.files.songFile.path + " DEST:" +newPath);
   try {
 	stats = fs.statSync(req.files.songFile.path);
 	if (stats.isFile()) {
