@@ -38,7 +38,7 @@ Playlist.find = function (userID, playlistID, cb) {
 	    cb("Playlist not found");
 	}
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -60,7 +60,7 @@ Playlist.create = function (userID, name, cb) {
 	}
 	cb(null, result.insertId);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -86,7 +86,7 @@ Playlist.update = function (userID, playlistID, name, cb) {
 	    cb("Record not found");
 	}
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -112,7 +112,7 @@ Playlist.delete = function (userID, playlistID, cb) {
 	    cb("Record not found");
 	}
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -164,7 +164,7 @@ Playlist.updateSongs = function (userID, playlistID, addSongs, remSongs, cb) {
 	'deletedRows': remSongs.length
       };
       cb (null, resultData);
-      connection.end();
+      connection.release();
   });
 };
 

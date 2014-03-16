@@ -137,18 +137,14 @@ exports.uploadSong = function (req, res) {
   artistName = req.body.ArtistName;
   //console.log(req.files);
   newPath = 'public/MusicSrc/' + artistName + "/" + req.files.songFile.name;
-  console.log ("SRC:"+ req.files.songFile.path + " DEST:" +newPath);
+  //console.log ("SRC:"+ req.files.songFile.path + " DEST:" +newPath);
   try {
-	stats = fs.statSync(req.files.songFile.path);
-	if (stats.isFile()) {
-	    console.log('Its a file!');
-	}
 	fs.renameSync(req.files.songFile.path, newPath);
   } catch (ex) {
 	console.error("Unable to move file. " + ex);
 	res.send(500, {Error:ex});
   }
-  res.send("File uploaded: " + req.files.songFile.name+ " Size:" + req.files.songFile.size + " Original File name:" + req.files.songFile.originalFilename + " Path:" + req.files.songFile.path);
+  res.render('partials/admin/users');
 };
 
 exports.updateSong = function (req, res) {

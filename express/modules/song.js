@@ -32,7 +32,7 @@ Song.find = function (userID, songID, cb) {
 	    console.log("Songs found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -57,7 +57,7 @@ Song.search = function (userID, term, cb) {
 	    console.log("Songs found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -82,7 +82,7 @@ Song.findRecent = function (userID, cb) {
 	    console.log("Songs found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -107,7 +107,7 @@ Song.findByArtist = function (userID, artistID, cb) {
 	    console.log("Songs found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -131,7 +131,7 @@ Song.findByPlaylist = function (userID, playlistID, cb) {
 	    console.log("Songs found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -153,7 +153,7 @@ Song.mostPopularSongs = function (userID, cb) {
 	}
 	cb (null, rows);
       });
-      connection.end();
+      connection.release();
     });
 };
 
@@ -175,7 +175,7 @@ Song.create = function (userID, name, filePath, artistID, cb) {
 	}
 	cb(null, result.insertId);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -201,7 +201,7 @@ Song.update = function (userID, songID, name, filePath, artistID, cb) {
 	    cb("Record not found");
 	}
       });
-      connection.end();
+      connection.release();
   });
 };
 

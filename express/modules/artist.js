@@ -37,7 +37,7 @@ Artist.find = function (userID, artistID, cb) {
 	    cb("Artist not found");
 	}
       });
-      connection.end();
+      connection.release();
   });
 };
 

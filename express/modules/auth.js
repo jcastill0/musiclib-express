@@ -27,6 +27,6 @@ module.exports = function(profile, cb) {
 	  cb(null, false);
       }
     });
-    connection.end();
+    connection.release();
   });
 };

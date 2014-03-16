@@ -27,7 +27,7 @@ Stats.getAll= function (cb) {
 	    cb("Record not found");
 	}
       });
-      connection.end();
+      connection.release();
     });
 };
 

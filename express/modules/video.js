@@ -32,7 +32,7 @@ Video.find = function (userID, videoID, cb) {
 	    console.log("Videos found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -57,7 +57,7 @@ Video.findRecent = function (userID, cb) {
 	    console.log("Videos found:" + JSON.stringify(rows));
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -88,7 +88,7 @@ Video.create = function (userID, name, url, embedded, artistID, cb) {
 	}
 	cb(null, result.insertId);
       });
-      connection.end();
+      connection.release();
   });
 };
 
@@ -114,7 +114,7 @@ Video.delete = function (userID, videoID, cb) {
 	    cb("Record not found");
 	}
       });
-      connection.end();
+      connection.release();
   });
 };
 

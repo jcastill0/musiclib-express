@@ -39,7 +39,7 @@ User.find = function (google_id, cb) {
 	    cb("Record not found");
 	}
       });
-      connection.end();
+      connection.release();
     });
 };
 
@@ -61,7 +61,7 @@ User.findAll = function (cb) {
 	}
 	cb(null, rows);
       });
-      connection.end();
+      connection.release();
     });
 };
 
