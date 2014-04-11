@@ -141,6 +141,7 @@ app.put ('/musiclib/api/songs/:songID', api.updateSong);
 app.get ('/musiclib/api/search/songs/query/:queryTerm', api.searchSongs);
 app.get ('/musiclib/api/search/songs/recent', api.recentSongs);
 app.get ('/musiclib/api/search/songs/popular', api.popularSongs);
+app.get ('/musiclib/api/search/playlists/popular', api.popularPlaylists);
 app.post('/musiclib/api/playlists/:playlistID/songs', api.updatePlaylistSongs);
 app.post('/musiclib/api/playlists', api.createPlaylist);
 app.put ('/musiclib/api/playlists/:playlistID', api.updatePlaylist);

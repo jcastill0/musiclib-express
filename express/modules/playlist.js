@@ -168,4 +168,25 @@ Playlist.updateSongs = function (userID, playlistID, addSongs, remSongs, cb) {
   });
 };
 
+Playlist.mostPopularPlaylists = function (userID, cb) {
+    if (config.debug)
+	console.log("Playlist.mostPopularPlaylists");
+    config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "";
+      connection.query(sql, function (error, rows) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	cb (null, rows);
+      });
+      connection.release();
+    });
+};
 

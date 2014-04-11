@@ -91,10 +91,11 @@ app.controller('WelcomeCtrl', function($scope, $http, $log) {
   };
 });
 
-app.controller('HomeCtrl', function($scope, $log, RecentSongs, RecentVideos, PopularSongs, Stats) {
+app.controller('HomeCtrl', function($scope, $log, RecentSongs, RecentVideos, PopularSongs, PopularPlaylists, Stats) {
   $log.log("HomeCtrl");
   $scope.songs = RecentSongs.query();
   $scope.popularSongs = PopularSongs.query();
+  $scope.popularPlaylists = PopularPlaylists.query();
   $scope.videos = RecentVideos.query();
   $scope.stats = Stats.get();
 });

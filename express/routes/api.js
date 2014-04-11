@@ -213,6 +213,19 @@ exports.popularSongs = function (req, res) {
   });
 };
 
+exports.popularPlaylists = function (req, res) {
+  if (config.debug)
+      console.log("api.popularPlaylists");
+  Playlist.mostPopularPlaylists(req.user.id, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
 exports.updatePlaylistSongs = function (req, res) {
   if (config.debug)
       console.log("api.updatePlaylistSongs.playlistID: "+req.params.playlistID);
