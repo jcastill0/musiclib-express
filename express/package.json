@@ -3,18 +3,23 @@
   "description": "My Music Lib Service",
   "version": "0.0.1",
   "private": true,
-  "repository" : { 
-    "type" : "git",
-    "url" : "https://github.com/jcastill0/musiclib-express.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcastill0/musiclib-express.git"
   },
   "dependencies": {
-    "express": "~3.4.8",
+    "body-parser": "^1.0.1",
+    "connect": "^2.14.4",
+    "cookie-parser": "^1.0.1",
+    "ejs": ">=0.8.5",
+    "errorhandler": "^1.0.0",
+    "express": ">=3.4.8",
+    "express-session": "^1.0.2",
+    "method-override": "^1.0.0",
     "mysql": ">=2.1.0",
-    "node-static": "~0.7.3",
-    "nodemailer": "~0.6.0",
-    "connect": "~2.13.0",
-    "passport": "~0.2.0",
-    "passport-google-oauth": "~0.1.5",
-    "ejs": "~0.8.5"
+    "node-static": ">=0.7.3",
+    "nodemailer": ">=0.6.0",
+    "passport": ">=0.2.0",
+    "passport-google-oauth": ">=0.1.5"
   }
 }
