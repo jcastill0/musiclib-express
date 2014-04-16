@@ -7,7 +7,13 @@ var express = require('express'),
     config = require('./modules/config'),
     auth = require('./modules/auth'),
     User = require('./modules/user'),
-    path = require('path');
+    path = require('path'),
+    cookieParser = require ('cookie-parser'),
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    session = require('express-session'),
+    logger = require('morgan'),
+    errorHandler = require('errorhandler');
 
 var app = module.exports = express();
 var google_callback = null;
@@ -21,16 +27,16 @@ app.set('port', process.env.PORT || config.serverPort);
 app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
 app.set("view engine", "ejs");
-app.use(express.logger('dev'));
+app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'img')));
-app.use(express.cookieParser("ThisSecretRocks"));
-app.use(express.bodyParser({uploadDir:'public/data'}));
-app.use(express.methodOverride());	// must come after bodyParser
-app.use(express.session({secret:'ThisSecretRocks'}));
+app.use(cookieParser("ThisSecretRocks"));
+app.use(bodyParser({uploadDir:'public/data'}));
+app.use(methodOverride());	// must come after bodyParser
+app.use(session({secret:'ThisSecretRocks'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(app.router);
+//app.use(app.router);
 
 config.createConnPool();
 config.createMailTransport();
@@ -63,7 +69,7 @@ passport.deserializeUser(function(googleID, done) {
 // development only
 if (app.get('env') === 'development') {
   google_callback = config.google_callback_dev;
-  app.use(express.errorHandler());
+  app.use(errorHandler());
   console.log("DEVELOPMENT ENV");
 }
 
