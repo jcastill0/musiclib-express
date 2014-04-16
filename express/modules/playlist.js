@@ -178,7 +178,7 @@ Playlist.mostPopularPlaylists = function (userID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "";
+      var sql = "SELECT id, name FROM playlist where owner_id = 2";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
