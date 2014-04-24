@@ -257,7 +257,7 @@ Song.findLyrics = function (userID, songID, cb) {
 	    console.log("Reading audio file:" + rows[0].file_path);
 	    // get audio file length via ffmpeg
 	}
-	cb(null, rows);
+	cb(null, rows[0]);
       });
       connection.release();
   });
