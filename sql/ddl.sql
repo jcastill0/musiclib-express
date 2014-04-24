@@ -79,6 +79,8 @@ CREATE  TABLE IF NOT EXISTS song (
   video_id	INT(11)		NULL DEFAULT NULL ,
   played_count	INT(11)		NOT NULL DEFAULT '0' ,
   created	DATETIME	NOT NULL ,
+  length	INT(11)		NULL ,
+  lyrics	TEXT		NULL ,
   PRIMARY KEY (id) ,
   INDEX artist_id_fk_idx (artist_id ASC) ,
   INDEX video_id_fk_idx (video_id ASC) ,

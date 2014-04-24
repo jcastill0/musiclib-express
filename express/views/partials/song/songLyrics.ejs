@@ -1,10 +1,10 @@
     <ul class="nav nav-tabs">
       <li><a ng-href="#/admin">Users</a></li>
       <li><a ng-href="#/songs/upload">Song <span class="glyphicon glyphicon-plus-sign"></span></a></li>
-      <li class="active"><a ng-href="#/songs/edit">Song <span class="glyphicon glyphicon-edit"></span></a></li>
-      <li><a ng-href="#/songs/lyrics/edit">Song Lyrics <span class="glyphicon glyphicon-music"></span></a></li>
+      <li><a ng-href="#/songs/edit">Song <span class="glyphicon glyphicon-edit"></span></a></li>
+      <li class="active"><a ng-href="#/songs/lyrics/edit">Song Lyrics <span class="glyphicon glyphicon-music"></span></a></li>
     </ul>
-    <div class="container" ng-controller="SongDetailCtrl">
+    <div class="container" ng-controller="SongLyricsCtrl">
       <div class="row">
 	<div class="col-md-1">
 	</div>
@@ -25,18 +25,22 @@
 	</div>
 	<div class="col-md-11">
 	    <a class="btn btn-default btn-xs" ng-click="toggleSongForm(song);"><span class="glyphicon glyphicon-expand"></span></a> {{song.name}}
-	    <form class="form-horizontal" role="form" ng-submit="update(song)" ng-show="song.isSelected">
+	    <form class="form-horizontal" role="form" ng-submit="update(song, partialSong.length, partialSong.lyrics)" ng-show="song.isSelected">
 	      <div class="form-group">
 		<label class="control-label" for="inputName">Name</label>
-	  	<input class="form-control" type="text" id="inputName" placeHolder="Song name" name="SongName" ng-model="song.name" required/>
-	      </div>
-	      <div class="form-group">
-		<label class="control-label" for="inputPath">Path</label>
-	  	<input class="form-control" type="text" id="inputPath" placeHolder="Song path" name="SongPath" ng-model="song.file_path" required/>
+	  	<input class="form-control" type="text" id="inputName" placeHolder="Song name" name="SongName" ng-model="song.name" disabled/>
 	      </div>
 	      <div class="form-group">
 		<label class="control-label" for="disabledInput">Artist</label>
 		<input class="form-control" id="disabledInput" type="text" placeholder="{{song.artistName}}" disabled/>
+	      </div>
+	      <div class="form-group">
+		<label class="control-label" for="inputLength">Length (secs)</label>
+	  	<input class="form-control" type="number" id="inputLength" placeHolder="Song Length" name="SongLength" ng-model="partialSong.length" required/>
+	      </div>
+	      <div class="form-group">
+		<label class="control-label" for="inputLyric">Lyrics</label>
+	  	<textarea class="input-large form-control" id="inputLyric" name="SongLyrics" cols="20" rows="10" ng-model="partialSong.lyrics" required/>
 	      </div>
 	      <div class="form-group">
 		<input type="hidden" id="id_songID" name="songID" value="{{song.id}}"/>

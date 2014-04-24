@@ -122,6 +122,7 @@ app.get('/partials/song/songs', routes.searchSongs);
 app.get('/partials/song/songDetail', routes.songDetail);
 app.get('/partials/song/songAdd', routes.songAdd);
 app.get('/partials/song/songUpload', routes.songUpload);
+app.get('/partials/song/songLyrics', routes.songLyrics);
 app.get('/partials/admin/users', routes.users);
 app.get('/partials/admin/suggestion', routes.suggestion);
 // JSON API
@@ -144,6 +145,8 @@ app.get ('/musiclib/api/songs', api.songs);
 app.post('/musiclib/api/songs', api.createSong);
 app.post('/musiclib/api/songs/upload', api.uploadSong);
 app.put ('/musiclib/api/songs/:songID', api.updateSong);
+app.put ('/musiclib/api/songs/lyrics/:songID', api.updateLyrics);
+app.get ('/musiclib/api/songs/lyrics/:songID', api.songLyrics);
 app.get ('/musiclib/api/search/songs/query/:queryTerm', api.searchSongs);
 app.get ('/musiclib/api/search/songs/recent', api.recentSongs);
 app.get ('/musiclib/api/search/songs/popular', api.popularSongs);

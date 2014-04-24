@@ -205,3 +205,60 @@ Song.update = function (userID, songID, name, filePath, artistID, cb) {
   });
 };
 
+Song.updateLyrics = function (userID, songID, length, lyrics, cb) {
+  if (config.debug)
+      console.log("UpdateLyrics: " + songID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "UPDATE song SET length='"+length+"', lyrics='"+lyrics+"' WHERE (id = "+songID +")";
+      connection.query(sql, function (error, result) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	if (result) {
+	    cb(null, result);
+	} else {
+	    cb("Record not found");
+	}
+      });
+      connection.release();
+  });
+};
+
+Song.findLyrics = function (userID, songID, cb) {
+  if (config.debug)
+      console.log("Find Lyrics for SongID:" + songID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "SELECT song.id, song.name, song.file_path, song.length, song.lyrics, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE song.id = " + songID;
+      connection.query(sql, function (error, rows) {
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	    return;
+	}
+	if (rows.length != 1) {
+	    console.error("Song not found:" + songID);
+	    cb(error);
+	    return;
+	}
+	if (rows[0].length == null) {
+	    console.log("Reading audio file:" + rows[0].file_path);
+	    // get audio file length via ffmpeg
+	}
+	cb(null, rows);
+      });
+      connection.release();
+  });
+};

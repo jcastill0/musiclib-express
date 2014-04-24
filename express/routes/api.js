@@ -117,6 +117,19 @@ exports.songs = function (req, res) {
   });
 };
 
+exports.songLyrics = function (req, res) {
+  if (config.debug)
+      console.log("api.songLyrics.songID: " + req.params.songID);
+  Song.findLyrics(req.user.id, req.params.songID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
 exports.createSong = function (req, res) {
   if (config.debug)
       console.log("api.createSong");
@@ -151,6 +164,19 @@ exports.updateSong = function (req, res) {
   if (config.debug)
       console.log("api.updateSong");
   Song.update(req.user.id, req.params.songID, req.body.name, req.body.filePath, req.body.artistID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.send(500, {Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
+exports.updateLyrics = function (req, res) {
+  if (config.debug)
+      console.log("api.updateSongLyrics");
+  Song.updateLyrics(req.user.id, req.params.songID, req.body.length, req.body.lyrics, function (err, data) {
 	if (err) {
 	    console.error(err);
 	    res.send(500, {Error:err});

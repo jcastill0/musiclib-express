@@ -144,6 +144,20 @@ app.factory('Song', function ($resource, $log) {
   return (songRsrc);
 });
 
+app.factory('SongLyrics', function ($resource, $log) {
+  $log.log("Song Lyrics Factory");
+  var songRsrc = $resource('musiclib/api/songs/lyrics/:songID',
+	  {songID:'@songID'},
+	  {query: {
+		method:'GET'
+		},
+	   update: {
+		method: 'PUT'
+		}
+	  });
+  return (songRsrc);
+});
+
 
 app.factory('Video', function ($resource, $log) {
   $log.log("VideoFactory");

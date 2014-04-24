@@ -64,6 +64,11 @@ exports.songUpload = function (req, res) {
   res.render('partials/song/songUpload');
 };
 
+exports.songLyrics = function (req, res) {
+  console.log("index.songLyrics:" + req.user.id);
+  res.render('partials/song/songLyrics');
+};
+
 exports.playlist = function (req, res) {
   console.log("index.playlist:" + req.params.name);
   var name = req.params.name;

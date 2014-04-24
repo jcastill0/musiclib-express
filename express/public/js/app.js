@@ -95,6 +95,10 @@ app.config(function ($routeProvider, $locationProvider) {
 	templateUrl: 'partials/song/songDetail',
 	controller: 'SongDetailCtrl'
     })
+    .when('/songs/lyrics/edit', {
+	templateUrl: 'partials/song/songLyrics',
+	controller: 'SongLyricsCtrl'
+    })
     .when('/users/:userID', {
 	templateUrl: 'partials/profile/userDetail',
 	controller: 'UserDetailCtrl'

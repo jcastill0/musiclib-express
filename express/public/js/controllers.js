@@ -402,6 +402,37 @@ app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSong
 });
 
 
+app.controller('SongLyricsCtrl', function($scope, $routeParams, $log, SearchSongs, SongLyrics) {
+  $scope.songs = null;
+  $scope.queryTerm = null;
+  $scope.partialSong = null;
+
+  $scope.search = function () {
+    $log.log("SongLyricsCtrl.search:" + $scope.queryTerm);
+    if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 1))
+	$scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
+  };
+  $scope.toggleSongForm = function(song) {
+    if (song.isSelected == undefined) {
+	song.isSelected = true;
+    } else {
+	song.isSelected = !song.isSelected;
+    }
+    if (song.isSelected) {
+	$log.log("SongLyricsCtrl.toggleSongForm:" + song.id);
+	$scope.partialSong = SongLyrics.query({songID:song.id});
+    }
+  };
+  $scope.update = function(song, length, lyrics) {
+    $log.log("SongLyricsCtrl.update: " + song.name);
+    SongLyrics.update({songID:song.id, length:length, lyrics:lyrics}, function (uData) {
+	$log.log("SongLyricsCtrl.Song.update.cb: "+uData.affectedRows);
+    });
+  };
+
+});
+
+
 app.controller('SongAddCtrl', function($scope, $log, $location, Song, Artist) {
   $scope.songName = null;
   $scope.songFilePath = null;
