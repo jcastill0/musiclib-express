@@ -1,4 +1,5 @@
 var config = require('./config');
+var fs = require('fs');
 
 module.exports = Song;
 
@@ -254,10 +255,15 @@ Song.findLyrics = function (userID, songID, cb) {
 	    return;
 	}
 	if (rows[0].length == null) {
-	    console.log("Reading audio file:" + rows[0].file_path);
+	    console.log("Reading audio file:" + config.dataRootDir + rows[0].file_path);
+	    if (fs.existsSync(config.dataRootDir + rows[0].file_path))
+		console.log("File exists");
+	    else
+	        console.error("File Doesn't exist");
 	    // get audio file length via ffmpeg
-	}
-	cb(null, rows[0]);
+	    cb(null, rows[0]);
+	} else
+	    cb(null, rows[0]);
       });
       connection.release();
   });
