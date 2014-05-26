@@ -128,6 +128,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   $scope.playlistSongs = PlaylistSongs.query({playlistID:$routeParams.playlistID});
   var ix = 0;
   $scope.currentlyPlaying = null;
+  $scope.currentLyrics = null;
   audioControl.addEventListener('ended', function() {
       ix = ix + 1;
       if (ix >= $scope.playlistSongs.length) {
@@ -137,6 +138,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       $log.log("PlayCtrl.addEventListener.cb Play["+ix+"]: " + song.name);
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
+      $scope.currentLyrics = song.lyrics;
       $scope.$apply();
       audioControl.play();
   });
@@ -148,9 +150,10 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
 	  return;
       }
       var song = $scope.playlistSongs[ix];
-      $log.log("PlayCtrl.startPlaying Play["+ix+"]: " + song.name);
+      $log.log("PlayCtrl.startPlaying Play["+ix+"] ["+song.id+"]:"+song.name);
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
+      $scope.currentLyrics = song.lyrics;
       audioControl.play();
   };
 });

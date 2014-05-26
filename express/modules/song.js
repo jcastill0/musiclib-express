@@ -8,6 +8,7 @@ function Song() {
   this.name = null;
   this.filePath = null;
   this.playedCnt = null;
+  this.lyrics = null;
 };
 
 
@@ -122,7 +123,7 @@ Song.findByPlaylist = function (userID, playlistID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT pls.song_id AS id, song.name, artist.name AS artistName, song.file_path AS path FROM playlist_songs AS pls INNER JOIN song ON song.id = pls.song_id INNER JOIN artist on artist.id = song.artist_id WHERE pls.playlist_id = " + playlistID + " ORDER BY artist.name, song.name";
+      var sql = "SELECT pls.song_id AS id, song.name, artist.name AS artistName, song.file_path AS path, song.lyrics FROM playlist_songs AS pls INNER JOIN song ON song.id = pls.song_id INNER JOIN artist on artist.id = song.artist_id WHERE pls.playlist_id = " + playlistID + " ORDER BY artist.name, song.name";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);

@@ -165,6 +165,7 @@ app.get ('/auth/oauth2callback',
 app.get('/auth/logout', routes.logout);
 
 app.get ('/MusicSrc/*', routes.musicSrc);
+//app.get ('/data/songs/*', routes.musicSrc);
 
 // redirect all others to the index (HTML5 history)
 app.get ('*', routes.forbidden);
