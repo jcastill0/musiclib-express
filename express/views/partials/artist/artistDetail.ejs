@@ -24,7 +24,7 @@
 	<fieldset>
 	  <ul class="list-group">
 	    <li class="list-group-item" ng-repeat="playlist in playlists | orderBy:'name'">
-	      <input type="radio" ng-model="selectedValue" value="playlist.name" ng-click="playlistSelected(playlist)"/>
+	      <input type="radio" ng-model="selectedValue" value="playlist.name" ng-click="playlistSelected(playlist)" name="RadioButtons"/>
 	      <span>{{playlist.name}}</span>
 	    </li>
 	  </ul>
