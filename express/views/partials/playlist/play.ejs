@@ -3,8 +3,11 @@
       <div class="col-md-6">
 	<h1>{{playlist.name}}</h1>
       </div>
-      <div class="col-md-4">
-	<button class="btn btn-large btn-primary" type="button" ng-click="startPlaying();">Start Playing</button>
+      <div class="col-md-2">
+	<button class="btn btn-large btn-primary" type="button" ng-show="showPlayButton" ng-click="startPlaying();">Start Playing</button>
+      </div>
+      <div class="col-md-2">
+	<button class="btn btn-large btn-primary" type="button" ng-show="showPlayButton" ng-click="shuffle();">Shuffle</button>
       </div>
       <div class="col-md-2">
 	<a ng-href="#/playlists">[Back to Playlists]</a>

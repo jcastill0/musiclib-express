@@ -129,6 +129,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   var ix = 0;
   $scope.currentlyPlaying = null;
   $scope.currentLyrics = null;
+  $scope.showPlayButton = true;
   audioControl.addEventListener('ended', function() {
       ix = ix + 1;
       if (ix >= $scope.playlistSongs.length) {
@@ -155,7 +156,21 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       $scope.currentlyPlaying = song.name;
       $scope.currentLyrics = song.lyrics;
       audioControl.play();
+      $scope.showPlayButton = false;
   };
+
+  $scope.shuffle = function () {
+      var i, j, t;
+      for (i=1; i < $scope.playlistSongs.length; i++) {
+	j = Math.floor(Math.random()*(1+i));	// choose j in [0..i]
+	if (j != i) {
+	    t = $scope.playlistSongs[i];	// swap list[i] and list[j]
+	    $scope.playlistSongs[i] = $scope.playlistSongs[j];
+	    $scope.playlistSongs[j] = t;
+	}
+      }
+  };
+
 });
 
 app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, Song, $location, $log) {
