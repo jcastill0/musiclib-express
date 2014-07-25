@@ -145,17 +145,18 @@ exports.createSong = function (req, res) {
 
 exports.uploadSong = function (req, res) {
   if (config.debug)
-      console.log("api.uploadSong:" + req.body.ArtistName);
+      console.log("api.uploadSong:" + req.body.artistName);
   //console.log(req.body);
-  artistName = req.body.ArtistName;
+  artistName = req.body.artistName;
   //console.log(req.files);
-  newPath = 'public/MusicSrc/' + artistName + "/" + req.files.songFile.name;
+  newPath = 'public/MusicSrc/' + artistName + "/" + req.files.songFile.originalname;
   //console.log ("SRC:"+ req.files.songFile.path + " DEST:" +newPath);
   try {
 	fs.renameSync(req.files.songFile.path, newPath);
   } catch (ex) {
 	console.error("Unable to move file. " + ex);
 	res.send(500, {Error:ex});
+	return;
   }
   res.render('partials/admin/users');
 };
