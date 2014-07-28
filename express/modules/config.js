@@ -21,6 +21,7 @@ var smtpTransport = null;
 
 exports.serverPort = "3000";
 exports.debug = false;
+exports.dataRootDir = "C:/dev/show/musiclib-express/express/public/";
 
 // Google stuff
 var callbackPath = "/auth/oauth2callback";
@@ -45,6 +46,6 @@ exports.getMailTransport = function() {return (smtpTransport);};
 exports.getMyEmail = function() {return (smtpOptions.auth.user);};
 
 exports.createMailTransport = function () {
-  smtpTransport = nodemailer.createTransport("SMTP", smtpOptions);
+  smtpTransport = nodemailer.createTransport(smtpOptions);
   //smtpTransport = nodemailer.createTransport("direct", {debug:true});
 };
