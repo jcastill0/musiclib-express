@@ -32,7 +32,8 @@ app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'img')));
 app.use(cookieParser("ThisSecretRocks"));
-app.use(bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(multer({ dest: 'public/data'}));
 app.use(methodOverride());	// must come after bodyParser
 app.use(session({secret:'ThisSecretRocks',saveUninitialized:true,resave:true}));
