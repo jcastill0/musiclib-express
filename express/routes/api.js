@@ -25,7 +25,7 @@ exports.users = function (req, res) {
   User.findAll(function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -38,7 +38,7 @@ exports.stats = function (req, res) {
   Stats.getAll(function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -57,7 +57,8 @@ exports.suggestion = function (req, res) {
   config.getMailTransport().sendMail (message, function (err, response) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    console.error(message);
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(response);
 	}
@@ -71,7 +72,7 @@ exports.playlists = function (req, res) {
   Playlist.find(req.user.id, req.params.playlistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -84,7 +85,7 @@ exports.artists = function (req, res) {
   Artist.find(req.user.id, req.params.artistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -97,7 +98,7 @@ exports.searchSongs = function (req, res) {
   Song.search(req.user.id, req.params.queryTerm, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -110,7 +111,7 @@ exports.songs = function (req, res) {
   Song.find(req.user.id, req.params.songID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -123,7 +124,7 @@ exports.songLyrics = function (req, res) {
   Song.findLyrics(req.user.id, req.params.songID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -136,7 +137,7 @@ exports.createSong = function (req, res) {
   Song.create(req.user.id, req.body.name, req.body.filePath, req.body.artistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json({id:data});
 	}
@@ -155,7 +156,7 @@ exports.uploadSong = function (req, res) {
 	fs.renameSync(req.files.songFile.path, newPath);
   } catch (ex) {
 	console.error("Unable to move file. " + ex);
-	res.send(500, {Error:ex});
+	res.status(500).send({Error:err});
 	return;
   }
   res.render('partials/admin/users');
@@ -167,7 +168,7 @@ exports.updateSong = function (req, res) {
   Song.update(req.user.id, req.params.songID, req.body.name, req.body.filePath, req.body.artistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -180,7 +181,7 @@ exports.updateLyrics = function (req, res) {
   Song.updateLyrics(req.user.id, req.params.songID, req.body.length, req.body.lyrics, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -194,7 +195,7 @@ exports.artistSongs = function (req, res) {
   Song.findByArtist(req.user.id, req.params.artistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -207,7 +208,7 @@ exports.playlistSongs = function (req, res) {
   Song.findByPlaylist(req.user.id, req.params.playlistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -220,7 +221,7 @@ exports.recentSongs = function (req, res) {
   Song.findRecent(req.user.id, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -233,7 +234,7 @@ exports.popularSongs = function (req, res) {
   Song.mostPopularSongs(req.user.id, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -246,7 +247,7 @@ exports.popularPlaylists = function (req, res) {
   Playlist.mostPopularPlaylists(req.user.id, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -259,7 +260,7 @@ exports.updatePlaylistSongs = function (req, res) {
   Playlist.updateSongs(req.user.id, req.params.playlistID, req.body.addSongs, req.body.remSongs, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -272,7 +273,7 @@ exports.createPlaylist = function (req, res) {
   Playlist.create(req.user.id, req.body.name, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json({id:data});
 	}
@@ -285,7 +286,7 @@ exports.updatePlaylist = function (req, res) {
   Playlist.update(req.user.id, req.params.playlistID, req.body.name, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -298,7 +299,7 @@ exports.deletePlaylist = function (req, res) {
   Playlist.delete(req.user.id, req.params.playlistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -312,7 +313,7 @@ exports.videos = function (req, res) {
   Video.find(req.user.id, req.params.videoID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -325,7 +326,7 @@ exports.recentVideos = function (req, res) {
   Video.findRecent(req.user.id, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
@@ -338,7 +339,7 @@ exports.createVideo = function (req, res) {
   Video.create(req.user.id, req.body.name, req.body.url, req.body.embedded, req.body.artistID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json({id:data});
 	}
@@ -351,7 +352,7 @@ exports.deleteVideo = function (req, res) {
   Video.delete(req.user.id, req.params.videoID, function (err, data) {
 	if (err) {
 	    console.error(err);
-	    res.send(500, {Error:err});
+	    res.status(500).send({Error:err});
 	} else {
 	    res.json(data);
 	}
