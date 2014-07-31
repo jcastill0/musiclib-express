@@ -207,7 +207,7 @@ Song.update = function (userID, songID, name, filePath, artistID, cb) {
   });
 };
 
-Song.updateLyrics = function (userID, songID, length, lyrics, cb) {
+Song.updateLyrics = function (userID, songID, lyrics, cb) {
   if (config.debug)
       console.log("UpdateLyrics: " + songID);
   config.getConnPool().getConnection (function(error, connection) {
@@ -217,8 +217,9 @@ Song.updateLyrics = function (userID, songID, length, lyrics, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "UPDATE song SET length='"+length+"', lyrics='"+lyrics+"' WHERE (id = "+songID +")";
+      var sql = "UPDATE song SET lyrics='"+lyrics+"' WHERE (id = "+songID +")";
       connection.query(sql, function (error, result) {
+	connection.release();
 	if (error) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
@@ -229,7 +230,6 @@ Song.updateLyrics = function (userID, songID, length, lyrics, cb) {
 	    cb("Record not found");
 	}
       });
-      connection.release();
   });
 };
 
@@ -243,8 +243,9 @@ Song.findLyrics = function (userID, songID, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT song.id, song.name, song.file_path, song.length, song.lyrics, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE song.id = " + songID;
+      var sql = "SELECT song.id, song.name, song.file_path, song.lyrics, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE song.id = " + songID;
       connection.query(sql, function (error, rows) {
+	connection.release();
 	if (error) {
 	    console.error("SQL Error: " + error.message);
 	    cb(error);
@@ -255,17 +256,7 @@ Song.findLyrics = function (userID, songID, cb) {
 	    cb(error);
 	    return;
 	}
-	if (rows[0].length == null) {
-	    console.log("Reading audio file:" + config.dataRootDir + rows[0].file_path);
-	    if (fs.existsSync(config.dataRootDir + rows[0].file_path))
-		console.log("File exists");
-	    else
-	        console.error("File Doesn't exist");
-	    // get audio file length via ffmpeg
-	    cb(null, rows[0]);
-	} else
-	    cb(null, rows[0]);
+	cb(null, rows[0]);
       });
-      connection.release();
   });
 };

@@ -178,7 +178,7 @@ exports.updateSong = function (req, res) {
 exports.updateLyrics = function (req, res) {
   if (config.debug)
       console.log("api.updateSongLyrics");
-  Song.updateLyrics(req.user.id, req.params.songID, req.body.length, req.body.lyrics, function (err, data) {
+  Song.updateLyrics(req.user.id, req.params.songID, req.body.lyrics, function (err, data) {
 	if (err) {
 	    console.error(err);
 	    res.status(500).send({Error:err});

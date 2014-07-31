@@ -441,9 +441,9 @@ app.controller('SongLyricsCtrl', function($scope, $routeParams, $log, SearchSong
 	$scope.partialSong = SongLyrics.query({songID:song.id});
     }
   };
-  $scope.update = function(song, length, lyrics) {
+  $scope.update = function(song, lyrics) {
     $log.log("SongLyricsCtrl.update: " + song.name);
-    SongLyrics.update({songID:song.id, length:length, lyrics:lyrics}, function (uData) {
+    SongLyrics.update({songID:song.id, lyrics:lyrics}, function (uData) {
 	$log.log("SongLyricsCtrl.Song.update.cb: "+uData.affectedRows);
     });
   };

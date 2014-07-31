@@ -25,7 +25,7 @@
 	</div>
 	<div class="col-md-11">
 	    <a class="btn btn-default btn-xs" ng-click="toggleSongForm(song);"><span class="glyphicon glyphicon-expand"></span></a> {{song.name}}
-	    <form class="form-horizontal" role="form" ng-submit="update(song, partialSong.length, partialSong.lyrics)" ng-show="song.isSelected">
+	    <form class="form-horizontal" role="form" ng-submit="update(song, partialSong.lyrics)" ng-show="song.isSelected">
 	      <div class="form-group">
 		<label class="control-label" for="inputName">Name</label>
 	  	<input class="form-control" type="text" id="inputName" placeHolder="Song name" name="SongName" ng-model="song.name" disabled/>
@@ -33,10 +33,6 @@
 	      <div class="form-group">
 		<label class="control-label" for="disabledInput">Artist</label>
 		<input class="form-control" id="disabledInput" type="text" placeholder="{{song.artistName}}" disabled/>
-	      </div>
-	      <div class="form-group">
-		<label class="control-label" for="inputLength">Length (secs)</label>
-	  	<input class="form-control" type="number" id="inputLength" placeHolder="Song Length" name="SongLength" ng-model="partialSong.length" required/>
 	      </div>
 	      <div class="form-group">
 		<label class="control-label" for="inputLyric">Lyrics</label>
