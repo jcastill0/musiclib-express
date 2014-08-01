@@ -27,7 +27,8 @@
 	<audio id="AudioPlayerID" name="AudioControl" controls="controls">
 	</audio>
 	<div class="jumbotron">
-	  <textarea rows="10" cols="60" readonly>{{currentLyrics}}</textarea>
+	  <textarea rows="10" cols="60" readonly ng-show="hasLyrics()">{{currentLyrics}}</textarea>
+	  <img ng-src="./img/music.gif" ng-show="showImage()"/>
 	</div>
       </div>
     </div>

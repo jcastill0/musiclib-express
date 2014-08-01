@@ -171,6 +171,20 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       }
   };
 
+  $scope.hasLyrics = function () {
+    if ($scope.currentLyrics == null)
+	return (false);
+    else
+	return (true);
+  };
+
+  $scope.showImage = function () {
+    if (($scope.currentLyrics == null) && (!$scope.showPlayButton))
+	return (true);
+    else
+	return (false);
+  }
+
 });
 
 app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, Song, $location, $log) {
