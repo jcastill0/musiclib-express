@@ -130,6 +130,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   $scope.currentlyPlaying = null;
   $scope.currentLyrics = null;
   $scope.showPlayButton = true;
+  $scope.hashValue = 0;
   audioControl.addEventListener('ended', function() {
       ix = ix + 1;
       if (ix >= $scope.playlistSongs.length) {
@@ -140,6 +141,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
       $scope.currentLyrics = song.lyrics;
+      $scope.hashValue = song.id%6;
       $scope.$apply();
       audioControl.play();
   });
@@ -155,6 +157,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
       $scope.currentLyrics = song.lyrics;
+      $scope.hashValue = song.id%6;
       audioControl.play();
       $scope.showPlayButton = false;
   };
