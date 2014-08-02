@@ -217,7 +217,7 @@ Song.updateLyrics = function (userID, songID, lyrics, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "UPDATE song SET lyrics='"+lyrics+"' WHERE (id = "+songID +")";
+      var sql = "UPDATE song SET lyrics="+connection.escape(lyrics)+" WHERE (id = "+songID +")";
       connection.query(sql, function (error, result) {
 	connection.release();
 	if (error) {
