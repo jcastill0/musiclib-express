@@ -3,13 +3,13 @@
       <div class="form-group">
 	<label class="col-sm-1 control-label" for="inputName">Playlist</label>
 	<div class="col-sm-5">
-	  <input type="text" id="inputName" placeHolder="Playlist name" name="PlaylistName" ng-model="playlist.name" required/>
+	  <input type="text" id="inputName" placeHolder="Playlist name" name="PlaylistName" ng-model="playlist.name" required autofocus/>
 	</div>
 	<div class="col-sm-1">
 	  <input type="submit" id="updatePlaylist" value="Save" class="btn btn-primary"/>
 	</div>
 	<div class="col-sm-1">
-	  <a ng-href="#/playlists/">Cancel</a>
+	  <a ng-href="#/playlists/" class="btn btn-link">Cancel</a>
 	</div>
       </div>
     </form>

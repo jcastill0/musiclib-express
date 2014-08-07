@@ -4,13 +4,13 @@
 	<h1>{{artist.name}}</h1>
       </div>
     <div class="col-md-2">
-      <a ng-href="#/artists">[Back to Artists]</a>
+      <a ng-href="#/artists" class="btn btn-link">[Back to Artists]</a>
     </div>
   </div>
   <form class="form-horizontal" role="form" ng-submit="save()">
     <div class="row">
       <div class="col-md-8">
-	<input type="search" ng-model="searchSong" class="rounded search-query" placeHolder="Search"/>
+	<input type="search" ng-model="searchSong" class="rounded search-query" placeHolder="Search" autofocus/>
 	<hr/>
 	<ul class="list-group">
 	  <li class="list-group-item" ng-repeat="song in songs | filter:searchSong | orderBy:'name'">

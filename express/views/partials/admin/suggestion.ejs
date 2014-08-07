@@ -3,7 +3,7 @@
       <div class="form-group">
 	<label class="col-sm-2 control-label" for="from">From:</label>
 	<div class="col-sm-5">
-	  <input type="text" class="form-control" id="from" name="from" placeHolder="Please tell me who you are" ng-model="from" required/>
+	  <input type="text" class="form-control" id="from" name="from" placeHolder="Please tell me who you are" ng-model="from" required autofocus/>
 	</div>
       </div>
       <div class="form-group">
@@ -15,7 +15,7 @@
       <div class="form-group">
 	<div class="col-sm-offset-1 col-sm-20">
 	  <input type="submit" id="submitSuggestion" value="Suggestion" class="btn btn-primary"/>
-	  <a ng-href="#/home">Cancel</a>
+	  <a ng-href="#/home" class="btn btn-link">Cancel</a>
 	</div>
       </div>
     </form>

@@ -99,12 +99,12 @@ exports.video = function (req, res) {
 
 exports.forbidden = function (req, res) {
   console.log("index.forbidden:" + req.ip + ":" +req.params);
-  res.send(500, {Error:"Sorry, not through here"});
+  res.status(500).send({Error:"Sorry, not through here"});
 };
 
 exports.musicSrc = function (req, res) {
   console.log("index.musicSrc:" + req.params);
-  res.send(200);
+  res.status(200).end();
 };
 
 exports.logout = function (req, res) {
