@@ -134,6 +134,10 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   audioControl.addEventListener('ended', function() {
       ix = ix + 1;
       if (ix >= $scope.playlistSongs.length) {
+	  $scope.showPlayButton = true;
+	  $scope.currentlyPlaying = null;
+	  $scope.currentLyrics = null;
+	  $scope.$apply();
 	  return;
       }
       var song = $scope.playlistSongs[ix];
