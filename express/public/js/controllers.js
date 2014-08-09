@@ -192,6 +192,14 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
 	return (false);
   }
 
+  $scope.stopPlayer = function () {
+    ix = 0;
+    $scope.showPlayButton = true;
+    $scope.currentlyPlaying = null;
+    $scope.currentLyrics = null;
+    audioControl.src = null;
+  }
+
 });
 
 app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, Song, $location, $log) {

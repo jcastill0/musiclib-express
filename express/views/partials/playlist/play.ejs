@@ -6,8 +6,11 @@
       <div class="col-md-2">
 	<button class="btn btn-large btn-primary" type="button" ng-show="showPlayButton" ng-click="startPlaying();">Start Playing</button>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
 	<button class="btn btn-large btn-primary" type="button" ng-show="showPlayButton" ng-click="shuffle();">Shuffle</button>
+      </div>
+      <div class="col-md-1">
+	<button class="btn btn-large btn-danger" type="button" ng-show="!showPlayButton" ng-click="stopPlayer();"><span class="glyphicon glyphicon-stop icon-red"></span></button>
       </div>
       <div class="col-md-2">
 	<a ng-href="#/playlists" class="btn btn-link">[Back to Playlists]</a>
@@ -24,8 +27,7 @@
       </div>
       <div class="col-md-6">
 	<h4 id="NowPlayingID">Now Playing: {{currentlyPlaying}}</h4>
-	<audio id="AudioPlayerID" name="AudioControl" controls="controls">
-	</audio>
+	<audio id="AudioPlayerID" name="AudioControl" controls="controls"></audio>
 	<div class="jumbotron">
 	  <textarea rows="10" cols="60" readonly ng-show="hasLyrics()">{{currentLyrics}}</textarea>
 	  <img ng-src="./img/music_{{hashValue}}.gif" ng-show="showImage()"/>
