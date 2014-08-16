@@ -1,9 +1,18 @@
-/* app css stylesheet */
+/* app css stylesheet */ 
 
 
 input.rounded {
   border-radius: 10px;
   box-shadow: 2px 2px 3px #666;
   padding: 4px 7px;
+}
+
+.lyrics {
+  background-color: darkblue;
+  font-weight:bold;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 3px #666;
+  float:left;
 }
 
