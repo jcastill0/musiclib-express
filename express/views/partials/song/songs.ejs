@@ -10,26 +10,28 @@
 	</div>
       </div>
       <div class="row">
-	<div class="col-md-1">
-	</div>
-	<div class="col-md-11">
+	<div class="col-md-6">
 	  <input type="search" ng-model="queryTerm" class="rounded search-query" placeholder="Search" ng-change="search()" autofocus/>
-	</div>
-      </div>
-      <br/>
-      <div class="row" ng-repeat="song in songs">
-	<div class="col-md-1">
-	</div>
-	<div class="col-md-10">
-	    <a ng-href="{{song.file_path}}">{{song.name}}</a>
-	    <a ng-href="{{song.file_path}}" download="{{song.name}}">
-		<span class="glyphicon glyphicon-download"></span>
-	    </a>
-	</div>
-	<div class="col-md-1">
+	  <br/>
+	  <div class="row" ng-repeat="song in songs">
+	    <div class="col-md-8">
+	      <button type="button" class="btn btn-link" ng-click="playSong(song)">{{song.name}}</button>
+	      <a ng-href="{{song.file_path}}" download="{{song.name}}">
+		  <span class="glyphicon glyphicon-download"></span>
+	      </a>
+	    </div>
+	    <div class="col-md-4">
+	    </div>
+	  </div>
+        </div>
+	<div class="col-md-6">
+	  <h4 id="NowPlayingID">Now Playing: {{currentlyPlaying}}</h4>
+	  <audio id="AudioPlayerID" name="AudioControl" controls="controls"></audio>
+	  <div class="container">
+	    <textarea rows="10" cols="60" readonly ng-show="hasLyrics()" class="lyrics">{{currentLyrics}}</textarea>
+	    <img class="img-rounded" ng-src="./img/music_{{hashValue}}.gif" ng-show="showImage()" width="335px"/>
+	  </div>
 	</div>
       </div>
     </div>
-
-
 

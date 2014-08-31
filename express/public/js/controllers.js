@@ -131,6 +131,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   $scope.currentLyrics = null;
   $scope.showPlayButton = true;
   $scope.hashValue = 0;
+
   audioControl.addEventListener('ended', function() {
       ix = ix + 1;
       if (ix >= $scope.playlistSongs.length) {
@@ -412,14 +413,42 @@ app.controller('UserDetailCtrl', function($scope, $routeParams, $log, $location,
 
 ///////////////////////////////////////////
 
-app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs) {
+app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, audioControl) {
   $scope.songs = null;
   $scope.queryTerm = null;
+  $scope.currentlyPlaying = null;
+  $scope.currentLyrics = null;
+  $scope.hashValue = 0;
+  
   $scope.search = function () {
-    $log.log("SongCtrl:" + $scope.queryTerm);
-    if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 1))
+    if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 2)) {
+        $log.log("SongCtrl:" + $scope.queryTerm);
 	$scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
+    }
   };
+
+  $scope.playSong = function (song) {
+    $log.log("SongCtrl.playSong["+song.id+"]:"+song.name);
+    audioControl.src = song.file_path;
+    $scope.currentlyPlaying = song.name;
+    $scope.currentLyrics = song.lyrics;
+    $scope.hashValue = song.id%6;
+    audioControl.play();
+  };
+
+  $scope.hasLyrics = function () {
+    if ($scope.currentLyrics == null)
+	return (false);
+    else
+	return (true);
+  };
+
+  $scope.showImage = function () {
+    if ($scope.currentLyrics == null)
+	return (true);
+    else
+	return (false);
+  }
 });
 
 app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSongs, Song) {

@@ -49,7 +49,7 @@ Song.search = function (userID, term, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT song.id, song.name, file_path, artist.name AS artistName, artist.id AS artistID FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE LOWER(song.name) LIKE '%" + term + "%' ORDER BY artist.name, song.name";
+      var sql = "SELECT song.id, song.name, file_path, song.lyrics, artist.name AS artistName, artist.id AS artistID FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE LOWER(song.name) LIKE '%" + term + "%' ORDER BY artist.name, song.name";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
