@@ -14,13 +14,13 @@
 	  <input type="search" ng-model="queryTerm" class="rounded search-query" placeholder="Search" ng-change="search()" autofocus/>
 	  <br/>
 	  <div class="row" ng-repeat="song in songs">
-	    <div class="col-md-8">
+	    <div class="col-md-11">
 	      <button type="button" class="btn btn-link" ng-click="playSong(song)">{{song.name}}</button>
 	      <a ng-href="{{song.file_path}}" download="{{song.name}}">
 		  <span class="glyphicon glyphicon-download"></span>
 	      </a>
 	    </div>
-	    <div class="col-md-4">
+	    <div class="col-md-1">
 	    </div>
 	  </div>
         </div>
