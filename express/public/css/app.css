@@ -16,5 +16,14 @@ input.rounded {
   float:left;
   width: 350px;
   height: 200px;
+  margin-left:-20px
 }
 
+.img-lyrics {
+  float:left;
+  margin-left:-15px;
+}
+
+.audio-lyrics {
+  width: 340px;
+}
