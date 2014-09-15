@@ -207,6 +207,32 @@ Song.update = function (userID, songID, name, filePath, artistID, cb) {
   });
 };
 
+Song.updateCount = function (userID, songID, cb) {
+  if (config.debug)
+      console.log("Update Count: " + songID);
+  config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "UPDATE song SET played_count = LAST_INSERT_ID(played_count) + 1 WHERE id ="+songID;
+      connection.query(sql, function (error, result) {
+        connection.release();
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	if (result) {
+	    cb(null, result);
+	} else {
+	    cb("Record not found");
+	}
+      });
+  });
+};
+
 Song.updateLyrics = function (userID, songID, lyrics, cb) {
   if (config.debug)
       console.log("UpdateLyrics: " + songID);

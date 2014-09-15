@@ -158,6 +158,16 @@ app.factory('SongLyrics', function ($resource, $log) {
   return (songRsrc);
 });
 
+app.factory('SongCount', function ($resource, $log) {
+  $log.log("Song Count Factory");
+  var songRsrc = $resource('musiclib/api/songs/count/:songID',
+	  {songID:'@songID'},
+	  {update: {
+		method: 'PUT'
+		}
+	  });
+  return (songRsrc);
+});
 
 app.factory('Video', function ($resource, $log) {
   $log.log("VideoFactory");

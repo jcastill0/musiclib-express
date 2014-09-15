@@ -148,6 +148,7 @@ app.get ('/musiclib/api/songs', api.songs);
 app.post('/musiclib/api/songs', api.createSong);
 app.post('/musiclib/api/songs/upload', api.uploadSong);
 app.put ('/musiclib/api/songs/:songID', api.updateSong);
+app.put ('/musiclib/api/songs/count/:songID', api.updateSongCnt);
 app.put ('/musiclib/api/songs/lyrics/:songID', api.updateLyrics);
 app.get ('/musiclib/api/songs/lyrics/:songID', api.songLyrics);
 app.get ('/musiclib/api/search/songs/query/:queryTerm', api.searchSongs);

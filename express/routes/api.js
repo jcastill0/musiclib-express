@@ -175,6 +175,19 @@ exports.updateSong = function (req, res) {
   });
 };
 
+exports.updateSongCnt = function (req, res) {
+  if (config.debug)
+      console.log("api.updateSongCnt");
+  Song.updateCount(req.user.id, req.params.songID, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.status(500).send({Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
 exports.updateLyrics = function (req, res) {
   if (config.debug)
       console.log("api.updateSongLyrics");

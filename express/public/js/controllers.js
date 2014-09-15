@@ -122,7 +122,7 @@ app.controller('PlaylistCtrl', function($scope, $log, Playlist) {
   $scope.playlists = Playlist.query();
 });
 
-app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, $log, audioControl) {
+app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, $log, audioControl, SongCount) {
   $log.log("PlayCtrl:" + $routeParams.playlistID);
   $scope.playlist = Playlist.get({playlistID:$routeParams.playlistID});
   $scope.playlistSongs = PlaylistSongs.query({playlistID:$routeParams.playlistID});
@@ -149,6 +149,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       $scope.hashValue = song.id%6;
       $scope.$apply();
       audioControl.play();
+      SongCount.update({songID:song.id});
   });
 
   $scope.startPlaying = function () {
@@ -165,6 +166,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       $scope.hashValue = song.id%6;
       audioControl.play();
       $scope.showPlayButton = false;
+      SongCount.update({songID:song.id});
   };
 
   $scope.shuffle = function () {
@@ -413,7 +415,7 @@ app.controller('UserDetailCtrl', function($scope, $routeParams, $log, $location,
 
 ///////////////////////////////////////////
 
-app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, audioControl) {
+app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, audioControl, SongCount) {
   $scope.songs = null;
   $scope.queryTerm = null;
   $scope.currentlyPlaying = null;
@@ -434,6 +436,7 @@ app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, aud
     $scope.currentLyrics = song.lyrics;
     $scope.hashValue = song.id%6;
     audioControl.play();
+    SongCount.update({songID:song.id});
   };
 
   $scope.hasLyrics = function () {
