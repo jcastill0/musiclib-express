@@ -116,6 +116,18 @@ app.factory('PopularSongs', function ($resource, $log) {
   return (songRsrc);
 });
 
+app.factory('FrequentSongs', function ($resource, $log) {
+  $log.log("FrequentSongs Factory");
+  var songRsrc = $resource('musiclib/api/search/songs/frequent',
+	  {songID:'@songID'},
+	  {query: {
+		method:'GET', isArray:true
+		}
+	  });
+  return (songRsrc);
+});
+
+
 app.factory('PopularPlaylists', function ($resource, $log) {
   $log.log("PopularPlaylists Factory");
   var playlistRsrc = $resource('musiclib/api/search/playlists/popular',

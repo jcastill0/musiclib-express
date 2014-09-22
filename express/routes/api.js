@@ -254,6 +254,20 @@ exports.popularSongs = function (req, res) {
   });
 };
 
+exports.frequentlyPlayedSongs = function (req, res) {
+  if (config.debug)
+      console.log("api.frequentlyPlayedSongs");
+  Song.frequentlyPlayedSongs(req.user.id, function (err, data) {
+	if (err) {
+	    console.error(err);
+	    res.status(500).send({Error:err});
+	} else {
+	    res.json(data);
+	}
+  });
+};
+
+
 exports.popularPlaylists = function (req, res) {
   if (config.debug)
       console.log("api.popularPlaylists");

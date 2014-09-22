@@ -159,6 +159,28 @@ Song.mostPopularSongs = function (userID, cb) {
     });
 };
 
+Song.frequentlyPlayedSongs = function (userID, cb) {
+    if (config.debug)
+	console.log("Song.frequentlyPlayedSongs");
+    config.getConnPool().getConnection (function(error, connection) {
+      if (error) {
+	  console.error("Connection Pool Error: " + error.message);
+          console.error(error.stack);
+	  cb(error);
+	  return;
+      }
+      var sql = "SELECT song.id, song.name, song.played_count, artist.name AS artistName, song.file_path FROM song INNER JOIN artist ON artist.id = song.artist_id ORDER BY song.played_count DESC LIMIT 10";
+      connection.query(sql, function (error, rows) {
+	connection.release();
+	if (error) {
+	    console.error("SQL Error: " + error.message);
+	    cb(error);
+	}
+	cb (null, rows);
+      });
+    });
+};
+
 Song.create = function (userID, name, filePath, artistID, cb) {
   if (config.debug)
       console.log("Create Song for: " + userID);
