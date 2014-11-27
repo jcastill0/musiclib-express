@@ -79,6 +79,7 @@ if (app.get('env') === 'development') {
 // production only
 if (app.get('env') === 'production') {
   google_callback = config.google_callback_prod;
+  app.use(errorHandler());
   console.log("PRODUCTION ENV");
 };
 
