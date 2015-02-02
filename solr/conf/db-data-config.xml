@@ -1,0 +1,12 @@
+<dataConfig>
+    <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/musicdb" user="root" password="root"/>
+    <document>
+        <entity name="song"
+		query="SELECT id, name, lyrics FROM song">
+            <field column="id" name="id" />
+	    <field column="name" name="name" />
+	    <field column="lyrics" name="lyrics" />
+        </entity>
+    </document>
+</dataConfig>
+
