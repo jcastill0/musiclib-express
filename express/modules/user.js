@@ -22,7 +22,7 @@ User.find = function (google_id, cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT id, google_display_name, google_email, is_superuser, last_login FROM google_user WHERE google_id = "+ googleID + " AND is_active = 1";
+      var sql = "SELECT id, google_display_name, google_email, is_superuser, last_login FROM google_user WHERE google_id = "+ googleID + " AND is_active = 1 ORDER BY last_login desc";
       connection.query(sql, function (error, row) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
@@ -53,7 +53,7 @@ User.findAll = function (cb) {
 	  cb(error);
 	  return;
       }
-      var sql = "SELECT id, google_display_name, google_email, is_superuser, last_login FROM google_user";
+      var sql = "SELECT id, google_display_name, google_email, is_superuser, last_login FROM google_user ORDER BY last_login desc";
       connection.query(sql, function (error, rows) {
 	if (error) {
 	    console.error("SQL Error: " + error.message);
