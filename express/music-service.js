@@ -28,7 +28,7 @@ app.set('port', process.env.PORT || config.serverPort);
 app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
 app.set("view engine", "ejs");
-app.use(logger('dev'));
+app.use(logger('combined'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'img')));
 app.use(cookieParser("ThisSecretRocks"));
