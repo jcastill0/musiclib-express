@@ -2,11 +2,13 @@
     <dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/musicdb" user="root" password="root"/>
     <document>
         <entity name="song"
-		query="SELECT id, name, lyrics FROM song">
-            <field column="id" name="id" />
-	    <field column="name" name="name" />
-	    <field column="lyrics" name="lyrics" />
+		query="SELECT song.id, song.name, song.file_path, song.lyrics, artist.name AS artistName, artist.id AS artistID FROM song INNER JOIN artist ON artist.id=song.artist_id">
+	    <field column="song.id" name="id" />
+	    <field column="song.name" name="name" />
+	    <field column="song.file_path" name ="file_path" />
+	    <field column="song.lyrics" name="lyrics" />
+	    <field column="artistName" name="artistName" />
+	    <field column="artistID" name="artistID" />
         </entity>
     </document>
 </dataConfig>
-

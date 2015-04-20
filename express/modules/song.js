@@ -1,5 +1,8 @@
 var config = require('./config');
 var fs = require('fs');
+var rest = require('restler');
+var qStr = require('querystring');
+
 
 module.exports = Song;
 
@@ -306,5 +309,40 @@ Song.findLyrics = function (userID, songID, cb) {
 	}
 	cb(null, rows[0]);
       });
+  });
+};
+
+Song.searchLyrics = function(userID, searchTerm, cb) {
+  if (config.debug)
+      console.log("Find Songs by Lyrics:" + searchTerm);
+  var solrQStr = config.SOLRqueryStr;
+  solrQStr.q = searchTerm.replace(" ", "+");
+  var escapedQStr = qStr.stringify(solrQStr);
+  var fullURL = config.SOLRurl+escapedQStr;
+  rest.get(fullURL).on('complete', function(result) {
+    if (result instanceof Error) {
+	console.log('Error:', result.message);
+	cb(result.message);
+	return;
+    } else {
+	var jsonStruct = JSON.parse(result);
+	var docs = jsonStruct.response.docs;
+	var responsePayload = new Array();
+	if (docs) {
+	    var len = docs.length;
+	    for (var ix=0; ix < len; ix++) {
+		var song = {
+			id : docs[ix].id,
+			name: docs[ix].name
+		};
+		console.log("ID:"+docs[ix].id + " Name:"+docs[ix].name);
+		if (docs[ix].lyrics) {
+		    song.lyrics = docs[ix].lyrics;
+		}
+		responsePayload.push(song);
+	    }
+	}
+	cb (null, responsePayload);
+    }
   });
 };
