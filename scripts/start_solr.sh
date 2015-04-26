@@ -1,2 +1,2 @@
 #!/bin/bash -Eux
-~/bin/solr/bin/solr -e dih
+$SOLR_HOME/bin/solr -e dih

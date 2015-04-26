@@ -1,2 +1,2 @@
 #!/bin/bash -Eux
-~/bin/solr/bin/solr stop -all
+$SOLR_HOME/bin/solr stop -all
