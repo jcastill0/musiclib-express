@@ -42,7 +42,7 @@ Song.find = function (userID, songID, cb) {
 };
 
 
-Song.search = function (userID, term, cb) {
+/*Song.search = function (userID, term, cb) {
   if (config.debug)
       console.log("Search Song with term:" + term);
   config.getConnPool().getConnection (function(error, connection) {
@@ -64,7 +64,7 @@ Song.search = function (userID, term, cb) {
       });
       connection.release();
   });
-};
+};*/
 
 
 Song.findRecent = function (userID, cb) {
@@ -312,7 +312,7 @@ Song.findLyrics = function (userID, songID, cb) {
   });
 };
 
-Song.searchLyrics = function(userID, searchTerm, cb) {
+Song.search = function(userID, searchTerm, cb) {
   if (config.debug)
       console.log("Find Songs by Lyrics:" + searchTerm);
   var solrQStr = config.SOLRqueryStr;
@@ -333,9 +333,12 @@ Song.searchLyrics = function(userID, searchTerm, cb) {
 	    for (var ix=0; ix < len; ix++) {
 		var song = {
 			id : docs[ix].id,
-			name: docs[ix].name
+			name: docs[ix].name,
+			file_path: docs[ix].file_path,
+			artistID: docs[ix].artistID,
+			artistName: docs[ix].artistName
 		};
-		console.log("ID:"+docs[ix].id + " Name:"+docs[ix].name);
+		//console.log("ID:"+docs[ix].id + " Name:"+docs[ix].name);
 		if (docs[ix].lyrics) {
 		    song.lyrics = docs[ix].lyrics;
 		}
