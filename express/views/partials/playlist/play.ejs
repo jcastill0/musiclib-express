@@ -29,11 +29,9 @@
 	<h4 id="NowPlayingID">Now Playing: {{currentlyPlaying}}</h4>
 	<audio id="AudioPlayerID" name="AudioControl" controls="controls" class="audio-lyrics"></audio>
 	<div class="container">
-	  <textarea readonly ng-show="hasLyrics()" class="lyrics">{{currentLyrics}}</textarea>
+	  <textarea readonly ng-show="hasLyrics()" class="lyrics">{{currentLyrics.lyrics}}</textarea>
 	  <img class="img-rounded img-lyrics" ng-src="./img/music_{{hashValue}}.gif" ng-show="showImage()" width="335px"/>
 	</div>
       </div>
     </div>
   </div>
-
-

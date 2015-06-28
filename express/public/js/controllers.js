@@ -123,7 +123,7 @@ app.controller('PlaylistCtrl', function($scope, $log, Playlist) {
   $scope.playlists = Playlist.query();
 });
 
-app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, $log, audioControl, SongCount) {
+app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSongs, $log, audioControl, SongCount, SongLyrics) {
   $log.log("PlayCtrl:" + $routeParams.playlistID);
   $scope.playlist = Playlist.get({playlistID:$routeParams.playlistID});
   $scope.playlistSongs = PlaylistSongs.query({playlistID:$routeParams.playlistID});
@@ -136,17 +136,17 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   audioControl.addEventListener('ended', function() {
       ix = ix + 1;
       if (ix >= $scope.playlistSongs.length) {
-	  $scope.showPlayButton = true;
-	  $scope.currentlyPlaying = null;
-	  $scope.currentLyrics = null;
-	  $scope.$apply();
-	  return;
+          $scope.showPlayButton = true;
+          $scope.currentlyPlaying = null;
+          $scope.currentLyrics = null;
+          $scope.$apply();
+          return;
       }
       var song = $scope.playlistSongs[ix];
       $log.log("PlayCtrl.addEventListener.cb Play["+ix+"]: " + song.name);
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
-      $scope.currentLyrics = song.lyrics;
+      $scope.currentLyrics = SongLyrics.query({songID:song.id});
       $scope.hashValue = song.id%6;
       $scope.$apply();
       audioControl.play();
@@ -156,14 +156,14 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   $scope.startPlaying = function () {
       ix = 0;
       if ($scope.playlistSongs.length == 0) {
-	  alert("Empty Playlist");
-	  return;
+          alert("Empty Playlist");
+          return;
       }
       var song = $scope.playlistSongs[ix];
       $log.log("PlayCtrl.startPlaying Play["+ix+"] ["+song.id+"]:"+song.name);
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
-      $scope.currentLyrics = song.lyrics;
+      $scope.currentLyrics = SongLyrics.query({songID:song.id});
       $scope.hashValue = song.id%6;
       audioControl.play();
       $scope.showPlayButton = false;
@@ -183,17 +183,17 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
   };
 
   $scope.hasLyrics = function () {
-    if ($scope.currentLyrics == null)
-	return (false);
+    if ($scope.currentLyrics == null || $scope.currentLyrics.lyrics == null)
+        return (false);
     else
-	return (true);
+        return (true);
   };
 
   $scope.showImage = function () {
-    if (($scope.currentLyrics == null) && (!$scope.showPlayButton))
-	return (true);
+    if (($scope.currentLyrics == null || $scope.currentLyrics.lyrics == null) && (!$scope.showPlayButton))
+        return (true);
     else
-	return (false);
+        return (false);
   }
 
   $scope.stopPlayer = function () {
@@ -227,10 +227,10 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, Pl
     var index = 0;
     var songIDtoBeRemoved = song.id;
     angular.forEach(remSongs, function(s) {
-	if (s.id == songIDtoBeRemoved) {
-	    remSongs.splice(index, 1);
-	}
-	index++
+      if (s.id == songIDtoBeRemoved) {
+          remSongs.splice(index, 1);
+      }
+      index++
     });
   };
   $scope.removeSong = function(song) {
@@ -238,46 +238,46 @@ app.controller('PlaylistDetailCtrl', function($scope, $routeParams, Playlist, Pl
     var index = 0;
     $log.log ("PlaylistDetailCtrl.removeSong: " + song.name);
     angular.forEach($scope.playlistSongs, function(s) {
-	if (s.id == songIDtoBeRemoved) {
-	    $scope.playlistSongs.splice(index, 1);
-	}
-	index++;
+      if (s.id == songIDtoBeRemoved) {
+          $scope.playlistSongs.splice(index, 1);
+      }
+      index++;
     });
     var foundInAddList = false;
     angular.forEach(addSongs, function (s) {
-	if (s.id == songIDtoBeRemoved) {
-	    addSongs.splice(index, 1);
-	    foundInAddList = true;
-	}
-	index++;
+      if (s.id == songIDtoBeRemoved) {
+          addSongs.splice(index, 1);
+          foundInAddList = true;
+      }
+      index++;
     });
     if (!foundInAddList)
-	remSongs.push(song);
+        remSongs.push(song);
   };
 
   $scope.save = function() {
     if ($routeParams.playlistID == undefined) {
-	$log.log("PlaylistDetailCtrl.save: " + $scope.playlist.name);
-	Playlist.save({name:$scope.playlist.name}, function (newPlaylist) {
-		$log.log("PlaylistDetailCtrl.Playlist.save.cb: " + newPlaylist.id);
-		if ($scope.playlistSongs.length != 0) {
-		    var emptyList = [];
-		    PlaylistSongs.save({playlistID:newPlaylist.id, addSongs:$scope.playlistSongs, remSongs:emptyList}, function (sData) {
-			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + sData.addedRows);
-			$location.path('/playlists');
-		    });
-		} else
-			$location.path('/playlists');
-	});
+        $log.log("PlaylistDetailCtrl.save: " + $scope.playlist.name);
+        Playlist.save({name:$scope.playlist.name}, function (newPlaylist) {
+          $log.log("PlaylistDetailCtrl.Playlist.save.cb: " + newPlaylist.id);
+          if ($scope.playlistSongs.length != 0) {
+              var emptyList = [];
+              PlaylistSongs.save({playlistID:newPlaylist.id, addSongs:$scope.playlistSongs, remSongs:emptyList}, function (sData) {
+                $log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + sData.addedRows);
+                $location.path('/playlists');
+              });
+          } else
+              $location.path('/playlists');
+        });
     } else {
-	$log.log("PlaylistDetailCtrl.update: " + $scope.playlist.name);
-	Playlist.update({playlistID:$routeParams.playlistID, name:$scope.playlist.name}, function (uData) {
-		$log.log("PlaylistDetailCtrl.Playlist.update.cb: "+uData.affectedRows);
-		PlaylistSongs.save({playlistID:$routeParams.playlistID, addSongs:addSongs, remSongs:remSongs}, function (sData) {
-			$log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + sData.addedRows);
-			$location.path('/playlists');
+      $log.log("PlaylistDetailCtrl.update: " + $scope.playlist.name);
+      Playlist.update({playlistID:$routeParams.playlistID, name:$scope.playlist.name}, function (uData) {
+        $log.log("PlaylistDetailCtrl.Playlist.update.cb: "+uData.affectedRows);
+        PlaylistSongs.save({playlistID:$routeParams.playlistID, addSongs:addSongs, remSongs:remSongs}, function (sData) {
+          $log.log("PlaylistDetailCtrl.PlaylistSongs.save.cb:" + sData.addedRows);
+          $location.path('/playlists');
     		});
-	});
+      });
     };
   };
 
@@ -319,7 +319,7 @@ app.controller('ArtistDetailCtrl', function($scope, $routeParams, $log, $locatio
 
   function addSongToPlaylist(song) {
     $log.log("ArtistDetailCtrl.addSongToPlaylist: " + song.name);
-    localSongs.push(song); 
+    localSongs.push(song);
   };
   function removeSongFromPlaylist(song) {
     $log.log("ArtistDetailCtrl.removeSongFromPlaylist: " + song.name);
@@ -416,17 +416,17 @@ app.controller('UserDetailCtrl', function($scope, $routeParams, $log, $location,
 
 ///////////////////////////////////////////
 
-app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, audioControl, SongCount) {
+app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, audioControl, SongCount, SongLyrics) {
   $scope.songs = null;
   $scope.queryTerm = null;
   $scope.currentlyPlaying = null;
   $scope.currentLyrics = null;
   $scope.hashValue = 0;
-  
+
   $scope.search = function () {
     if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 2)) {
         $log.log("SongCtrl:" + $scope.queryTerm);
-	$scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
+        $scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
     }
   };
 
@@ -434,24 +434,24 @@ app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, aud
     $log.log("SongCtrl.playSong["+song.id+"]:"+song.name);
     audioControl.src = song.file_path;
     $scope.currentlyPlaying = song.name;
-    $scope.currentLyrics = song.lyrics;
+    $scope.currentLyrics = SongLyrics.query({songID:song.id});
     $scope.hashValue = song.id%6;
     audioControl.play();
     SongCount.update({songID:song.id});
   };
 
   $scope.hasLyrics = function () {
-    if ($scope.currentLyrics == null)
-	return (false);
+    if ($scope.currentLyrics == null || $scope.currentLyrics.lyrics == null)
+        return (false);
     else
-	return (true);
+        return (true);
   };
 
   $scope.showImage = function () {
-    if ($scope.currentLyrics == null)
-	return (true);
+    if ($scope.currentLyrics == null || $scope.currentLyrics.lyrics == null)
+        return (true);
     else
-	return (false);
+        return (false);
   }
 });
 
@@ -462,20 +462,20 @@ app.controller('SongDetailCtrl', function($scope, $routeParams, $log, SearchSong
   $scope.search = function () {
     $log.log("SongDetailCtrl:" + $scope.queryTerm);
     if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 1))
-	$scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
+        $scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
   };
   $scope.toggleSongForm = function(song) {
     if (song.isSelected == undefined) {
-	song.isSelected = true;
+        song.isSelected = true;
     } else {
-	song.isSelected = !song.isSelected;
+      song.isSelected = !song.isSelected;
     }
   };
 
   $scope.update = function(song) {
     $log.log("SongDetailCtrl.update: " + song.name);
     Song.update({songID:song.id, name:song.name, filePath:song.file_path, artistID:song.artistID}, function (uData) {
-	$log.log("SongDetailCtrl.Song.update.cb: "+uData.affectedRows);
+      $log.log("SongDetailCtrl.Song.update.cb: "+uData.affectedRows);
     });
   };
 
@@ -490,26 +490,25 @@ app.controller('SongLyricsCtrl', function($scope, $routeParams, $log, SearchSong
   $scope.search = function () {
     $log.log("SongLyricsCtrl.search:" + $scope.queryTerm);
     if (($scope.queryTerm != null) && ($scope.queryTerm != "") && ($scope.queryTerm.length > 1))
-	$scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
-  };
-  $scope.toggleSongForm = function(song) {
-    if (song.isSelected == undefined) {
-	song.isSelected = true;
-    } else {
-	song.isSelected = !song.isSelected;
-    }
-    if (song.isSelected) {
-	$log.log("SongLyricsCtrl.toggleSongForm:" + song.id);
-	$scope.partialSong = SongLyrics.query({songID:song.id});
-    }
-  };
-  $scope.update = function(song, lyrics) {
-    $log.log("SongLyricsCtrl.update: " + song.name);
-    SongLyrics.update({songID:song.id, lyrics:lyrics}, function (uData) {
-	$log.log("SongLyricsCtrl.Song.update.cb: "+uData.affectedRows);
-    });
-  };
-
+        $scope.songs = SearchSongs.query({queryTerm:$scope.queryTerm});
+    };
+    $scope.toggleSongForm = function(song) {
+      if (song.isSelected == undefined) {
+          song.isSelected = true;
+      } else {
+        song.isSelected = !song.isSelected;
+      }
+      if (song.isSelected) {
+          $log.log("SongLyricsCtrl.toggleSongForm:" + song.id);
+          $scope.partialSong = SongLyrics.query({songID:song.id});
+      }
+    };
+    $scope.update = function(song, lyrics) {
+      $log.log("SongLyricsCtrl.update: " + song.name);
+      SongLyrics.update({songID:song.id, lyrics:lyrics}, function (uData) {
+        $log.log("SongLyricsCtrl.Song.update.cb: "+uData.affectedRows);
+      });
+    };
 });
 
 
@@ -522,8 +521,8 @@ app.controller('SongAddCtrl', function($scope, $log, $location, Song, Artist) {
   $scope.save = function() {
     $log.log("SongAddCtrl.save: "+$scope.songName+" artistID:"+$scope.artistID);
     Song.save({name:$scope.songName, filePath:$scope.songFilePath, artistID:$scope.artistID}, function (newSong) {
-	$log.log("SongAddCtrl.Song.save.cb: " + newSong.id);
-	$location.path('/admin');
+      $log.log("SongAddCtrl.Song.save.cb: " + newSong.id);
+      $location.path('/admin');
     });
   };
 });

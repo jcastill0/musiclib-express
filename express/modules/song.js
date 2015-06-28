@@ -120,23 +120,23 @@ Song.findByPlaylist = function (userID, playlistID, cb) {
   if (config.debug)
       console.log("Find Song for PlaylistID:" + playlistID);
   config.getConnPool().getConnection (function(error, connection) {
+    if (error) {
+        console.error("Connection Pool Error: " + error.message);
+        console.error(error.stack);
+        cb(error);
+        return;
+    }
+    var sql = "SELECT pls.song_id AS id, song.name, artist.name AS artistName, song.file_path AS path FROM playlist_songs AS pls INNER JOIN song ON song.id = pls.song_id INNER JOIN artist on artist.id = song.artist_id WHERE pls.playlist_id = " + playlistID + " ORDER BY artist.name, song.name";
+    connection.query(sql, function (error, rows) {
       if (error) {
-	  console.error("Connection Pool Error: " + error.message);
-          console.error(error.stack);
-	  cb(error);
-	  return;
+          console.error("SQL Error: " + error.message);
+          cb(error);
       }
-      var sql = "SELECT pls.song_id AS id, song.name, artist.name AS artistName, song.file_path AS path, song.lyrics FROM playlist_songs AS pls INNER JOIN song ON song.id = pls.song_id INNER JOIN artist on artist.id = song.artist_id WHERE pls.playlist_id = " + playlistID + " ORDER BY artist.name, song.name";
-      connection.query(sql, function (error, rows) {
-	if (error) {
-	    console.error("SQL Error: " + error.message);
-	    cb(error);
-	}
-	if (config.debug)
-	    console.log("Songs found:" + JSON.stringify(rows));
-	cb(null, rows);
-      });
-      connection.release();
+      if (config.debug)
+          console.log("Songs found:" + JSON.stringify(rows));
+      cb(null, rows);
+    });
+    connection.release();
   });
 };
 
@@ -237,23 +237,23 @@ Song.updateCount = function (userID, songID, cb) {
       console.log("Update Count: " + songID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {
-	  console.error("Connection Pool Error: " + error.message);
+          console.error("Connection Pool Error: " + error.message);
           console.error(error.stack);
-	  cb(error);
-	  return;
+          cb(error);
+          return;
       }
       var sql = "UPDATE song SET played_count = LAST_INSERT_ID(played_count) + 1 WHERE id ="+songID;
       connection.query(sql, function (error, result) {
         connection.release();
-	if (error) {
-	    console.error("SQL Error: " + error.message);
-	    cb(error);
-	}
-	if (result) {
-	    cb(null, result);
-	} else {
-	    cb("Record not found");
-	}
+        if (error) {
+            console.error("SQL Error: " + error.message);
+            cb(error);
+        }
+        if (result) {
+            cb(null, result);
+        } else {
+          cb("Record not found");
+        }
       });
   });
 };
@@ -263,23 +263,23 @@ Song.updateLyrics = function (userID, songID, lyrics, cb) {
       console.log("UpdateLyrics: " + songID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {
-	  console.error("Connection Pool Error: " + error.message);
+          console.error("Connection Pool Error: " + error.message);
           console.error(error.stack);
-	  cb(error);
-	  return;
+          cb(error);
+          return;
       }
       var sql = "UPDATE song SET lyrics="+connection.escape(lyrics)+" WHERE (id = "+songID +")";
       connection.query(sql, function (error, result) {
-	connection.release();
-	if (error) {
-	    console.error("SQL Error: " + error.message);
-	    cb(error);
-	}
-	if (result) {
-	    cb(null, result);
-	} else {
-	    cb("Record not found");
-	}
+        connection.release();
+        if (error) {
+            console.error("SQL Error: " + error.message);
+            cb(error);
+        }
+        if (result) {
+            cb(null, result);
+        } else {
+          cb("Record not found");
+        }
       });
   });
 };
@@ -289,25 +289,25 @@ Song.findLyrics = function (userID, songID, cb) {
       console.log("Find Lyrics for SongID:" + songID);
   config.getConnPool().getConnection (function(error, connection) {
       if (error) {
-	  console.error("Connection Pool Error: " + error.message);
+          console.error("Connection Pool Error: " + error.message);
           console.error(error.stack);
-	  cb(error);
-	  return;
+          cb(error);
+          return;
       }
-      var sql = "SELECT song.id, song.name, song.file_path, song.lyrics, artist.name AS artistName FROM song INNER JOIN artist ON artist.id = song.artist_id WHERE song.id = " + songID;
+      var sql = "SELECT song.lyrics FROM song WHERE song.id = " + songID;
       connection.query(sql, function (error, rows) {
-	connection.release();
-	if (error) {
-	    console.error("SQL Error: " + error.message);
-	    cb(error);
-	    return;
-	}
-	if (rows.length != 1) {
-	    console.error("Song not found:" + songID);
-	    cb(error);
-	    return;
-	}
-	cb(null, rows[0]);
+        connection.release();
+        if (error) {
+            console.error("SQL Error: " + error.message);
+            cb(error);
+            return;
+        }
+        if (rows.length != 1) {
+            console.error("Song not found:" + songID);
+            cb(error);
+            return;
+        }
+        cb(null, rows[0]);
       });
   });
 };
@@ -321,31 +321,31 @@ Song.search = function(userID, searchTerm, cb) {
   var fullURL = config.SOLRurl+escapedQStr;
   rest.get(fullURL).on('complete', function(result) {
     if (result instanceof Error) {
-	console.log('Error:', result.message);
-	cb(result.message);
-	return;
+        console.log('Error:', result.message);
+        cb(result.message);
+        return;
     } else {
-	var jsonStruct = JSON.parse(result);
-	var docs = jsonStruct.response.docs;
-	var responsePayload = new Array();
-	if (docs) {
-	    var len = docs.length;
-	    for (var ix=0; ix < len; ix++) {
-		var song = {
-			id : docs[ix].id,
-			name: docs[ix].name,
-			file_path: docs[ix].file_path,
-			artistID: docs[ix].artistID,
-			artistName: docs[ix].artistName
-		};
-		//console.log("ID:"+docs[ix].id + " Name:"+docs[ix].name);
-		if (docs[ix].lyrics) {
-		    song.lyrics = docs[ix].lyrics;
-		}
-		responsePayload.push(song);
-	    }
-	}
-	cb (null, responsePayload);
+      var jsonStruct = JSON.parse(result);
+      var docs = jsonStruct.response.docs;
+      var responsePayload = new Array();
+      if (docs) {
+        var len = docs.length;
+        for (var ix=0; ix < len; ix++) {
+          var song = {
+            id : docs[ix].id,
+            name: docs[ix].name,
+            file_path: docs[ix].file_path,
+            artistID: docs[ix].artistID,
+            artistName: docs[ix].artistName
+          };
+          //console.log("ID:"+docs[ix].id + " Name:"+docs[ix].name);
+          //if (docs[ix].lyrics) {
+          //    song.lyrics = docs[ix].lyrics;
+          //}
+          responsePayload.push(song);
+        }
+      }
+      cb (null, responsePayload);
     }
   });
 };
