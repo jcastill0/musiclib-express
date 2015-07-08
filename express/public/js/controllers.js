@@ -147,7 +147,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
       $scope.currentLyrics = SongLyrics.query({songID:song.id});
-      $scope.hashValue = song.id%6;
+      $scope.hashValue = song.id%9;
       $scope.$apply();
       audioControl.play();
       SongCount.update({songID:song.id});
@@ -164,7 +164,7 @@ app.controller('PlayCtrl', function($scope, $routeParams, Playlist, PlaylistSong
       audioControl.src = song.path;
       $scope.currentlyPlaying = song.name;
       $scope.currentLyrics = SongLyrics.query({songID:song.id});
-      $scope.hashValue = song.id%6;
+      $scope.hashValue = song.id%9;
       audioControl.play();
       $scope.showPlayButton = false;
       SongCount.update({songID:song.id});
@@ -435,7 +435,7 @@ app.controller('SongCtrl', function($scope, $routeParams, $log, SearchSongs, aud
     audioControl.src = song.file_path;
     $scope.currentlyPlaying = song.name;
     $scope.currentLyrics = SongLyrics.query({songID:song.id});
-    $scope.hashValue = song.id%6;
+    $scope.hashValue = song.id%9;
     audioControl.play();
     SongCount.update({songID:song.id});
   };
